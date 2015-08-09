@@ -1,0 +1,75 @@
+<ion-view view-title="我的课程" class="view-class">
+  <ion-nav-buttons side="right">
+      <button class="button button-icon ion-navicon" ng-click="#">
+      </button>
+  </ion-nav-buttons>
+  <ion-tabs class="tabs-top tabs-striped">
+    <ion-tab title="已发布">
+      <ion-view>
+        <ion-content>
+            <ion-list>
+              <ion-item class="item-remove-animate item-avatar item-icon-right">
+                  <img ng-src="img/iconfont-avater.png">
+                  <div class="class-item-left">
+                      <div class="upper">
+                        <h2>陈先生</h2>
+                        <p>科目:小学语文</p>
+                      </div>
+                      <div class="middle">
+                        <p>上课地点:天河区</p>
+                        <p>时间:2015年8月8号</p>
+                      </div>
+                  </div>
+                  <div class="class-item-right">
+                    <p>$100/小时</p>
+                    <p>预约中</p>
+                  </div>
+              </ion-item>
+
+              <ion-item class="item-remove-animate item-avatar item-icon-right">
+                  <img ng-src="img/iconfont-avater.png">
+                  <div class="class-item-left">
+                      <div class="upper">
+                        <h2>陈先生</h2>
+                        <p>科目:小学语文</p>
+                      </div>
+                      <div class="middle">
+                        <p>地点:天河区</p>
+                        <p>时间:2015年8月8号</p>
+                      </div>
+                  </div>
+                  <div class="class-item-right">
+                    <p>$100/小时</p>
+                    <p>预约中</p>
+                  </div>
+              </ion-item>
+
+              <ion-item class="item-remove-animate item-avatar item-icon-right">
+                  <img ng-src="img/iconfont-avater.png">
+                  <div class="class-item-left">
+                      <div class="upper">
+                        <h2>陈先生</h2>
+                        <p>科目:小学语文</p>
+                      </div>
+                      <div class="middle">
+                        <p>上课地点:天河区</p>
+                        <p>时间:2015年8月8号</p>
+                      </div>
+                  </div>
+                  <div class="class-item-right">
+                    <p>$100/小时</p>
+                    <p>预约中</p>
+                  </div>
+              </ion-item>
+            </ion-list>
+        </ion-centent>
+      </ion-view>
+    </ion-tab>
+    <ion-tab title="待上课">
+      <ion-nav-view name="class-class"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="已完成">
+      <ion-nav-view name="class-finish"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
+</ion-view>

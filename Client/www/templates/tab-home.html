@@ -1,0 +1,114 @@
+<ion-view view-title="首页" class="view-home">
+  <!--位置按钮和搜索按钮-->
+  <ion-nav-buttons side="left">
+    <i class="icon-location" ng-click="openLocation()">
+    </i>
+  </ion-nav-buttons>
+  
+  <ion-nav-buttons side="right">
+    <i class="icon-search" ng-click="openSearch()">
+    </i>
+  </ion-nav-buttons>
+
+  <ion-content class="padding">
+    <!--下拉刷新控件-->
+    <ion-refresher
+      pulling-text="下拉刷新..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <!-- 首页轮播图 -->
+    <ion-slide-box
+      on-slide-changed="slideHasChanged($index)"
+      auto-play="true"
+      show-pager="true"
+      >
+      <ion-slide>
+         <a href="#">
+            <img src="img/home-slider01.jpg" width="100%" height="150">
+          </a>
+      </ion-slide>
+      <ion-slide>
+        <a href="#">
+           <img src="img/home-slider02.jpg" width="100%" height="150">
+        </a>
+      </ion-slide>
+    </ion-slide-box>
+
+    <!--课程分类-->
+    <div class="home-catagory text-center">
+      <div class="row home-catagory-row">
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-yuwen.png" style="width: 50px; height: 50px">
+          <p>语文</p>
+        </div>
+        <div class="col">
+           <img ng-src="img/catagory/iconfont-math.png" style="width: 50px; height: 50px">
+           <p>数学</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-en.png" style="width: 50px; height: 50px">
+           <p>英语</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-wuli.png" style="width: 50px; height: 50px">
+           <p>物理</p>
+        </div>
+      </div>
+
+      <div class="row home-catagory-row">
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-huaxue.png" style="width: 50px; height: 50px">
+          <p>化学</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-shengwu.png" style="width: 50px; height: 50px">
+          <p>生物</p>
+        </div>
+        <div class="col"><img ng-src="img/catagory/iconfont-dili.png" style="width: 50px; height: 50px">
+          <p>地理</p></div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-lishi.png" style="width: 50px; height: 50px">
+          <p>历史</p>
+        </div>
+      </div>
+
+      <div class="row home-catagory-row">
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-zhengzhi.png" style="width: 50px; height: 50px">
+          <p>政治</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-yinle.png" style="width: 50px; height: 50px">
+          <p>音乐</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-zhili.png" style="width: 50px; height: 50px">
+          <p>智力</p>
+        </div>
+        <div class="col">
+          <img ng-src="img/catagory/iconfont-more.png" style="width: 50px; height: 50px">
+          <p>更多</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry text-center row">
+      <div class="col entry-left-col">
+        <div class="left-entry-text">
+          <h3>身边名师</h3>
+          <p>发现身边的名师</p>
+        </div>
+        <img ng-src="img/entry-left.png" style="width: 80px; height: 80px">
+      </div>
+      <div class="col entry-right-col">
+        <div class="upper">
+          热门活动
+        </div>
+        <div class="downside">
+          新人报道
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
