@@ -477,7 +477,7 @@ i.icon-search, i.icon-location {
   font-size:10px;
 }
 
-i.ion-pricetags i.ion-ios-paper-outline, i.ion-ios-list-outline, i.ion-ios-personadd-outline, i.ion-ios-gear-outline{
-  font-size: 18px;
-  line-height: 20px;
+i.ion-social-yen, i.ion-ios-paper-outline, i.ion-ios-list-outline,
+i.ion-ios-personadd-outline, i.ion-ios-gear-outline {
+  font-size: 25px;
 }
