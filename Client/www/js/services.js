@@ -1,4 +1,4 @@
-angular.module('alearn.services', [])
+angular.module('starter.services', [])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -47,4 +47,66 @@ angular.module('alearn.services', [])
       return null;
     }
   };
-});
+})
+
+.factory('HomeBanner',function(){
+    var banner= [{
+      id: 0,
+      image: 'img/home-slider01.jpg',
+      url: '#'
+    },{
+      id: 1,
+      image: 'img/home-slider02.jpg',
+      url: '#'
+    }];
+
+    return {
+      all: function() {
+        return banner;
+      },
+      remove: function(b) {
+        chats.splice(banner.indexOf(b), 1);
+      },
+      get: function(bannerId) {
+        for (var i = 0; i < banner.length; i++) {
+          if (banner[i].id === parseInt(bannerId)) {
+            return banner[i];
+          }
+        }
+        return null;
+      }
+    };
+})
+
+.factory('HotTeacher',function(){
+    var hotTeacher= [{
+      id: 0,
+      image: 'img/home-slider01.jpg',
+      name: 'ant',
+      course: 'Math',
+      url: '#'
+    },{
+      id: 0,
+      image: 'img/home-slider01.jpg',
+      name: 'ant',
+      course: 'Math',
+      url: '#'
+    }];
+
+    return {
+      all: function() {
+        return hotTeacher;
+      },
+      remove: function(b) {
+        hotTeacher.splice(hotTeacher.indexOf(b), 1);
+      },
+      get: function(bannerId) {
+        for (var i = 0; i < hotTeacher.length; i++) {
+          if (hotTeacher[i].id === parseInt(bannerId)) {
+            return banner[i];
+          }
+        }
+        return null;
+      }
+    };
+})

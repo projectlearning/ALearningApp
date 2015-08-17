@@ -401,37 +401,90 @@ i.icon-search, i.icon-location {
 }
 
 /*首页分类*/
-.home-catagory .home-catagory-row{
-  height: 100px;
+.home-catagory{
+  width: 100%;
+  overflow: auto;
+  background-color: #fff;
+  border-left: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  margin-top: 20px;
 }
 
-.home-catagory .home-catagory-row .col{
+.home-catagory a {
+  float: left;
+  width: 25%;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  text-align: center;
   border-top: 1px #ccc solid;
   border-right: 1px #ccc solid;
 }
-
-.entry{
-  height:160px;
+.home-catagory a span {
+  font-size: 12pt;
+  color: #333;
+}
+.home-catagory a > img {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  background-image: none;
 }
 
-.entry h3 {
-  margin-bottom: 0px;
-  font-size: 20px;
+.hot-teacher{
+  width: 100%;
+  margin-top: 6px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-left: 0;
+  border-right: 0;
+  box-sizing: border-box;
+}
+.hot-teacher h4 {
+  margin: 0;
+  padding: 0 15px;
+  font-size: 13pt;
+  color: #fe5252;
+  line-height: 2.2;
+}
+.hot-teacher h4 a {
+  float: right;
+  padding-top: 3px;
+  font-size: 11pt;
+  color: #666666;
+  font-weight: normal;
+  text-decoration: none;
+}
+.hot-teacher-list li {
+  min-height: 98px;
+}
+.hot-teacher-list li .teacher-item-pic,
+.hot-teacher-list li .teacher-item-pic img {
+  width: 100px!important;
+  height: 80px!important;
+}
+.hot-teacher-list li h5 {
+  font-size: 12pt !important;
+  position: relative;
+  top: 7px;
+  padding-bottom: 4px;
+}
+.hot-teacher-list li.more {
+  min-height: 0;
+}
+.hot-teacher-list li.more a {
+  box-flex: 1;
+  -webkit-box-flex: 1;
+  padding: 14px 0;
+  display: block;
+  color: #666666;
+  text-align: center;
+  text-decoration: none;
+}
+.hot-teacher-list li.more a.activated {
+  background-color: #eeeeee;
 }
 
-.entry .entry-left-col{
-  color: #999;
-  border: 1px #ccc solid;
-}
-.entry .entry-right-col{
-  border-top: 1px #ccc solid;
-  border-right: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
-}
-.entry .entry-right-col .upper{
-  height:80px;
-  border-bottom: 1px #ccc solid;
-}
 
 /*课程页*/
 .class-item-left{
@@ -477,7 +530,7 @@ i.icon-search, i.icon-location {
   font-size:10px;
 }
 
-i.ion-social-yen, i.ion-ios-paper-outline, i.ion-ios-list-outline,
-i.ion-ios-personadd-outline, i.ion-ios-gear-outline {
-  font-size: 25px;
+i.ion-pricetags i.ion-ios-paper-outline, i.ion-ios-list-outline, i.ion-ios-personadd-outline, i.ion-ios-gear-outline{
+  font-size: 18px;
+  line-height: 20px;
 }
