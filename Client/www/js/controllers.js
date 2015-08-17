@@ -1,23 +1,30 @@
-angular.module('starter.controllers', ['alearn.config'])
+angular.module('alearn.controllers', [])
 
-.controller('HomeCtrl',['$scope','$state','config','HomeBanner','HotTeacher',
-  function($scope,$state,config,HomeBanner,HotTeacher) {
-  var homeData = {
-    banner: [],
-    hotTeacher: [],
-    bannerConfig: config['banner'],
+.controller('HomeTabCtrl', function($scope, $location, $state, $ionicModal, $ionicHistory) {
+  $scope.homeLocationIconPressed = function() {
+     $state.go("homeCitySelect");
   };
-  $scope.homeData = homeData;
-  homeData.banner = HomeBanner.all();
-  homeData.hotTeacher = HotTeacher.all();
-  $scope.openLocation = function()
-  {
-     $state.go("citychange");
-  }
-}])
-.controller('ClassCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
+  $scope.homeSearchIconPressed = function() {
+     $state.go("homeSearch");
+  };
+})
+
+.controller('HomeCitySelectCtrl', function($scope, $state) {
+  $scope.goBack = function() {
+    $state.go("tabs.homeTab");
+  };
+})
+
+.controller('HomeSearchCtrl', function($scope,$state) {
+  $scope.goBack = function() {
+    $state.go("tabs.homeTab");
+  };
+})
+
+.controller('ClassTabCtrl', function($scope) {})
+
+.controller('ChatsTabCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -32,14 +39,40 @@ angular.module('starter.controllers', ['alearn.config'])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailsCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+
+
+.controller('AccountTabCtrl', function($scope) {
+
 })
 
-.controller('CityCtrl',function($scope){})
+.controller('AccountLoginFailedCtrl', function() {
+
+})
+
+.controller('AccountRegisterCtrl', function($scope) {
+
+})
+
+.controller('AccountMoneyCtrl', function($scope) {
+
+})
+
+.controller('AccountOrdersCtrl', function($scope) {
+
+})
+
+.controller('AccountCommentsCtrl', function($scope) {
+
+})
+
+.controller('AccountInvitationCtrl', function($scope) {
+
+})
+
+.controller('AccountSettingsCtrl', function($scope) {
+
+});

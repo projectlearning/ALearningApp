@@ -1,12 +1,12 @@
-// Ionic Starter App
+// Ionic ALearn App
 // angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// 'alearn' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('alearn', ['ionic', 'starter.controllers', 'starter.services'])
+// 'alearn.controllers' is found in controllers.js
+// 'alearn.services' is found in services.js
+var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services'])
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,15 +22,15 @@ angular.module('alearn', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // ====================================================
-    // ionic config
-    // ====================================================
-     $ionicConfigProvider.backButton.text('  ').icon('ion-ios-arrow-left'); // 返回箭头
-     $ionicConfigProvider.backButton.previousTitleText(false); // 返回文字
-     $ionicConfigProvider.tabs.style('standard'); // tab样式
-     $ionicConfigProvider.tabs.position('bottom'); // Tab位置
-     $ionicConfigProvider.navBar.alignTitle('center'); // title位置
+  // ionic config
+  // ====================================================
+  $ionicConfigProvider.backButton.text('返回').icon('ion-ios-arrow-left'); // set icon of back button and the text after the back button
+  $ionicConfigProvider.backButton.previousTitleText(false); // whether to display title text of previous view after the back button
+  $ionicConfigProvider.tabs.style('standard'); // tab样式
+  $ionicConfigProvider.tabs.position('bottom');
+  $ionicConfigProvider.navBar.alignTitle('center'); // title位置
 
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -40,67 +40,137 @@ angular.module('alearn', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: '/tab',
+  .state('tabs', {
+    url: '/tabs',
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
 
   // Each tab has its own nav history stack:
 
-  .state('tab.home', {
+  .state('tabs.homeTab', {
     url: '/home',
     views: {
-      'tab-home': {
-        templateUrl: 'templates/tab-home.html',
-        controller: 'HomeCtrl'
+      'homeTab': {
+        templateUrl: 'templates/homeTab.html',
+        controller: 'HomeTabCtrl'
       }
     }
   })
-  .state('tab.class', {
+    .state('homeCitySelect', {
+      url: '/homeCitySelect',
+      templateUrl: 'templates/homeCitySelect.html',
+      controller: 'HomeCitySelectCtrl'
+    })
+
+    .state('homeSearch', {
+      url: '/homeSearch',
+      templateUrl: 'templates/homeSearch.html',
+      controller: 'HomeSearchCtrl'
+    })
+
+  .state('tabs.classTab', {
     url: '/class',
     views: {
-      'tab-class': {
-        templateUrl: 'templates/tab-class.html',
-        controller: 'ClassCtrl'
+      'classTab': {
+        templateUrl: 'templates/classTab.html',
+        controller: 'ClassTabCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
+  .state('tabs.chatsTab', {
       url: '/chats',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'chatsTab': {
+          templateUrl: 'templates/chatsTab.html',
+          controller: 'ChatsTabCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
+    .state('tabs.chatDetails', {
       url: '/chats/:chatId',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'chatsTab': {
+          templateUrl: 'templates/chatDetails.html',
+          controller: 'ChatDetailsCtrl'
         }
       }
     })
 
-  .state('tab.account', {
+  .state('tabs.accountTab', {
     url: '/account',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'accountTab': {
+        templateUrl: 'templates/accountTab.html',
+        controller: 'AccountTabCtrl'
       }
     }
   })
-  .state('citychange', {
-      url: '/city',
-      templateUrl: 'templates/city-change.html',
-      controller: 'CityCtrl'
-    })
-  
+  .state('tabs.accountLoginFailed', {
+    url: '/account/loginFailed',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountLoginFailed.html',
+        controller: 'AccountLoginFailedCtrl'
+      }
+    }
+  })
+  .state('tabs.accountRegister', {
+    url: '/account/register',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountRegister.html',
+        controller: 'AccountRegisterCtrl'
+      }
+    }
+  })
+  .state('tabs.accountMoney', {
+    url: '/account/money',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountMoney.html',
+        controller: 'AccountMoneyCtrl'
+      }
+    }
+  })
+  .state('tabs.accountOrders', {
+    url: '/account/orders',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountOrders.html',
+        controller: 'AccountOrdersCtrl'
+      }
+    }
+  })
+  .state('tabs.accountComments', {
+    url: '/account/comments',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountComments.html',
+        controller: 'AccountCommentsCtrl'
+      }
+    }
+  })
+  .state('tabs.accountInvitation', {
+    url: '/account/invitation',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountInvitation.html',
+        controller: 'AccountInvitationCtrl'
+      }
+    }
+  })
+  .state('tabs.accountSettings', {
+    url: '/account/settings',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountSettings.html',
+        controller: 'AccountSettingsCtrl'
+      }
+    }
+  });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/tabs/home');
 });
