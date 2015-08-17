@@ -1,0 +1,43 @@
+<ion-view view-title="我">
+  <ion-content>
+    <div class="me-user">
+      <!-- <img src="img/iconfont-avater.png" height="100 px" width="100 px"> -->
+      <div class="userLogin">
+        <form name="userlogin" ng-submit="login()">
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <input type="text" name="username" ng-model="login.username" placeholder="用户名 / 邮箱 / 手机号码">
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <input type="password" name="password" ng-model="login.password" placeholder="请输入密码">
+          </label>
+
+          <p class="text-right padding-right padding-top" ui-sref="tabs.accountLoginFailed">无法登录</p>
+
+          <label class="padding">
+            <button class="button button-block button-assertive" type="submit">登录</button>
+          </label>
+        </form>
+
+        <p class="text-right padding-right" ui-sref="tabs.accountRegister">注册</p>
+    </div>
+
+    <ion-list>
+      <ion-item ui-sref="tabs.accountMoney">
+        <i class="ion-social-yen"></i><i class="padding-left">我的钱包</i>
+      </ion-item>
+      <ion-item ui-sref="tabs.accountOrders">
+        <i class="ion-ios-paper-outline"></i><i class="padding-left">我的订单</i>
+      </ion-item>
+      <ion-item ui-sref="tabs.accountComments">
+        <i class="ion-ios-list-outline"> </i><i class="padding-left">我的评价</i>
+      </ion-item>
+      <ion-item ui-sref="tabs.accountInvitation">
+        <i class="ion-ios-personadd-outline"></i><i class="padding-left">邀请好友</i>
+      </ion-item>
+      <ion-item ui-sref="tabs.accountSettings">
+        <i class="ion-ios-gear-outline"></i><i class="padding-left">我的设置</i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,29 @@
+<ion-view view-title="用户注册">
+
+  <ion-content has-bouncing="true">
+    <div class="userRegister">
+      <form name="userRegiester" ng-submit="register()">
+        <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+          <input type="number" name="username" ng-model="regiester.username" placeholder="手机号码">
+        </label>
+
+        <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+          <input type="password" name="password" ng-model="login.password" placeholder="请输入密码">
+        </label>
+
+        <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+          <input type="number" name="veriSMSCode" ng-model="login.veriSMSCode" placeholder="请输入短信验证码">
+        </label>
+
+        <p class="text-right padding-right">请求短信验证码</p>
+        <!-- switch to show this text after -->
+        <p class="text-right padding-right hide">收不到验证码</p>
+
+        <label class="padding">
+          <button class="button button-block button-assertive" type="submit">注册</button>
+        </label>
+      </form>
+  </div>
+  </ion-content>
+
+</ion-view>
