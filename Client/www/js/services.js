@@ -47,4 +47,33 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+
+.factory('HomeBanner',function(){
+    var banner= [{
+      id: 0,
+      image: 'img/home-slider01.jpg',
+      url: '#'
+    },{
+      id: 1,
+      image: 'img/home-slider02.jpg',
+      url: '#'
+    }];
+
+    return {
+      all: function() {
+        return banner;
+      },
+      remove: function(b) {
+        chats.splice(banner.indexOf(b), 1);
+      },
+      get: function(bannerId) {
+        for (var i = 0; i < banner.length; i++) {
+          if (banner[i].id === parseInt(bannerId)) {
+            return banner[i];
+          }
+        }
+        return null;
+      }
+    };
+})

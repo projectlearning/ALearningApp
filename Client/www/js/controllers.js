@@ -1,12 +1,18 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['alearn.config'])
 
-.controller('HomeCtrl', function($scope,$location,$state,$ionicModal) {
-
+.controller('HomeCtrl',['$scope','$state','config','HomeBanner',
+  function($scope,$state,config,HomeBanner) {
+  var homeData = {
+    banner: [],
+    bannerConfig: config['banner'],
+  };
+  $scope.homeData = homeData;
+  homeData.banner = HomeBanner.all();
   $scope.openLocation = function()
   {
      $state.go("citychange");
   }
-})
+}])
 .controller('ClassCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {

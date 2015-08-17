@@ -4,7 +4,7 @@
     <i class="icon-location" ng-click="openLocation()">
     </i>
   </ion-nav-buttons>
-  
+
   <ion-nav-buttons side="right">
     <i class="icon-search" ng-click="openSearch()">
     </i>
@@ -20,95 +20,103 @@
     <!-- 首页轮播图 -->
     <ion-slide-box
       on-slide-changed="slideHasChanged($index)"
-      auto-play="true"
-      show-pager="true"
-      >
-      <ion-slide>
-         <a href="#">
-            <img src="img/home-slider01.jpg" width="100%" height="150">
+      auto-play="homeData.bannerConfig.changeTime"
+      slide-interval="homeData.bannerconf.speed"
+      does-continue="true" show-pager="true" alearn-banner>
+      <ion-slide ng-repeat="banner in homeData.banner">
+          <a ng-href="{{banner.url}}">
+              <img src="{{banner.image}}" alt="" width="100%" height="150px"/>
           </a>
-      </ion-slide>
-      <ion-slide>
-        <a href="#">
-           <img src="img/home-slider02.jpg" width="100%" height="150">
-        </a>
       </ion-slide>
     </ion-slide-box>
 
     <!--课程分类-->
-    <div class="home-catagory text-center">
-      <div class="row home-catagory-row">
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-yuwen.png" style="width: 50px; height: 50px">
+    <section>
+      <div class="home-catagory">
+        <a href="#">
+          <img src="img/catagory/iconfont-yuwen.png">
           <p>语文</p>
-        </div>
-        <div class="col">
-           <img ng-src="img/catagory/iconfont-math.png" style="width: 50px; height: 50px">
-           <p>数学</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-en.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-math.png">
+          <p>数学</p>
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-en.png">
            <p>英语</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-wuli.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-wuli.png">
            <p>物理</p>
-        </div>
-      </div>
-
-      <div class="row home-catagory-row">
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-huaxue.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-huaxue.png">
           <p>化学</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-shengwu.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-shengwu.png">
           <p>生物</p>
-        </div>
-        <div class="col"><img ng-src="img/catagory/iconfont-dili.png" style="width: 50px; height: 50px">
-          <p>地理</p></div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-lishi.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-dili.png">
+          <p>地理</p>
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-lishi.png">
           <p>历史</p>
-        </div>
-      </div>
-
-      <div class="row home-catagory-row">
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-zhengzhi.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-zhengzhi.png">
           <p>政治</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-yinle.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-yinle.png">
           <p>音乐</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-zhili.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-zhili.png">
           <p>智力</p>
-        </div>
-        <div class="col">
-          <img ng-src="img/catagory/iconfont-more.png" style="width: 50px; height: 50px">
+        </a>
+        <a href="#">
+          <img ng-src="img/catagory/iconfont-more.png">
           <p>更多</p>
-        </div>
+        </a>
       </div>
-    </div>
+    </section>
 
-    <div class="entry text-center row">
-      <div class="col entry-left-col">
-        <div class="left-entry-text">
-          <h3>身边名师</h3>
-          <p>发现身边的名师</p>
+    <section>
+      <div class="home-entry">
+        <div class="left-entry">
+          <a href="#">
+            <div class="entry-text">
+              <h3>身边名师</h3>
+              <p>发现身边的名师</p>
+            </div>
+            <img src="img/entry-left.png">
+          </a>
         </div>
-        <img ng-src="img/entry-left.png" style="width: 80px; height: 80px">
+        <div class="right-entry">
+            <div class="right-upper-entry">
+              <a href="#">
+                <div class="entry-text">
+                    <h3>热门名师</h3>
+                    <p>发现身边的名师</p>
+                </div>
+                <img src="img/entry-right-upper.png">
+              </a>
+            </div>
+            <div class="right-down-entry">
+              <a href="#">
+                <div class="entry-text">
+                    <h3>新进老师</h3>
+                    <p>发现身边的名师</p>
+                </div>
+                <img src="img/entry-right-down.png">
+              </a>
+            </div>
+        </div>
       </div>
-      <div class="col entry-right-col">
-        <div class="upper">
-          热门活动
-        </div>
-        <div class="downside">
-          新人报道
-        </div>
-      </div>
-    </div>
+    </section>
+
   </ion-content>
 </ion-view>
