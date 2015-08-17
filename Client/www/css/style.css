@@ -401,37 +401,96 @@ i.icon-search, i.icon-location {
 }
 
 /*首页分类*/
-.home-catagory .home-catagory-row{
-  height: 100px;
+.home-catagory{
+  width: 100%;
+  overflow: auto;
+  background-color: #fff;
+  border-left: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  margin-top: 20px;
 }
 
-.home-catagory .home-catagory-row .col{
+.home-catagory a {
+  float: left;
+  width: 25%;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  text-align: center;
   border-top: 1px #ccc solid;
   border-right: 1px #ccc solid;
 }
-
-.entry{
-  height:160px;
+.home-catagory a span {
+  font-size: 12pt;
+  color: #333;
+}
+.home-catagory a > img {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  background-image: none;
 }
 
-.entry h3 {
-  margin-bottom: 0px;
-  font-size: 20px;
-}
-
-.entry .entry-left-col{
-  color: #999;
+.home-entry{
+  margin-top: 20px;
+  height: 160px;
+  width: 100%;
   border: 1px #ccc solid;
 }
-.entry .entry-right-col{
-  border-top: 1px #ccc solid;
+.home-entry .left-entry{
+  width:50%;
+  height: 100%;
+  text-align: center;
+  padding-top: 40px;
   border-right: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
+  float: left;
 }
-.entry .entry-right-col .upper{
-  height:80px;
-  border-bottom: 1px #ccc solid;
+.home-entry .left-entry .entry-text{
+  width: 60%;
+  float: left;
 }
+.home-entry .left-entry img{
+  height: 80px;
+  width: 80px;
+}
+
+.home-entry .right-entry{
+  width:50%;
+  height: 100%;
+  float:right;
+}
+
+.home-entry .right-entry .right-upper-entry{
+  height: 50%;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px #ccc solid;
+  padding-top: 10px;
+}
+.home-entry .right-entry .right-upper-entry .entry-text{
+  width: 60%;
+  float: left;
+}
+.home-entry .right-entry .right-upper-entry img{
+  height: 60px;
+  width: 60px;
+}
+.home-entry .right-entry .right-down-entry{
+  height: 50%;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.home-entry .right-entry .right-down-entry .entry-text{
+  width: 60%;
+  float: left;
+}
+.home-entry .right-entry .right-down-entry img{
+  height: 60px;
+  width: 60px;
+}
+
 
 /*课程页*/
 .class-item-left{
