@@ -47,4 +47,27 @@ angular.module('alearn.services', [])
       return null;
     }
   };
-});
+})
+
+.factory('HomeBanner',function(){
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var banners = [{
+    id: 0,
+    image: 'img/home-slider01.jpg',
+    title: '',
+    url: ''
+  }, {
+    id: 1,
+    image: 'img/home-slider02.jpg',
+    title: '',
+    url: ''
+  }];
+
+  return {
+    all: function() {
+      return banners;
+    },
+  };
+})

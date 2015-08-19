@@ -396,42 +396,78 @@ i.icon-search, i.icon-location {
 }
 
 /*首页轮播图*/
-.view-home .slider {
-  line-height: 0;
+#content{
+
 }
 
 /*首页分类*/
-.home-catagory .home-catagory-row{
-  height: 100px;
+#btn-group{
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+	height: auto;
+  margin-top: 10px;
 }
 
-.home-catagory .home-catagory-row .col{
-  border-top: 1px #ccc solid;
-  border-right: 1px #ccc solid;
+#btn-group:after{
+	content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+#btn-group a{
+	float: left;
+	display: block;
+  width: 25%;
+  text-align: center;
+	position: relative;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+#btn-group a img{
+	width: 2.25rem;
 }
 
-.entry{
-  height:160px;
+#hot-teacher{
+  width: 100%;
+  margin-top: 6px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  border-left: 0;
+  border-right: 0;
+  box-sizing: border-box;
+}
+#hot-teacher h4{
+  margin: 0;
+  padding: 0 15px;
+  font-size: 13pt;
+  color: #fe5252;
+  line-height: 2.2;
+}
+#hot-teacher h4  a {
+  float: right;
+  padding-top: 3px;
+  font-size: 11pt;
+  color: #666666;
+  font-weight: normal;
+  text-decoration: none;
+}
+#hot-teacher ul li.more {
+  min-height: 0;
+}
+#hot-teacher ul li.more a {
+  box-flex: 1;
+  -webkit-box-flex: 1;
+  padding: 14px 0;
+  display: block;
+  color: #666666;
+  text-align: center;
+  text-decoration: none;
+}
+#hot-teacher ul li.more a.activated {
+  background-color: #eeeeee;
 }
 
-.entry h3 {
-  margin-bottom: 0px;
-  font-size: 20px;
-}
-
-.entry .entry-left-col{
-  color: #999;
-  border: 1px #ccc solid;
-}
-.entry .entry-right-col{
-  border-top: 1px #ccc solid;
-  border-right: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
-}
-.entry .entry-right-col .upper{
-  height:80px;
-  border-bottom: 1px #ccc solid;
-}
 
 /*课程页*/
 .class-item-left{
