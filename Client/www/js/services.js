@@ -71,3 +71,48 @@ angular.module('alearn.services', [])
     },
   };
 })
+
+.factory('CityService',function(){
+  var cities = {
+    nowCity: '广州',
+    hotCity: [{
+      id: 0,
+      name: '广州'
+    },{
+      id: 1,
+      name: '佛山'
+    },{
+      id: 2,
+      name: '深圳'
+    }],
+    allCity: [{
+      id: 0,
+      name: '广州'
+    },{
+      id: 1,
+      name: '佛山'
+    },{
+      id: 2,
+      name: '深圳'
+    }]
+  };
+
+  return {
+    getNowCity: function(){
+      return cities.nowCity;
+    },
+    changeCity: function(city)
+    {
+      cities.nowCity=city;
+      return cities;
+    },
+    getHotCities: function()
+    {
+      return cities.hotCity;
+    },
+    getAllCities: function()
+    {
+      return cities.allCity;
+    }
+  };
+})

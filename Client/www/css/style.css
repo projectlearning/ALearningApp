@@ -468,6 +468,26 @@ i.icon-search, i.icon-location {
   background-color: #eeeeee;
 }
 
+/*城市切换页面*/
+#now-city{
+
+}
+#now-city p{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-size: 11pt;
+  border-bottom: 1px solid #eeeeee;
+}
+
+#city h4{
+  margin: 0;
+  padding: 0 15px;
+  font-size: 13pt;
+  color: #fe5252;
+  line-height: 2.2;
+}
+
 
 /*课程页*/
 .class-item-left{

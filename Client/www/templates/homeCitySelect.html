@@ -1,66 +1,41 @@
 <ion-view view-title="切换城市">
 
   <ion-nav-buttons side="left">
-      <button class="button ion-ios-arrow-left button-clear button-positive" ng-click="goBack()"> 返回</button>
+      <button class="button ion-ios-arrow-left button-clear button-default" ng-click="goBack()"> 返回</button>
   </ion-nav-buttons>
 
   <ion-content has-bouncing="true">
     <div class="bar bar-header item-input-inset">
-            <label class="item-input-wrapper">
-            <i class="ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Search">
-            </label>
-        </div>
-        <div class="city-now">
-            <label>当前城市:广州</label>
-        </div>
+      <label class="item-input-wrapper">
+        <i class="ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="Search">
+      </label>
+    </div>
 
-        <div class="hot-city">
-            <h3>热门城市:</h3>
-            <div class="row">
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-            </div>
-            <div class="row">
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-                <div class="col">深圳</div>
-            </div>
-        </div>
+    <setction id="now-city">
+      <div><p>当前城市: {{nowCity}}</p></div>
+    </section>
 
-        <div class="all-city">
-            <h3>全部城市</h3>
-            <ion-list>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
+    <section id="city">
+      <div class="city hot-city">
+        <h4>热门城市</h4>
+        <ion-list ng-repeat="c in hotCity">
+          <ion-item>
+            {{c.name}}
+          </ion-item>
+        </ion-list>
+      </div>
+    </section>
 
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-                <ion-list-item>
-                    <p>佛山</p>
-                </ion-list-item>
-
-            </ion-list>
-        </div>
+    <section id="city">
+      <div class="city all-city">
+        <h4>全部城市</h4>
+        <ion-list ng-repeat="c in allCity">
+          <ion-item>
+            {{c.name}}
+          </ion-item>
+        </ion-list>
+      </div>
+    </section>
   </ion-content>
 </ion-view>

@@ -1,8 +1,9 @@
 angular.module('alearn.controllers', ['alearn.config'])
 
-.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config',
-  function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config) {
+.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityService',
+  function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config,CityService) {
     $scope.banner = HomeBanner.all();
+    $scope.city = CityService.getNowCity();
     $scope.homeLocationIconPressed = function() {
       $state.go("homeCitySelect");
     };
@@ -12,11 +13,14 @@ angular.module('alearn.controllers', ['alearn.config'])
    };
 }])
 
-.controller('HomeCitySelectCtrl', function($scope, $state) {
+.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
+  $scope.nowCity = CityService.getNowCity();
+  $scope.hotCity = CityService.getHotCities();
+  $scope.allCity = CityService.getAllCities();
   $scope.goBack = function() {
     $state.go("tabs.homeTab");
   };
-})
+}])
 
 .controller('HomeSearchCtrl', function($scope,$state) {
   $scope.goBack = function() {
