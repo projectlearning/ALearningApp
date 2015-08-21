@@ -116,3 +116,17 @@ angular.module('alearn.services', [])
     }
   };
 })
+
+.factory('AccountService', function(){
+  var account = {
+    loginFlag: 0,
+    username: 'Ant',
+    tel: '12345678',
+  };
+
+  return {
+    getAccount: function(){
+      return account;
+    }
+  };
+})

@@ -51,15 +51,19 @@ angular.module('alearn.controllers', ['alearn.config'])
 
 
 
-.controller('AccountTabCtrl', function($scope) {
-
-})
+.controller('AccountTabCtrl',['$scope','AccountService',function($scope,AccountService) {
+  $scope.account = AccountService.getAccount();
+}])
 
 .controller('AccountLoginFailedCtrl', function() {
 
 })
 
 .controller('AccountRegisterCtrl', function($scope) {
+
+})
+
+.controller('AccountLoginCtrl', function($scope) {
 
 })
 

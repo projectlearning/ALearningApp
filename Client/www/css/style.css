@@ -373,6 +373,18 @@ hr {
   overflow: hidden;
 }
 
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.relative{
+  position: relative;
+}
+
 /*页面属性*/
 /*tabs*/
 .tabs-alearn .tab-item .icon {
@@ -488,6 +500,50 @@ i.icon-search, i.icon-location {
   line-height: 2.2;
 }
 
+/*Account*/
+#content{
+	position: relative;
+	width: 16rem;
+	margin:  0 auto;
+}
+
+#account-bg{
+	width: 100%;
+	height: 8rem;
+	background: url(../img/account-bg.png) center center no-repeat;
+	background-size: 100% 8rem;
+}
+.account-ava{
+	height: 3rem;
+	top: 2.07rem;
+	padding-left: 1.62rem;
+}
+.avater{
+	width: 3rem;
+	background-size: 3rem;
+	border-radius: 50%;
+}
+.account-ava p{
+	font-size: 16px;
+	color: #fff;
+}
+.account-info{
+	position: absolute;
+	top: 50%;
+	margin-top: -30px;
+	left: 5rem;
+}
+
+.list-li-bg li{
+	background: url(../img/arrow-right.png) 98% center no-repeat;
+	background-size: 8px;
+  font-size: 10pt;
+}
+.list-li-bg li img{
+	width:20px;
+	vertical-align:text-top;
+	margin-right:15px;
+}
 
 /*课程页*/
 .class-item-left{
