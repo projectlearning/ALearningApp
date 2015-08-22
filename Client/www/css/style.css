@@ -545,6 +545,45 @@ i.icon-search, i.icon-location {
 	margin-right:15px;
 }
 
+/*Account Info*/
+#accountInfoAvater{
+    background: #dddddd;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    height: 65px;
+    border-radius: 65px
+}
+.accountInfoImg{
+    float: left;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 59px 59px;
+    border-radius: 65px;
+    border: 3px solid #dddddd;
+    width: 65px;
+    height: 65px
+}
+
+.fontGray4{
+    color: #888
+  }
+.iconFormInput{
+    min-width: 25px !important;
+    text-align: center;
+    width: 25px !important;
+    text-align: center;
+    font-size: 25px;
+    line-height: 20px;
+    margin-right:10px
+  }
+  .iconEditPhotoProfile{
+      float: right;
+      margin-top: 25px;
+      font-size: 30px}
+
+
+
 /*课程页*/
 .class-item-left{
   float: left;

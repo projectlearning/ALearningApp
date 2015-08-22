@@ -1,0 +1,47 @@
+<ion-view view-title="我的信息">
+  <ion-content has-bouncing="true">
+    <div style="text-align:center;width:100%;padding:40px;height:200px;">
+      <div id="accountInfoAvater" ng-click="showActionsheet()">
+        <div class="accountInfoImg" style="background-image:url(img/iconfont-touxiang.png)"></div>
+        <i class="icon ion-ios-camera fontGray4 iconFormInput iconEditPhotoProfile"></i>
+      </div>
+    </div>
+
+    <section id="accountInfo">
+      <div class="item item-divider" style="font-size:18px;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 个人信息</div>
+      <a class="item" style="color:#333;padding:0px 18px;margin:0;">
+        <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="ion-social-chrome-outline"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">称　　呼</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">Ant<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+        </div>
+        <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="ion-tshirt-outline"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">当前身份</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">大学生<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+        </div>
+        <div class="row" style="border-bottom:1px dotted #ccc;padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="ion-android-checkbox-outline"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">教学经验</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">3 年<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+        </div>
+      </a>
+      <div class="item item-divider"  style="font-size:18px;color:#2982a8;height:50px;line-height:40px;"><i class="ion-ios-telephone"></i> 联系方式</div>
+      <a class="item item-icon-right" href="#/menus/usr/contact" style="color:#333;padding:0px 18px;margin:0;">
+        <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="{{myConfig.contact_icon[item.contact_type]}}"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">手　　机</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">{{item.contact}} <i class="ion-ios-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <div class="item item-divider" style="font-size:18px;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 教育背景</div>
+      <a class="item item-icon-right" href="#/menus/usr/education" style="color:#333;padding:0px 18px;margin:0">
+        <div class="row" style="border-bottom:1px dotted #ccc;padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="ion-android-home"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">学　　校</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">中山大学 <i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+        </div>
+        <div class="row"  style="padding:10px 0px;">
+          <div class="col col-50"><span style="font-size:20px;"><i class="ion-university"></i></span> <span style="font-size:18px;color:#666;padding:3px 8px;">学　　历</span></div>
+          <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">本科<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+        </div>
+      </a>
+    </section>
+  </ion-content>
+</ion-view>

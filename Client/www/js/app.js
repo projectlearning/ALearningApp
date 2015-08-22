@@ -161,6 +161,15 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+  .state('tabs.accountInfo', {
+    url: '/account/info',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountInfo.html',
+        controller: 'AccountInfoCtrl'
+      }
+    }
+  })
   .state('tabs.accountInvitation', {
     url: '/account/invitation',
     views: {

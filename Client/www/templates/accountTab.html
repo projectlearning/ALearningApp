@@ -2,7 +2,7 @@
   <ion-content>
     <div class="content">
       <section id="account-bg" class="relative">
-		      <div class="account-ava relative" ng-if="account.loginFlag == 1">
+		      <div class="account-ava relative" ui-sref="tabs.accountInfo" ng-if="account.loginFlag == 1">
 			         <div class="fl" ng-click="upLoadImg()">
 				             <img src="img/ava-block.png" alt="" class="avater" style="background-image:url(img/iconfont-avater.png)">
 			          </div>
@@ -20,6 +20,7 @@
  	        <li class="item" ui-sref="tabs.accountMoney"><img src="img/icon/iconfont-qianbao.png" alt="">我的钱包</li>
  	        <li class="item" ui-sref="tabs.accountOrders"><img src="img/icon/iconfont-dingdan.png" alt="">我的订单</li>
  	        <li class="item" ui-sref="tabs.accountComments"><img src="img/icon/iconfont-pingjia.png" alt="">我的评价</li>
+          <li class="item" ui-sref="#"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
         </ul>
 
         <ul class="list list-li-bg">

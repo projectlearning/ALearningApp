@@ -79,6 +79,10 @@ angular.module('alearn.controllers', ['alearn.config'])
 
 })
 
+.controller('AccountInfoCtrl', function($scope) {
+
+})
+
 .controller('AccountInvitationCtrl', function($scope) {
 
 })
