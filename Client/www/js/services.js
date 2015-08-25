@@ -130,3 +130,44 @@ angular.module('alearn.services', [])
     }
   };
 })
+
+/*Connection Service*/
+.factory('ConnectionService', function()
+{
+  var states = {};
+  states[Connection.UNKNOWN]  = 'Unknown connection';
+  states[Connection.ETHERNET] = 'Ethernet connection';
+  states[Connection.WIFI]     = 'WiFi connection';
+  states[Connection.CELL_2G]  = 'Cell 2G connection';
+  states[Connection.CELL_3G]  = 'Cell 3G connection';
+  states[Connection.CELL_4G]  = 'Cell 4G connection';
+  states[Connection.CELL]     = 'Cell generic connection';
+  states[Connection.NONE]     = 'No network connection';
+  return {
+    getConnectionStatus: function(){
+      var networkState = navigator.connection.type;
+      console.log(states[networkState]);
+      return states[networkState];
+    },
+    isConnected: function(){
+      return navigator && navigator.connection && navigator.connection.type != Connection.UNKNOWN;
+    }
+  }
+})
+
+/*Warning Form*/
+.factory('NoticeService', ['$timeout','$ionicLoading',function($timeout,$ionicLoading){
+  return {
+    loadingNotice: function(msg, timeout){
+      if(!msg)
+        return;
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true
+      });
+      $timeout(function(){
+                $ionicLoading.hide();
+            }, timeout || 1000);
+    }
+  }
+}])

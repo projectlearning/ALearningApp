@@ -1,4 +1,4 @@
-angular.module('alearn.controllers', ['alearn.config'])
+angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityService',
   function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config,CityService) {
@@ -79,9 +79,60 @@ angular.module('alearn.controllers', ['alearn.config'])
 
 })
 
-.controller('AccountInfoCtrl', function($scope) {
+.controller('AccountInfoCtrl', ['$scope','NoticeService','$ionicActionSheet','$cordovaCamera',
+  function($scope,NoticeService,$ionicActionSheet,$cordovaCamera) {
 
-})
+  $scope.changeAvatger = function(){
+    $ionicActionSheet.show({
+      titleText : '更换头像',
+      cancelText: '取消',
+      buttons   : [{text:'拍照'},{text:'从相册中选取'}],
+      cancel    : function(){console.log('Change Avater Cancel');},
+      buttonClicked : function(index){
+        switch(index){
+          case  1:
+            getPictureFromStorage();
+            break;
+          case  0:
+          default:
+            getPictureFromCamera();
+            break;
+        }
+        return true;
+      }
+    });
+  };
+
+
+  function getPictureFromCamera(){
+    var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA
+      };
+      $cordovaCamera.getPicture(options).then(onPictureSuccess, onPictureFailed);
+  }
+  function getPictureFromStorage(options){
+    var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA
+      };
+    $cordovaCamera.getPicture(options).then(onPictureSuccess, onPictureFailed);
+  }
+  function onPictureSuccess(imageData){
+    $scope.cameraImg = "data:image/jpeg;base64," + imageData;
+  }
+  function onPictureFailed(err){
+    NoticeService.loadingNotice('获取图像失败',1000);
+    console.log('Get picture failed: ');
+    console.log(err);
+  }
+  function uploadImage(imageData){
+
+  }
+
+}])
 
 .controller('AccountInvitationCtrl', function($scope) {
 
