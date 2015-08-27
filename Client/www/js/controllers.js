@@ -59,15 +59,96 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountRegisterCtrl', function($scope) {
+.controller('AccountRegisterCtrl', ['$scope','$timeout','$cordovaToast',
+  function($scope,$timeout,$cordovaToast) {
+    $scope.verifyFlag = 0;
+    $scope.sendSMS = function(){
+      if(!$scope.register.username){
+        $cordovaToast.show.show('用户名不能为空', 'short', 'center')
+          .then(function(success) {
+        // success
+        }, function (error) {
+        // error
+        });
+        return false;
+      }
+      $scope.verifyFlag = 1;
 
-})
+    };
 
-.controller('AccountLoginCtrl', function($scope) {
+    function checkSMSCode()
+    {
+      return true;
+    }
 
-})
+    $scope.register = function(){
+
+    }
+}])
+
+.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast',
+  function($scope,$timeout,$ionicLoading,$state,$cordovaToast) {
+
+  $scope.login = function() {
+    if (!$scope.login.username) {
+      $cordovaToast.show('用户名不能为空', 'short', 'center')
+        .then(function(success) {
+      // success
+      }, function (error) {
+      // error
+      });
+      return false;
+    };
+    if (!$scope.login.password) {
+      $cordovaToast.show('密码不能为空', 'short', 'center')
+        .then(function(success) {
+      // success
+      }, function (error) {
+      // error
+      });
+      return false;
+    };
+    $ionicLoading.show({
+      template: "正在登录..."
+    });
+    $timeout(function() {
+      $ionicLoading.hide();
+    }, 1400);
+
+    $state.go("tabs.homeTab");
+    /*$http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
+      user: $scope.loginData.username,
+      password: $scope.loginData.password
+    }).success(function(data) {
+      $ionicLoading.hide();
+      if (data.error != 0) {
+        $scope.showMsg(data.info);
+      } else {
+        Userinfo.save(data.user_info);
+        Userinfo.add('flag', 1);
+        $scope.sign = Userinfo.l.today_signed;
+        $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+        $scope.flag = 1;
+        $scope.closeLogin();
+      }
+    });*/
+  }
+}])
 
 .controller('AccountMoneyCtrl', function($scope) {
+  $scope.isActive = 'a', $scope.isb = true, $scope.isTab = false;
+  $scope.changeTab = function(evt) {
+    if ($scope.isTab) {
+      return;
+    }
+    var elem = evt.currentTarget;
+    $scope.isActive = elem.getAttributeNode('data-active').value;
+    $ionicScrollDelegate.scrollTop(false);
+    if ($scope.isActive == 'b' && $scope.isb) {
+      // $scope.loadMore_b();
+      $scope.isb = false;
+    }
+  };
 
 })
 
@@ -83,27 +164,27 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   function($scope,NoticeService,$ionicActionSheet,$cordovaCamera) {
 
   $scope.changeAvatger = function(){
-    $ionicActionSheet.show({
-      titleText : '更换头像',
-      cancelText: '取消',
-      buttons   : [{text:'拍照'},{text:'从相册中选取'}],
-      cancel    : function(){console.log('Change Avater Cancel');},
-      buttonClicked : function(index){
-        switch(index){
-          case  1:
+    var options = {
+      title: '更换头像',
+      buttonLabels: ['拍照', '从相册中选取'],
+      addCancelButtonWithLabel: '取消',
+      androidEnableCancelButton: true,
+      winphoneEnableCancelButton: true
+    };
+    $cordovaActionSheet.show(options)
+      .then(function(btnIndex) {
+        switch (btnIndex) {
+          case 1:
             getPictureFromStorage();
             break;
-          case  0:
-          default:
+          case 2:
             getPictureFromCamera();
             break;
+          default:
+            break;
         }
-        return true;
-      }
-    });
+      });
   };
-
-
   function getPictureFromCamera(){
     var options = {
         quality: 50,

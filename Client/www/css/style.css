@@ -385,6 +385,16 @@ hr {
   position: relative;
 }
 
+.text-fr{
+	text-align: right;
+}
+.text-fl{
+	text-align: left;
+}
+.text-center{
+	text-align: center;
+}
+
 /*页面属性*/
 /*tabs*/
 .tabs-alearn .tab-item .icon {

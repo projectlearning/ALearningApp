@@ -119,7 +119,7 @@ angular.module('alearn.services', [])
 
 .factory('AccountService', function(){
   var account = {
-    loginFlag: 1,
+    loginFlag: 0,
     username: 'Ant',
     tel: '12345678',
   };
@@ -127,6 +127,10 @@ angular.module('alearn.services', [])
   return {
     getAccount: function(){
       return account;
+    },
+
+    login: function(user){
+
     }
   };
 })

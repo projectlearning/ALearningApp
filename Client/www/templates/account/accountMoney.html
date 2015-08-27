@@ -1,7 +1,64 @@
-<ion-view view-title="我的钱包">
+<ion-view view-title="我的钱包" class="view-class">
+  <div class="tabs-striped tabs-top tabs-light tabs-icon-top">
+    <div class="tabs">
+      <a ng-class="{a: 'tab-item active', b: 'tab-item'}[isActive]" data-active="a" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">账户信息</a>
+      <a ng-class="{a: 'tab-item', b: 'tab-item active'}[isActive]" data-active="b" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">优惠券</a>
+    </div>
+  </div>
+  <ion-content class="has-subheader">
+    <div ng-if="isActive == 'a'">
+      <div style="width:100%;padding:40px;height:200px;background-color: #ccc">
+        <div>
+          账户余额
+        </div>
+        <div style="text-align: center">
+          <h4>0.00</h4>
+          <p>即将到账：100元</p>
+        </div>
+        <div class="row">
+          <div class="col col-50" style="text-align: center">
+            <p>累计充值</p>
+            <p>0.00</p>
+          </div>
+          <div class="col col-50" style="text-align: center">
+            <p>累计提现</p>
+            <p>0.00</p>
+          </div>
+        </div>
+      </div>
+      <ul class="list list-li-bg">
+        <li class="item" ui-sref="tabs.accountMoney"><img src="img/icon/iconfont-mingxi.png" alt="">账户明细</li>
+        <li class="item" ui-sref="tabs.accountOrders"><img src="img/icon/iconfont-chongzhi.png" alt="">账户充值</li>
+        <li class="item" ui-sref="tabs.accountComments"><img src="img/icon/iconfont-tixian.png" alt="">账户提现</li>
+        <li class="item" ui-sref="tabs.accountComments"><img src="img/icon/iconfont-youhui.png" alt="">兑换优惠</li>
+      </ul>
 
-  <ion-content has-bouncing="true">
+    </div>
+    <div ng-if="isActive == 'b'">
+      <ul>
+        <li class="row" style="margin-top: 10px; border-bottom: 1px solid #ccc">
+          <div class="col col-33" style="text-align: center">
+            <h3>$1</h3>
+          </div>
+          <div class="col col-67">
+            <p>折扣券</p>
+            <p>八月可用</p>
+          </div>
+        </li>
 
+        <li class="row" style="margin-top: 10px; border-bottom: 1px solid #ccc">
+          <div class="col col-33" style="text-align: center">
+            <h3>$1</h3>
+          </div>
+          <div class="col col-67">
+            <p>折扣券</p>
+            <p>八月可用</p>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
   </ion-content>
-  
+
 </ion-view>

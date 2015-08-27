@@ -3,21 +3,28 @@
     <div class="userLogin">
       <form name="userlogin" ng-submit="login()">
         <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
-          <input type="text" name="username" ng-model="login.username" placeholder="用户名 / 邮箱 / 手机号码">
+          <span class="input-label">手机号码</span>
+          <input type="text" name="username" ng-model="login.username" placeholder="手机号码">
         </label>
 
         <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+          <span class="input-label">密    码</span>
           <input type="password" name="password" ng-model="login.password" placeholder="请输入密码">
         </label>
 
-        <p class="text-right padding-right padding-top" ui-sref="tabs.accountLoginFailed">无法登录</p>
 
         <label class="padding">
           <button class="button button-block button-assertive" type="submit">登录</button>
         </label>
       </form>
-
-      <p class="text-right padding-right" ui-sref="tabs.accountRegister">注册</p>
+      <div class="row">
+        <div class="col">
+          <a ui-sref="tabs.accountRegister" class="assertive decora-none">快速注册</a></div>
+          <div class="col text-fr bar-stable">
+            <a class="gery decora-none" href="#/step/step1" ng-click="closeLogin()">找回密码</a>
+          </div>
+        </div>
+      </div>
     </div>
   </ion-content>
 
