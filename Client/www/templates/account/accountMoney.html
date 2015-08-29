@@ -5,7 +5,7 @@
       <a ng-class="{a: 'tab-item', b: 'tab-item active'}[isActive]" data-active="b" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">优惠券</a>
     </div>
   </div>
-  <ion-content class="has-subheader">
+  <ion-content class="has-subheader no-footer" delegate-handle="mainScroll">
     <div ng-if="isActive == 'a'">
       <div style="width:100%;padding:40px;height:200px;background-color: #ccc">
         <div>
@@ -56,9 +56,6 @@
           </div>
         </li>
       </ul>
-
-
     </div>
   </ion-content>
-
 </ion-view>

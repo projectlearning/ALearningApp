@@ -647,3 +647,26 @@ i.ion-ios-personadd-outline, i.ion-ios-gear-outline {
 .comment .left span{
   font-size: 6pt;
 }
+/*分类页*/
+.select_style2 {width:80%; height:30px; overflow:hidden; /*background:url(../img/arrow4.png) no-repeat 90%;*/
+    border:0px solid #ccc;position: relative;
+
+}
+.select_style2 select { padding:5px; background:transparent; width:80%; font-size: 16px; border:none; height:30px;padding-left:8px;
+    -webkit-appearance: none; padding-left:0;/*for Webkit browsers*/right: auto;
+}
+
+.select_style2:after {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -3px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid;
+    border-right: 5px solid rgba(0, 0, 0, 0);
+    border-left: 5px solid rgba(0, 0, 0, 0);
+    color: #999;
+    content: "";
+    pointer-events: none;
+}

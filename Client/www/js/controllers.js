@@ -224,4 +224,12 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('AccountSettingsCtrl', function($scope) {
 
+})
+
+.controller('PublicCatagoryCtrl', function($scope) {
+
+})
+
+.controller('ClassDetailCtrl', function($scope) {
+
 });

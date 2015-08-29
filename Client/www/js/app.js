@@ -196,7 +196,25 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'AccountSettingsCtrl'
       }
     }
-  });
+  })
+  .state('tabs.publicCatagory', {
+    url: '/public/catagory',
+    views: {
+      'homeTab': {
+        templateUrl: 'templates/public/catagory.html',
+        controller: 'PublicCatagoryCtrl'
+      }
+    }
+  })
+  .state('tabs.classDetail', {
+    url: '/public/detail',
+    views: {
+      'homeTab': {
+        templateUrl: 'templates/public/classDetail.html',
+        controller: 'ClassDetailCtrl'
+      }
+    }
+  });;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tabs/home');
