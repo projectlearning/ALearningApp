@@ -419,7 +419,9 @@ i.icon-search, i.icon-location {
 
 /*首页轮播图*/
 #content{
-
+  position: relative;
+	width: 16rem;
+	margin:  0 auto;
 }
 
 /*首页分类*/
@@ -445,6 +447,7 @@ i.icon-search, i.icon-location {
 	position: relative;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
+  margin-top: 5px;
 }
 #btn-group a img{
 	width: 2.25rem;
@@ -610,15 +613,6 @@ i.icon-search, i.icon-location {
   margin-right: 10px;
 }
 
-.class-item-left .middle p{
-  float:left;
-  margin-right: 10px;
-}
-
-.class-item-right{
-  float:right;
-}
-
 
 /*消息页*/
 .chat-item-upper h2{
@@ -641,4 +635,15 @@ i.icon-search, i.icon-location {
 i.ion-social-yen, i.ion-ios-paper-outline, i.ion-ios-list-outline,
 i.ion-ios-personadd-outline, i.ion-ios-gear-outline {
   font-size: 25px;
+}
+
+/*评价页*/
+.comment{
+  font-size: 10pt;
+  height: 35px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+}
+.comment .left span{
+  font-size: 6pt;
 }

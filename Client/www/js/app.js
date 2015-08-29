@@ -152,6 +152,15 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+  .state('tabs.accountVerification', {
+    url: '/account/verification',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/account/accountVerification.html',
+        controller: 'AccountVerificationCtrl'
+      }
+    }
+  })
   .state('tabs.accountComments', {
     url: '/account/comments',
     views: {

@@ -155,6 +155,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 .controller('AccountOrdersCtrl', function($scope) {
 
 })
+.controller('AccountVerificationCtrl', function($scope) {
+
+})
 
 .controller('AccountCommentsCtrl', function($scope) {
 
