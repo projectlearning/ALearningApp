@@ -232,4 +232,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('ClassDetailCtrl', function($scope) {
 
+})
+
+.controller('OrderClassCtrl', function($scope) {
+
 });

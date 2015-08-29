@@ -214,7 +214,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'ClassDetailCtrl'
       }
     }
-  });;
+  })
+  .state('tabs.orderClass', {
+    url: '/public/order-class',
+    views: {
+      'homeTab': {
+        templateUrl: 'templates/public/orderClass.html',
+        controller: 'OrderClassCtrl'
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tabs/home');
