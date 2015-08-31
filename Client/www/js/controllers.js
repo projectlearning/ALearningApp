@@ -86,10 +86,19 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     }
 }])
 
-.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast',
-  function($scope,$timeout,$ionicLoading,$state,$cordovaToast) {
+.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast','ConnectionService',
+  function($scope,$timeout,$ionicLoading,$state,$cordovaToast,ConnectionService) {
 
   $scope.login = function() {
+    if(!ConnectionService.isConnected()){
+      $cordovaToast.showLongBottom('暂无网络连接').then(function(success) {
+        // success
+      }, function (error) {
+        // error
+      });
+      return false;
+    }
+    console.log(ConnectionService.getConnectionStatus());
     if (!$scope.login.username) {
       $cordovaToast.show('用户名不能为空', 'short', 'center')
         .then(function(success) {
@@ -226,7 +235,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('PublicCatagoryCtrl', function($scope) {
+.controller('PublicCatagoryCtrl', function($rootScope,$scope) {
 
 })
 

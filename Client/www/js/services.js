@@ -175,3 +175,30 @@ angular.module('alearn.services', [])
     }
   }
 }])
+
+/*Config Service*/
+.factory('ConfigService',['$cordovaAppVersion','$ionicLoading',
+  function($cordovaAppVersion,$ionicLoading){
+  var config = {
+    platform: {
+      serverUrl: '',
+      version: ''
+    },
+    pattern: {
+      phone: '/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/',
+      identityCard: '(^\d{15}$)|(^\d{17}([0-9]|X)$)',
+    },
+  };
+
+  return{
+    checkAppVersion: function(){
+      $cordovaAppVersion.getVersionNumber().then(function(version){
+        $ionicLoading.show({
+          template: '检测版本中...'
+        });
+        config.platform.version = version;
+        window.localStorage[version] = version;
+      });
+    }
+  }
+}])

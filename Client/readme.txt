@@ -18,3 +18,6 @@ cordova plugin add https://github.com/EddyVerbruggen/cordova-plugin-actionsheet.
 
 /*Toast Plugin*/
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
+
+/*App Version Plugin*/
+cordova plugin add https://github.com/whiteoctober/cordova-plugin-app-version.git
