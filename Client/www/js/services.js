@@ -1,4 +1,4 @@
-angular.module('alearn.services', [])
+angular.module('alearn.services', ['ionic'])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -119,7 +119,7 @@ angular.module('alearn.services', [])
 
 .factory('AccountService', function(){
   var account = {
-    loginFlag: 1,
+    loginFlag: 0,
     username: 'Ant',
     tel: '12345678',
   };
@@ -136,7 +136,7 @@ angular.module('alearn.services', [])
 })
 
 /*Connection Service*/
-.factory('ConnectionService', function()
+.factory('ConnectionService', function(Connection)
 {
   var states = {};
   states[Connection.UNKNOWN]  = 'Unknown connection';

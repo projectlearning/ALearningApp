@@ -86,19 +86,10 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     }
 }])
 
-.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast','ConnectionService',
-  function($scope,$timeout,$ionicLoading,$state,$cordovaToast,ConnectionService) {
+.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast',
+  function($scope,$timeout,$ionicLoading,$state,$cordovaToast) {
 
   $scope.login = function() {
-    if(!ConnectionService.isConnected()){
-      $cordovaToast.showLongBottom('暂无网络连接').then(function(success) {
-        // success
-      }, function (error) {
-        // error
-      });
-      return false;
-    }
-    console.log(ConnectionService.getConnectionStatus());
     if (!$scope.login.username) {
       $cordovaToast.show('用户名不能为空', 'short', 'center')
         .then(function(success) {
@@ -144,7 +135,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   }
 }])
 
-.controller('AccountMoneyCtrl', function($scope) {
+.controller('AccountMoneyCtrl', function($scope,$ionicScrollDelegate) {
   $scope.isActive = 'a', $scope.isb = true, $scope.isTab = false;
   $scope.changeTab = function(evt) {
     if ($scope.isTab) {

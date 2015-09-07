@@ -418,11 +418,7 @@ i.icon-search, i.icon-location {
 }
 
 /*首页轮播图*/
-#content{
-  position: relative;
-	width: 16rem;
-	margin:  0 auto;
-}
+
 
 /*首页分类*/
 #btn-group{

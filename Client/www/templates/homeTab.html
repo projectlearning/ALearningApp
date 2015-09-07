@@ -17,14 +17,13 @@
     </ion-refresher>
 
     <!-- 首页轮播图 -->
-    <section id="content">
-      <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000" width=100%>
-        <ion-slide ng-repeat="b in banner">
-          <div class="box"  style="width:16rem;height:6rem;background:url({{b.image}}) center 0 no-repeat;text-align:center;background-size:16rem 6rem">
-          </div>
-        </ion-slide>
-      </ion-slide-box>
-    </section>
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="true" auto-play="true" slide-interval="6000">
+      <ion-slide ng-repeat="b in banner">
+        <a href="#">
+          <img src="{{b.image}}" width="100%" height="150">
+        </a>
+      </ion-slide>
+    </ion-slide-box>
 
     <!--课程分类-->
     <section id="btn-group">
