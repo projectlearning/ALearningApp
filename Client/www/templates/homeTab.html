@@ -79,43 +79,111 @@
       </div>
     </section>
 
-    <section id="hot-teacher">
-      <div>
-        <h4><a href="#/tab/carryout">更多</a>热门名师</h4>
-        <ul class="list store-items hot-store-list">
-          <li>
-            <a href="#">
-              <div class="row item" ng-click="view(job)" style="padding:8px 5px;width:100%;">
-                <div class="col col-75">
-                  <h2 style="font-size:10pt;color:#222222">Ant</h2>
-                  <p>小学语文</p>
+    <div class="page-title">
+      <h4 class="text-center">热门名师</h4>
+    </div>
+
+    <div class="list-item"
+      collection-item-width="'100%'"
+      >
+      <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+        <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+        <div class="item-info" flex layout="column" layout-align="space-between">
+          <div layout="row" layout-align="space-between">
+            <div><h3 class="title">陈老师</h3></div>
+            <div>
+              <img src="img/icon/iconfont-shimingrenzheng.png" style="width:20px;vertical-align:text-top;" alt="">
+              <img src="img/icon/iconfont-shimingrenzheng.png" style="width:20px;vertical-align:text-top;" alt="">
+              <img src="img/icon/iconfont-shimingrenzheng.png" style="width:20px;vertical-align:text-top;" alt="">
+            </div>
+          </div>
+              <div class="item-data">
+                <div layout="row" layout-align="space-between">
+                  <div>
+                    <span class="">教龄:5年</span>
+                    <span class="">课时:10</span>
+                  </div>
                 </div>
-                <div class="col col-25">
-                  <p class="red_salary" style="text-overflow:clip;">100/小时</p>
-                  <p class="grey_date" style="font-size:8pt">广州天河</p>
+                <div layout="row" layout-align="space-between">
+                  <div>
+                    <span class="">科目:小学语文</span>
+                  </div>
+                </div>
+                <div layout="row" layout-align="space-between">
+                  <div>
+                    <span class="site-color promo-price dib">$100/小时</span>
+                  </div>
+                  <div><i class="icon-heart"></i>广州天河</div>
+                </div>
+                <div layout="row" layout-align="space-between">
+                  <div class=""><i class="ion-ios-person"></i>评价:</div>
+                  <div><i class="ion-ios-heart"></i>10人评价</div>
                 </div>
               </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <div class="row item" ng-click="view(job)" style="padding:8px 5px;width:100%;">
-                <div class="col col-75">
-                  <h2 style="font-size:10pt;color:#222222">Ant</h2>
-                  <p>小学语文</p>
+            </div>
+          </a>
+
+          <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+            <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+            <div class="item-info" flex layout="column" layout-align="space-between">
+                <h3 class="title">陈老师</h3>
+                  <div class="item-data">
+                    <div layout="row" layout-align="space-between">
+                      <div>
+                        <span class="">教龄:5年</span>
+                        <span class="">课时:10</span>
+                      </div>
+                    </div>
+                    <div layout="row" layout-align="space-between">
+                      <div>
+                        <span class="">科目:小学语文</span>
+                      </div>
+                    </div>
+                    <div layout="row" layout-align="space-between">
+                      <div>
+                        <span class="site-color promo-price dib">$100/小时</span>
+                      </div>
+                      <div><i class="icon-heart"></i>广州天河</div>
+                    </div>
+                    <div layout="row" layout-align="space-between">
+                      <div class=""><i class="ion-ios-person"></i>评价:</div>
+                      <div><i class="ion-ios-heart"></i>10人评价</div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col col-25">
-                  <p class="red_salary" style="text-overflow:clip;">100/小时</p>
-                  <p class="grey_date" style="font-size:8pt">广州天河</p>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li class="more">
-            <a href="#/tab/carryout">查看更多名师</a>
-          </li>
-        </ul>
-      </div>
-    </section>
+              </a>
+
+              <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+                <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+                <div class="item-info" flex layout="column" layout-align="space-between">
+                    <h3 class="title">陈老师</h3>
+                      <div class="item-data">
+                        <div layout="row" layout-align="space-between">
+                          <div>
+                            <span class="">教龄:5年</span>
+                            <span class="">课时:10</span>
+                          </div>
+                        </div>
+                        <div layout="row" layout-align="space-between">
+                          <div>
+                            <span class="">科目:小学语文</span>
+                          </div>
+                        </div>
+                        <div layout="row" layout-align="space-between">
+                          <div>
+                            <span class="site-color promo-price dib">$100/小时</span>
+                          </div>
+                          <div><i class="icon-heart"></i>广州天河</div>
+                        </div>
+                        <div layout="row" layout-align="space-between">
+                          <div class=""><i class="ion-ios-person"></i>评价:</div>
+                          <div><i class="ion-ios-heart"></i>10人评价</div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+        </div>
+
+
   </ion-content>
 </ion-view>

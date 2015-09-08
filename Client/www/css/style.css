@@ -443,10 +443,47 @@ i.icon-search, i.icon-location {
 	position: relative;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  margin-top: 5px;
+  padding-top: 5px;
 }
 #btn-group a img{
 	width: 2.25rem;
+}
+
+.list-item {
+  padding: 0;
+  border-width: 1px 0 0 0;
+  -webkit-border-image: url('img/border.png') 2 0 stretch;
+  border-image: url('img/border.png') 2 0 stretch;
+  display: block;
+}
+.list-item a {
+  padding: 6px;
+}
+.list-item a .item-info {
+  margin-left: 4px;
+  font-size: 0.85rem;
+  color: #999;
+}
+.list-item a .item-info .title {
+  color: #333;
+  overflow: auto;
+  white-space: normal;
+  font-size: 14px;
+}
+.list-item a .item-info .item-data {
+  margin-bottom: -5px;
+}
+.list-item a .item-info .item-data .promo-price {
+  font-size: 13px;
+}
+.list-item a .item-info .item-data .ion-ios-person {
+  font-size: 13px;
+}
+.list-item a .item-info .item-data .ion-ios-heart {
+  font-size: 13px;
+}
+.list-item:active {
+  background-color: #f0f0f0;
 }
 
 #hot-teacher{

@@ -30,26 +30,99 @@
           <button ng-click="find()" style="background:#1aacc3;font-weight:bold;font-size:16px;border-radius:5px;border:0px;color:white;float:right;height:30px;margin-right:3%;margin-bottom:10px">搜索</button>
         </div>
       </div>
-      <a ui-sref="tabs.classDetail" class="row item" ng-click="view(job)"  style="padding:15px 10px;width:100%;">
-        <div class="col col-75">
-          <h2 style="font-size:18px;color:#222222">陈老师</h2>
-          <p>小学语文</p>
-        </div>
-        <div class="col col-25">
-          <p class="red_salary" style="text-overflow:clip;">100/小时</p>
-          <p class="grey_date" style="font-size:12px">2015-8-29</p>
-        </div>
-      </a>
-    <a class="row item" ng-click="view(job)"  style="padding:15px 10px;width:100%;">
-      <div class="col col-75">
-        <h2 style="font-size:18px;color:#222222">陈老师</h2>
-        <p>小学语文</p>
-      </div>
-      <div class="col col-25">
-        <p class="red_salary" style="text-overflow:clip;">100/小时</p>
-        <p class="grey_date" style="font-size:12px">2015-8-29</p>
-      </div>
-    </a>
+      <div class="list-item"
+        collection-item-width="'100%'"
+        >
+        <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+          <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+          <div class="item-info" flex layout="column" layout-align="space-between">
+              <h3 class="title">陈老师</h3>
+                <div class="item-data">
+                  <div layout="row" layout-align="space-between">
+                    <div>
+                      <span class="">教龄:5年</span>
+                      <span class="">课时:10</span>
+                    </div>
+                  </div>
+                  <div layout="row" layout-align="space-between">
+                    <div>
+                      <span class="">科目:小学语文</span>
+                    </div>
+                  </div>
+                  <div layout="row" layout-align="space-between">
+                    <div>
+                      <span class="site-color promo-price dib">$100/小时</span>
+                    </div>
+                    <div><i class="icon-heart"></i>广州天河</div>
+                  </div>
+                  <div layout="row" layout-align="space-between">
+                    <div class=""><i class="ion-ios-person"></i>评价:</div>
+                    <div><i class="ion-ios-heart"></i>10人评价</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+              <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+              <div class="item-info" flex layout="column" layout-align="space-between">
+                  <h3 class="title">陈老师</h3>
+                    <div class="item-data">
+                      <div layout="row" layout-align="space-between">
+                        <div>
+                          <span class="">教龄:5年</span>
+                          <span class="">课时:10</span>
+                        </div>
+                      </div>
+                      <div layout="row" layout-align="space-between">
+                        <div>
+                          <span class="">科目:小学语文</span>
+                        </div>
+                      </div>
+                      <div layout="row" layout-align="space-between">
+                        <div>
+                          <span class="site-color promo-price dib">$100/小时</span>
+                        </div>
+                        <div><i class="icon-heart"></i>广州天河</div>
+                      </div>
+                      <div layout="row" layout-align="space-between">
+                        <div class=""><i class="ion-ios-person"></i>评价:</div>
+                        <div><i class="ion-ios-heart"></i>10人评价</div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
+                  <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
+                  <div class="item-info" flex layout="column" layout-align="space-between">
+                      <h3 class="title">陈老师</h3>
+                        <div class="item-data">
+                          <div layout="row" layout-align="space-between">
+                            <div>
+                              <span class="">教龄:5年</span>
+                              <span class="">课时:10</span>
+                            </div>
+                          </div>
+                          <div layout="row" layout-align="space-between">
+                            <div>
+                              <span class="">科目:小学语文</span>
+                            </div>
+                          </div>
+                          <div layout="row" layout-align="space-between">
+                            <div>
+                              <span class="site-color promo-price dib">$100/小时</span>
+                            </div>
+                            <div><i class="icon-heart"></i>广州天河</div>
+                          </div>
+                          <div layout="row" layout-align="space-between">
+                            <div class=""><i class="ion-ios-person"></i>评价:</div>
+                            <div><i class="ion-ios-heart"></i>10人评价</div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+          </div>
   </div>
   </ion-content>
 </ion-view>
