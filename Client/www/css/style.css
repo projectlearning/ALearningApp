@@ -452,12 +452,13 @@ i.icon-search, i.icon-location {
 .list-item {
   padding: 0;
   border-width: 1px 0 0 0;
-  -webkit-border-image: url('img/border.png') 2 0 stretch;
-  border-image: url('img/border.png') 2 0 stretch;
+  -webkit-border-image: url(img/border.png) 2 0 stretch;
+  border-image: url(img/border.png) 2 0 stretch;
   display: block;
 }
 .list-item a {
   padding: 6px;
+  border-bottom: 1px solid #ccc;
 }
 .list-item a .item-info {
   margin-left: 4px;
@@ -486,45 +487,24 @@ i.icon-search, i.icon-location {
   background-color: #f0f0f0;
 }
 
-#hot-teacher{
+.wrap-btn-sign {
   width: 100%;
-  margin-top: 6px;
-  background-color: #fff;
-  border: 1px solid #eeeeee;
-  border-left: 0;
-  border-right: 0;
-  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
 }
-#hot-teacher h4{
-  margin: 0;
-  padding: 0 15px;
-  font-size: 13pt;
-  color: #fe5252;
-  line-height: 2.2;
-}
-#hot-teacher h4  a {
-  float: right;
-  padding-top: 3px;
-  font-size: 11pt;
-  color: #666666;
-  font-weight: normal;
-  text-decoration: none;
-}
-#hot-teacher ul li.more {
-  min-height: 0;
-}
-#hot-teacher ul li.more a {
-  box-flex: 1;
-  -webkit-box-flex: 1;
-  padding: 14px 0;
+.wrap-btn-sign li a {
   display: block;
-  color: #666666;
-  text-align: center;
-  text-decoration: none;
+  color: #fff;
+  height: 40px;
+  line-height: 40px;
 }
-#hot-teacher ul li.more a.activated {
-  background-color: #eeeeee;
+.wrap-btn-sign li a.btn-login {
+  background: #34495e;
 }
+.wrap-btn-sign li a.btn-register {
+  background: #F7375C;
+}
+
 
 /*城市切换页面*/
 #now-city{
