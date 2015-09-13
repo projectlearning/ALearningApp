@@ -452,8 +452,8 @@ i.icon-search, i.icon-location {
 .list-item {
   padding: 0;
   border-width: 1px 0 0 0;
-  -webkit-border-image: url(img/border.png) 2 0 stretch;
-  border-image: url(img/border.png) 2 0 stretch;
+  -webkit-border-image: url(../img/border.png) 2 0 stretch;
+  border-image: url(../img/border.png) 2 0 stretch;
   display: block;
 }
 .list-item a {
