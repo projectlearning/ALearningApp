@@ -223,6 +223,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'OrderClassCtrl'
       }
     }
+  })
+
+  .state('tabs.identityVerification', {
+    url: '/verification/identity',
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/verification/identityVerification.html',
+        controller: 'IdentityVerificationCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

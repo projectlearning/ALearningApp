@@ -236,4 +236,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('OrderClassCtrl', function($scope) {
 
+})
+
+.controller('IdentityVerificationCtrl', function($scope) {
+
 });
