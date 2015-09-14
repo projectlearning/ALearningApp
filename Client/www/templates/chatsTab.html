@@ -5,20 +5,20 @@
       pulling-text="下拉刷新..."
       on-refresh="doRefresh()">
     </ion-refresher>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tabs/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <div class="chat-item-upper">
-          <h2>{{chat.name}}</h2>
-          <p>下午 03:20</p>
-        </div>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+    <div class="list">
+      <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666">
+        <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+        <br/><br/>暂无消息<br/><br/>
+      </div>
+      <a class="item item-avatar" ng-click="view(box)" style="margin:0;padding:5px 5px;" ng-repeat="chat in chats" href="#/tabs/chats/{{chat.id}}">
+        <div style="float:left;margin-right:10px;"><img style="width:45px;height:45px;border-radius:20px;" ng-src="{{chat.face}}"></div>
+        <h2>
+          <span style="float:left;width:80%;overflow:hidden;text-overflow:ellipsis;color:#222222">{{chat.name}}</span>
+          <span style="float:right;font-weight:normal;font-size:12px;color:#666;padding-top:5px">8:10</span>
+        </h2>
+        <p><span style="float:left;width:75%">{{chat.lastText}}</span></p>
+      </a>
+    </div>
   </ion-content>
 </ion-view>
