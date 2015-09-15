@@ -119,7 +119,7 @@ angular.module('alearn.services', ['ionic'])
 
 .factory('AccountService', function(){
   var account = {
-    loginFlag: 0,
+    loginFlag: 1,
     username: 'Ant',
     tel: '12345678',
   };

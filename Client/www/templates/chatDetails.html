@@ -9,23 +9,76 @@
     <button class="button button-clear icon ion-ios-person"     ng-click="view()"></button>
   </ion-nav-buttons>
   <ion-content class="padding">
-    <ol class="messages">
-      <li style="float:left">
-        <div style="float:left;margin-right:5px;" ng-click="showhunter()"><img style="width:45px;height:45px;border-radius:20px;" ng-src="{{chat.face}}"></div>
-        &nbsp;
-        <div ng-click="view_job(message.data.job.id_job)" style="width:230px;max-width:230px;display:inline-block;float:left;background-color:#ccc">
-            kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-        </div>
-        <img src="{{config.avatar}}" style="float:right" ng-if="message.send_direction==1"/>
-      </li>
-    </ol>
-    <div style="width:100%;height:30px;clear:both;float:none;"></div>
+    <ion-list class="chat">
+			<div class="item">
+			<div class="item time"><span >22:36</span></div>
+			<div  class="item time"><span >kkkkkkk</span></div>
+			<div class="item left">
+				<img src="{{chat.face}}">
+				<i></i>
+				<span class="message button" on-hold="delete_message(d);" ng-bind-html = "chat.lastText"></span>
+				<span ng-show="d.message && d.msgtype==4" class="message button" on-hold="delete_message(d);" ng-click="infoshow({{d.fromid}});">
+					{{d.message}}<a>点击查看</a>
+				</span>
+
+				<span ng-click="openModal({{d.id}});" ng-show="d.thumb" class="message button pics" on-hold="delete_message(d);">
+					<img class='img' src="{{service_url+d.thumb}}">
+				</span>
+			</div>
+			<div ng-show="userid == d.fromid && (d.msgtype==0 )" class="item right">
+				<img  ng-click="infoshow({{userid}});" src="{{ service_url + d.img}}">
+				<i></i>
+				<span  ng-show="d.message" class="message button" on-hold="delete_message(d);" ng-bind-html = "d.message"></span>
+				<span  ng-click="openModal({{d.id}});" ng-show="d.thumb" class="message button pics" on-hold="delete_message(d);">
+					<img class='img' src="{{service_url + d.thumb}}">
+				</span>
+			</div>
+			</div>
+		</ion-list>
     <ion-infinite-scroll on-infinite="infinite()" icon="ion-load-c" ng-if="config.infinite">
     </ion-infinite-scroll>
 
   </ion-content>
-  <ion-footer-bar class="item-input-inset" keyboard-attach>
-    <label class="item-input-wrapper" style="height:35px;"><input type="text" placeholder="回复..." ng-model="input.message"></label>
-    <button class="button button-small button-positive" ng-click="save()">回复</button>
+  <ion-footer-bar class="bar-footer-have" keyboard-attach>
+    <div class="footer-box">
+		<div class="messagebox">
+			<div class="send">
+				<button class="keypad ion-ios-keypad" ng-show="btn_keypad" ng-click="showkeypad();"></button>
+				<button class="mic ion-ios-mic"  ng-show="btn_mic" ng-click="showmic();"></button>
+				<div id="hidediv" contenteditable="true" class='comments divshort' ng-bind="message.content"></div>
+				<textarea id="textcontent" ng-click="textclick();" ng-change="textchange(message);" class="txt" ng-show="txt_txt" rows=1 ng-model="message.content">
+				</textarea>
+				<button class="btn_press" on-touch="presskeydown()" on-release="presskeyup()" ng-show="btn_press" ng-class="{true: 'actived', false: ''}[ispress]">{{btn_press_text}}</button>
+				<!-- <input class="txt" type="text" value="" placeholder="" ng-model="message.content"> -->
+				<button class="happy ion-android-happy" ng-show="txt_txt" ng-click="showface();" ></button>
+				<button ng-show="btn_send" class="btn" ng-click="sendmessage(message);">发送</button>
+				<button ng-show="btn_add" class="add ion-android-add-circle" ng-click="showadd();"></button>
+			</div>
+		</div>
+		<div class="expression" ng-show="box_face">
+			<ion-slide-boxs  does-continue="true">
+			  <ion-slides class="facelist" ng-repeat="data in faceData">
+				<span ng-repeat="da in data.child">
+				<img ng-click="selectface({{da.number}});" src="img/face/{{da.number}}.gif">
+				</span>
+			  </ion-slides>
+
+			</ion-slide-boxs>
+
+		</div>
+		<div class="add-event" ng-show="box_add">
+			<div class="ionlist">
+				<span class="album" ng-click="pickImage();">
+					<i class="ion-android-image"></i>
+					<p>相册</p>
+				</span>
+				<span ng-click="takePicture();">
+					<i class="ion-android-camera"></i>
+					<p>拍照</p>
+				</span>
+			</div>
+		</div>
+	</div>
+
   </ion-footer-bar>
 </ion-view>

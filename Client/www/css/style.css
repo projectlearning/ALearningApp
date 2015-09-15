@@ -637,6 +637,56 @@ i.icon-search, i.icon-location {
   font-size:10px;
 }
 
+.bar-footer-have{ height:auto;}
+.footer-box{width:100%; display:block;}
+.footer-box .messagebox{ position:relative; width:100%; display:block; height:41px;}
+.footer-box .expression{display:block;width:100%;}
+.footer-box .expression .facelist{ padding:5px;}
+.footer-box .expression .facelist img{ margin:6px;}
+.footer-box .add-event{width:100%; display:block;}
+.footer-box .add-event .ionlist{padding:5px;}
+.footer-box .add-event .ionlist span{ display:inline-block; padding:9px;  color:#888; margin:6px;}
+.footer-box .add-event .ionlist span i{ border:1px solid #dedede; height:50px;width:50px; display:inline-block; padding:8px; border-radius:8px; color:#888;font-size:36px;}
+.footer-box .add-event .ionlist span p{ text-align:center;}
+.send{width:100%; position:absolute; bottom:5px; left:0px; padding-right:50px; padding-left:1px;}
+.projct{padding-left:5px;}
+.buchong{ margin:10px 5px 5px; position:relative;}
+.send .txt{ padding:5px 28px 5px 5px; display:block; border-radius:4px; border:1px solid #dedede; line-height:20px; margin-right:50px; width:100%;max-height:260px; min-height:32px;}
+.send .dym{ padding-right:5px;}
+.send .btn_press{display:block; border-radius:4px; height:32px; border:1px solid #dedede; width:100%; background-color:#FFF;}
+.send .actived{ background-color:#ddd;border-radius:4px;}
+
+.buchong .txt{ padding:5px; display:block; border-radius:4px; border:1px solid #dedede; line-height:20px; margin-right:50px; width:100%;color:#ccc;}
+.send div.editer{ min-height:30px; position:absolute;left:0; bottom:0; margin-right:60px; background-color:#FFF;}
+.comments {padding:5px 10px; position:absolute; left:-1000px; top:-55px; border-radius:4px; border:1px solid #dedede; line-height:20px; margin-right:50px; width:100%;max-height:260px; min-height:32px;  word-wrap: break-word;}
+.send .divshort{ width:240px;}
+.send .btn { background-color:#3c5c99;border-radius:4px; border:0px; color:#FFF; position:absolute; right:7px; bottom:2px; height:30px;}
+.send .happy { background:none;border-radius:4px; border:0px; color:#FFF; position:absolute; right:50px; bottom:2px; height:32px;color:#3c5c99;font-size:26px;}
+.send .add {border:0px; font-size:30px; position:absolute; right:7px; bottom:2px; height:36px; color:#3c5c99; background:none;}
+.send .keypad {border:0px; font-size:30px; position:absolute; left:0px; bottom:2px; height:36px; color:#3c5c99; background:none;}
+.send .mic {border:0px; font-size:30px; position:absolute; left:0px; bottom:2px; height:36px; color:#3c5c99; background:none;}
+.send .add:before{ padding:0;}
+
+.chat .list{ padding-top:10px}
+.chat .list .item{ border:0px; padding:4px; position:relative; min-height:35px; background:none;}
+.chat .list .time{ text-align:center;min-height:20px;}
+.chat .list .time span{background-color:#dedede; padding:3px 10px; border-radius:5px; font-size:10px;}
+.chat .list .left{ padding:0 45px 0 55px;margin-bottom:5px;margin-top:5px;}
+.chat .list .left > img{ position: absolute; left:1px; top:0px; border-radius:28px; width:38px; height:38px;}
+.chat .list .left > i{background:url(../img/icon_left.png) 0px 0px no-repeat; width:14px; height:26px; position: absolute; left:47px; top:6px;}
+.chat .list .left .message{ padding:8px 6px; line-height:20px;white-space:normal; border:0px solid #ccc; border-radius:6px; background-color:#FFF; font-size:14px; display:inline-block;min-height:0; text-align:left;font-family:'微软雅黑';letter-spacing:0.1em;}
+.chat .list .img{ width:100%; max-width:100px;min-width:60px;}
+.chat .list .right{ padding:0 48px 0 50px;margin-bottom:5px;margin-top:5px;text-align:right;}
+.chat .list .right > img{ position: absolute; right:1px; top:0px; border-radius:28px; width:38px;height:38px;}
+.chat .list .right > i{background:url(../img/icon_right.png) 0px 0px no-repeat; width:14px; height:26px; position: absolute; right:41px; top:5px;}
+.chat .list .right .message{ padding:8px 6px; line-height:20px;white-space:normal;background-color:#45aaf2;border-radius:6px;font-size:14px;display:inline-block;border:0px solid #ccc; text-align:left; min-height:0; color:#FFF; font-family:'微软雅黑';letter-spacing:0.1em;}
+.point-right{ background:url(../img/point.png) right center no-repeat; padding-right:12px; margin-right:6px;}
+.chat .list .left .pics,.chat .list .right .pics{ padding:0;}
+/* .usercenter .item{ padding:5px 11px;} */
+.usercenter .chating{padding-left:98px;padding-right:23px;min-height:50px;}
+.chating .title{position:absolute; left:0px;  width:55px; font-size:16px; color:#000;}
+.chating .chatcont{ font-size:15px; white-space:normal; color:#6f6d6d;}
+
 
 /*我页*/
 .me-user h2{

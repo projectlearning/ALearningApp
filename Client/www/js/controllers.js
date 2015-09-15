@@ -47,6 +47,12 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('ChatDetailsCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+
+  $scope.btn_keypad = false;
+  $scope.txt_txt = true;
+  $scope.btn_send = true;
+  $scope.btn_add = false;
+  $scope.box_add = false;
 })
 
 
