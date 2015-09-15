@@ -157,7 +157,18 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   };
 
 })
+  .controller('moneyAccountDetailCtrl', function($scope) {
 
+  })
+  .controller('moneyAccountTopUpCtrl', function($scope) {
+
+  })
+  .controller('moneyWithdrawalCtrl', function($scope) {
+
+  })
+  .controller('couponRedeemCtrl', function($scope) {
+
+  })
 .controller('AccountOrdersCtrl', function($scope) {
 
 })

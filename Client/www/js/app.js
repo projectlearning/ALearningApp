@@ -143,6 +143,42 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+    .state('tabs.moneyAccountDetail', {
+      url: '/account/money/moneyAccountDetail',
+      views: {
+        'accountTab': {
+          templateUrl: 'templates/account/moneyAccount/moneyAccountDetail.html',
+          controller: 'moneyAccountDetailCtrl'
+        }
+      }
+    })
+    .state('tabs.moneyAccountTopUp', {
+      url: '/account/money/topUp',
+      views: {
+        'accountTab': {
+          templateUrl: 'templates/account/moneyAccount/topUp.html',
+          controller: 'moneyAccountTopUpCtrl'
+        }
+      }
+    })
+    .state('tabs.moneyWithdrawal', {
+      url: '/account/money/moneyWithdrawal',
+      views: {
+        'accountTab': {
+          templateUrl: 'templates/account/moneyAccount/moneyWithdrawal.html',
+          controller: 'moneyWithdrawalCtrl'
+        }
+      }
+    })
+    .state('tabs.couponRedeem', {
+      url: '/account/money/couponRedeem',
+      views: {
+        'accountTab': {
+          templateUrl: 'templates/account/moneyAccount/couponRedeem.html',
+          controller: 'couponRedeemCtrl'
+        }
+      }
+    })
   .state('tabs.accountOrders', {
     url: '/account/orders',
     views: {
