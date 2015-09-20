@@ -257,4 +257,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('IdentityVerificationCtrl', function($scope) {
 
+})
+
+.controller('RequirementPostCtrl', function($scope) {
+
 });

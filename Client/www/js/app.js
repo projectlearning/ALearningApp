@@ -269,6 +269,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         controller: 'IdentityVerificationCtrl'
       }
     }
+  })
+
+  .state('tabs.requirementPost', {
+    url: '/requirement/post',
+    views: {
+      'classTab': {
+        templateUrl: 'templates/requirement/post.html',
+        controller: 'RequirementPostCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
