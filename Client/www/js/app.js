@@ -57,10 +57,14 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
-    .state('homeCitySelect', {
-      url: '/homeCitySelect',
-      templateUrl: 'templates/homeCitySelect.html',
-      controller: 'HomeCitySelectCtrl'
+    .state('tabs.citypicker', {
+      url: '/citypicker',
+      views: {
+        'homeTab': {
+          templateUrl: 'templates/public/citypicker.html',
+          controller: 'CityPickerCtrl'
+        }
+      }
     })
 
     .state('homeSearch', {

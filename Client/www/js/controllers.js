@@ -1,6 +1,6 @@
 angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
-.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityService',
+.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityPickerService',
   function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config,CityService) {
     $scope.banner = HomeBanner.all();
     $scope.city = CityService.getNowCity();
@@ -13,14 +13,32 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
    };
 }])
 
-.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
+/*.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
   $scope.nowCity = CityService.getNowCity();
   $scope.hotCity = CityService.getHotCities();
   $scope.allCity = CityService.getAllCities();
   $scope.goBack = function() {
     $state.go("tabs.homeTab");
   };
-}])
+}])*/
+
+.controller('CityPickerCtrl', ['$scope','$state','CityPickerService',function($scope, $state, CityService) {
+  $scope.hotCity = CityService.getHotCities();
+  $scope.allCity = CityService.getAllCities();
+
+  $scope.tmp_city = CityService.getNowCity();
+
+  $scope.onClickCity = function(name_zh){
+    $scope.tmp_city = name_zh;
+  }
+  $scope.onClickConfirm = function(name){
+    CityService.setNowCity(name);
+    $scope.tmp_city = CityService.getNowCity();
+    console.log($scope.tmp_city);
+    $state.go("tabs.homeTab");
+  }
+
+  }])
 
 .controller('HomeSearchCtrl', function($scope,$state) {
   $scope.goBack = function() {

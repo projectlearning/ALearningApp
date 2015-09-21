@@ -72,34 +72,30 @@ angular.module('alearn.services', ['ionic'])
   };
 })
 
-.factory('CityService',function(){
+.factory('CityPickerService',function(){
   var cities = {
-    nowCity: '广州',
-    hotCity: [{
+    now_city: '广州',
+    hot_city: [{
       id: 0,
-      name: '广州'
+      name_zh: '广州',
+      name_en: 'Guang Zhou'
     },{
       id: 1,
-      name: '佛山'
+      name_zh: '佛山',
+      name_en: 'Fo Shan'
     },{
       id: 2,
-      name: '深圳'
+      name_zh: '深圳',
+      name_en: 'Shen Zhen'
     }],
-    allCity: [{
-      id: 0,
-      name: '广州'
-    },{
-      id: 1,
-      name: '佛山'
-    },{
-      id: 2,
-      name: '深圳'
-    }]
   };
 
   return {
     getNowCity: function(){
-      return cities.nowCity;
+      return cities.now_city;
+    },
+    setNowCity: function(name){
+      cities.now_city = name;
     },
     changeCity: function(city)
     {
@@ -108,11 +104,11 @@ angular.module('alearn.services', ['ionic'])
     },
     getHotCities: function()
     {
-      return cities.hotCity;
+      return cities.hot_city;
     },
     getAllCities: function()
     {
-      return cities.allCity;
+      return cities.all_city;
     }
   };
 })

@@ -1,0 +1,17 @@
+<ion-view view-title="选择城市" hide-tabs="true" class="city-select">
+  <ion-nav-buttons side="right">
+      <button class="button button-clear button-default" ng-click="onClickConfirm()">确定</button>
+  </ion-nav-buttons>
+
+  <ion-content has-bouncing="true">
+    <div class="list">
+      <div class="item item-divider">开通城市</div>
+      <div class="item item-text-wrap item-checkbox"
+          ng-repeat="c in hotCity" ng-click="onClickCity(c.name_zh)">
+          {{c.name_zh}}
+
+          <label class="checkbox checkbox-stable" ng-if="c.name_zh == tmp_city"><input type="checkbox" checked ion-stop-event ng-click="finish({{todo.id}}, $event);"></label>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
