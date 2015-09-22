@@ -1,9 +1,9 @@
 angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
-.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityPickerService',
-  function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config,CityService) {
-    $scope.banner = HomeBanner.all();
-    $scope.city = CityService.getNowCity();
+.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','BannerService','CityPickerService',
+  function($scope, $location, $state, $ionicModal, $ionicHistory,BannerService,CityPickerService) {
+    $scope.banner = BannerService.get();
+    $scope.city = CityPickerService.getNowCity();
     $scope.homeLocationIconPressed = function() {
       $state.go("homeCitySelect");
     };
@@ -31,10 +31,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   $scope.onClickCity = function(name_zh){
     $scope.tmp_city = name_zh;
   }
-  $scope.onClickConfirm = function(name){
-    CityService.setNowCity(name);
+  $scope.onClickConfirm = function(){
+    CityService.setNowCity($scope.tmp_city);
     $scope.tmp_city = CityService.getNowCity();
-    console.log($scope.tmp_city);
     $state.go("tabs.homeTab");
   }
 

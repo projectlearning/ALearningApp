@@ -4,8 +4,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'alearn.controllers' is found in controllers.js
 // 'alearn.services' is found in services.js
-var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services','alearn.directives',
-                          'alearn.config'])
+var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services','alearn.directives','alearn.config'])
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

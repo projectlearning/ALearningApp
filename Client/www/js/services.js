@@ -49,7 +49,7 @@ angular.module('alearn.services', ['ionic'])
   };
 })
 
-.factory('HomeBanner',function(){
+.factory('BannerService',function(){
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -66,7 +66,10 @@ angular.module('alearn.services', ['ionic'])
   }];
 
   return {
-    all: function() {
+    get: function() {
+      /*
+
+      */
       return banners;
     },
   };
@@ -97,11 +100,6 @@ angular.module('alearn.services', ['ionic'])
     setNowCity: function(name){
       cities.now_city = name;
     },
-    changeCity: function(city)
-    {
-      cities.nowCity=city;
-      return cities;
-    },
     getHotCities: function()
     {
       return cities.hot_city;
@@ -124,77 +122,8 @@ angular.module('alearn.services', ['ionic'])
     getAccount: function(){
       return account;
     },
-
     login: function(user){
 
     }
   };
 })
-
-/*Connection Service*/
-.factory('ConnectionService', function(Connection)
-{
-  var states = {};
-  states[Connection.UNKNOWN]  = 'Unknown connection';
-  states[Connection.ETHERNET] = 'Ethernet connection';
-  states[Connection.WIFI]     = 'WiFi connection';
-  states[Connection.CELL_2G]  = 'Cell 2G connection';
-  states[Connection.CELL_3G]  = 'Cell 3G connection';
-  states[Connection.CELL_4G]  = 'Cell 4G connection';
-  states[Connection.CELL]     = 'Cell generic connection';
-  states[Connection.NONE]     = 'No network connection';
-  return {
-    getConnectionStatus: function(){
-      var networkState = navigator.connection.type;
-      console.log(states[networkState]);
-      return states[networkState];
-    },
-    isConnected: function(){
-      return navigator && navigator.connection && navigator.connection.type != Connection.UNKNOWN;
-    }
-  }
-})
-
-/*Warning Form*/
-.factory('NoticeService', ['$timeout','$ionicLoading',function($timeout,$ionicLoading){
-  return {
-    loadingNotice: function(msg, timeout){
-      if(!msg)
-        return;
-      $ionicLoading.show({
-        template: msg,
-        noBackdrop: true
-      });
-      $timeout(function(){
-                $ionicLoading.hide();
-            }, timeout || 1000);
-    }
-  }
-}])
-
-/*Config Service*/
-.factory('ConfigService',['$cordovaAppVersion','$ionicLoading',
-  function($cordovaAppVersion,$ionicLoading){
-  var config = {
-    platform: {
-      serverUrl: '',
-      version: ''
-    },
-    pattern: {
-      phone: '/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/',
-      identityCard: '(^\d{15}$)|(^\d{17}([0-9]|X)$)',
-    },
-  };
-
-  return{
-    checkAppVersion: function(){
-      $cordovaAppVersion.getVersionNumber().then(function(version){
-        $ionicLoading.show({
-          template: '检测版本中...'
-        });
-        config.platform.version = version;
-        window.localStorage[version] = version;
-      });
-    }
-  }
-}])

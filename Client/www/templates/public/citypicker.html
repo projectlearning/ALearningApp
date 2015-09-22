@@ -10,7 +10,7 @@
           ng-repeat="c in hotCity" ng-click="onClickCity(c.name_zh)">
           {{c.name_zh}}
 
-          <label class="checkbox checkbox-stable" ng-if="c.name_zh == tmp_city"><input type="checkbox" checked ion-stop-event ng-click="finish({{todo.id}}, $event);"></label>
+          <label class="checkbox checkbox-stable" ng-if="c.name_zh == tmp_city"><input type="checkbox" checked></label>
       </div>
     </div>
   </ion-content>
