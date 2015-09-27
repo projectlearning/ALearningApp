@@ -4,10 +4,36 @@
 // the 2nd parameter is an array of 'requires'
 // 'alearn.controllers' is found in controllers.js
 // 'alearn.services' is found in services.js
-var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services','alearn.directives','alearn.config'])
+var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services','alearn.directives','alearn.config','ngCordova'])
 
-app.run(function($ionicPlatform) {
+app.run(['$ionicPlatform','$cordovaAppVersion','config','$rootScope','$http','cacheService', '$cordovaAppVersion','versionService','$cordovaDevice'
+  function($ionicPlatform,$cordovaAppVersion,config,$rootScope,$http,cacheService,$cordovaAppVersion,versionService,$cordovaDevice) {
+  
+  $rootScope.user || $rootScope.user = {};
   $ionicPlatform.ready(function() {
+    console.log('platform ready');
+    config.platform = ionic.Platform.platform();
+    config.os_version = ionic.Platform.version();
+    $rootScope.user.platform = ionic.Platform.platform();
+    $rootScope.user.os_version = ionic.Platform.version();
+    $http.defaults.cache = cacheService.product;
+
+    /*检测版本*/
+    $cordovaAppVersion.getVersionNumber().then(function(version){
+      config.version = version;
+      if(config.version !== cacheService.system.get('version'))
+        cacheService.system.put('version',config.version);
+      var r = versionService.check(config.platform);
+      r.success(function(data){
+        if(data.version !== config.version)
+        {
+
+        }
+      })
+    });
+
+    config.uuid = $cordovaDevice.getUUID();
+    config.model = $cordovaDevice.getModel();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -20,7 +46,7 @@ app.run(function($ionicPlatform) {
       StatusBar.styleLightContent();
     }
   });
-})
+}])
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // ====================================================

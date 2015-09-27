@@ -1,4 +1,4 @@
-angular.module('alearn.services', ['ionic'])
+angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -46,32 +46,6 @@ angular.module('alearn.services', ['ionic'])
       }
       return null;
     }
-  };
-})
-
-.factory('BannerService',function(){
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var banners = [{
-    id: 0,
-    image: 'img/home-slider01.jpg',
-    title: '',
-    url: ''
-  }, {
-    id: 1,
-    image: 'img/home-slider02.jpg',
-    title: '',
-    url: ''
-  }];
-
-  return {
-    get: function() {
-      /*
-
-      */
-      return banners;
-    },
   };
 })
 
@@ -127,3 +101,82 @@ angular.module('alearn.services', ['ionic'])
     }
   };
 })
+
+/*App 版本服务*/
+.factory('versionService',['$http','config',function($http,config){
+  return {
+    check: function(platform){
+      var r = $http.get(config.api + "/system/appversion?_method=get_version&platform=" + platform);
+      return r;
+    },
+    show: function(){
+
+    }
+  }
+}])
+
+/*首页轮播图*/
+.factory('BannerService',['$http','config',function($http,config){
+  var banners = [{
+    id: 0,
+    image: 'img/home-slider01.jpg',
+    title: '',
+    url: ''
+  }, {
+    id: 1,
+    image: 'img/home-slider02.jpg',
+    title: '',
+    url: ''
+  }];
+
+  return {
+    get: function() {
+      var r = $http.get(config.api + "/index/indexbanner?_method=get");
+      r.success(function(data){
+        if(data.error === 0)
+        {
+          //banners = data.list;
+        }
+      });
+      return banners;
+    },
+  };
+}])
+
+.factory('productService',['$http','config','$rootScope',
+  function($http,config,$rootScope){
+    return {
+      getHot: function(){
+        var r = $http.post(config.api + "/product?_method=get_product",{
+          city: $rootScope.user.city,
+          status: $rootScope.user.status
+        });
+        var list = {};
+        r.success(function(data){
+          if(data.error === 0)
+          {
+            list = data.list;
+          }
+        });
+        return list;
+      }
+    }
+  }])
+
+/*Local Cache*/
+.factory('cacheService',['$cacheFactory',function($cacheFactory){
+  return {
+    product: $cacheFactory('cacheProduct', {
+      maxAge: 9e5,
+      cacheFlushInterval: 9e5,
+      deleteOnExpire: "aggressive",
+      storageMode: "localStorage",
+      storagePrefix: "product"
+    }),
+    system: $cacheFactory("cacheSystem", {
+      deleteOnExpire: "aggressive",
+      storageMode: "localStorage",
+      storagePrefix: "system"
+    })
+  }
+}])
