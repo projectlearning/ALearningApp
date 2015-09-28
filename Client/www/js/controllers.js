@@ -1,9 +1,10 @@
 angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
-.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','BannerService','CityPickerService',
-  function($scope, $location, $state, $ionicModal, $ionicHistory,BannerService,CityPickerService) {
+.controller('HomeTabCtrl', ['$scope', '$location', '$state', '$ionicModal', '$ionicHistory', 'BannerService', 'CityPickerService',
+  function($scope, $location, $state, $ionicModal, $ionicHistory, BannerService, CityPickerService) {
     $scope.banner = BannerService.get();
-    $scope.city = CityPickerService.getNowCity();
+    $scope.currentCity = CityPickerService.getCurrentCity();
+
     $scope.homeLocationIconPressed = function() {
       $state.go("homeCitySelect");
     };
@@ -22,22 +23,20 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   };
 }])*/
 
-.controller('CityPickerCtrl', ['$scope','$state','CityPickerService',function($scope, $state, CityService) {
-  $scope.hotCity = CityService.getHotCities();
-  $scope.allCity = CityService.getAllCities();
+.controller('CityPickerCtrl', ['$scope', '$state', 'CityPickerService', function($scope, $state, CityService) {
+  $scope.popularCities = CityService.getPopularCities();
+  $scope.currentCity = CityService.getCurrentCity();
+  $scope.cityClicked = $scope.currentCity;
 
-  $scope.tmp_city = CityService.getNowCity();
-
-  $scope.onClickCity = function(name_zh){
-    $scope.tmp_city = name_zh;
+  $scope.onClickCity = function(cityClicked){
+    $scope.cityClicked = cityClicked;
   }
+
   $scope.onClickConfirm = function(){
-    CityService.setNowCity($scope.tmp_city);
-    $scope.tmp_city = CityService.getNowCity();
+    CityService.setCurrentCity($scope.cityClicked);
     $state.go("tabs.homeTab");
   }
-
-  }])
+}])
 
 .controller('HomeSearchCtrl', function($scope,$state) {
   $scope.goBack = function() {
@@ -177,6 +176,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   .controller('moneyAccountDetailCtrl', function($scope) {
 
   })
+    .controller('moneyAccountEntryDetailCtrl', function($scope) {
+
+    })
   .controller('moneyAccountTopUpCtrl', function($scope) {
 
   })

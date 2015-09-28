@@ -50,9 +50,14 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
 })
 
 .factory('CityPickerService',function(){
+
+  if (null === window.localStorage.getItem("currentCity"))
+  {
+    window.localStorage.setItem("currentCity", '广州');
+  }
+
   var cities = {
-    now_city: '广州',
-    hot_city: [{
+    popularCities: [{
       id: 0,
       name_zh: '广州',
       name_en: 'Guang Zhou'
@@ -68,19 +73,19 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   };
 
   return {
-    getNowCity: function(){
-      return cities.now_city;
+    getCurrentCity: function(){
+      return window.localStorage.getItem("currentCity");
     },
-    setNowCity: function(name){
-      cities.now_city = name;
+    setCurrentCity: function(city){
+      window.localStorage.setItem("currentCity", city);
     },
-    getHotCities: function()
+    getPopularCities: function()
     {
-      return cities.hot_city;
+      return cities.popularCities;
     },
     getAllCities: function()
     {
-      return cities.all_city;
+      return cities.allCities;
     }
   };
 })
