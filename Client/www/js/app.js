@@ -6,21 +6,43 @@
 // 'alearn.services' is found in services.js
 var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services', 'alearn.directives', 'alearn.config', 'ngCordova']);
 
-app.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+app.run(['$ionicPlatform','$rootScope','cacheService','config','$cordovaDevice','$cordovaAppVersion',
+  function($ionicPlatform,$rootScope,cacheService,config,$cordovaDevice,$cordovaAppVersion) {
+    $rootScope.user = {};
+    $rootScope.user.token = cacheService.system.get('SESSIONID') || "";
+    $ionicPlatform.ready(function() {
+      console.log('Platform ready');
+      config.platform = ionic.Platform.platform();
+      config.os_version = ionic.Platform.version();
+      config.uuid = $cordovaDevice.getUUID();
+      config.model = $cordovaDevice.getModel();
+      $cordovaAppVersion.getVersionNumber().then(function (version){
+        config.version = version;
+        var r = versionService.check(config.platform);
+        r.success(function(data){
+          if(data.error == 0)
+          {
+            if(config.version != data.version)
+            {
+              console.log(config.version);
+            }
+          }
+        });
+      });
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
-    }
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)  
+      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.disableScroll(true);
+
+      }
+      if (window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleLightContent();
+      }
   });
-})
+}])
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // ====================================================

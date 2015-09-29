@@ -44,7 +44,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   };
 })
 
-.controller('ClassTabCtrl', function($scope) {})
+.controller('ClassTabCtrl', ['$scope','$http',function($scope,$http) {
+  var requirement = [];
+
+
+  $scope.getRequire = function(){
+  }
+
+})
 
 .controller('ChatsTabCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
