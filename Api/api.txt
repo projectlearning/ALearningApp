@@ -6,13 +6,16 @@ App Start:
 用户自动登录
 用户定位，上传当前位置经纬度以及地位城市
 
+上传设备信息
+	访问:/system/device?_method=post
+
 首页：
 获取首页轮播图
 	访问:/index/indexbanner?_method=get
 	(GET)
 	返回:error_code,轮播图列表
 获取同城前10条热门老师/10最新需求
-	访问:/product?_method=get_product
+	访问:/product?_method=get_product&code=
 	(POST) param: city,status,page
 	返回一页热门老师/最新需求列表
 分类页：
@@ -28,9 +31,20 @@ App Start:
 
 课程页：
 获取该用户未完成预约的需求（家长身份）/获取该用户预约的需求（老师身份）
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
 获取该用户已经预约尚未完成的课程
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
 获取该用户已经完成的课程
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
 发布用户需求（家长身份）/约课设置（老师身份）
+	访问:/product?_method=require
+	(POST) params:
 
 消息页：
 发送消息
@@ -41,6 +55,10 @@ App Start:
 个人主页：
 获取个人详情
 获取评价
+
+
+登录：
+注册：
 
 
 
