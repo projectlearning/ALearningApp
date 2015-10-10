@@ -51,7 +51,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   $scope.getRequire = function(){
   }
 
-})
+}])
 
 .controller('ChatsTabCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -206,8 +206,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountInfoCtrl', ['$scope','NoticeService','$ionicActionSheet','$cordovaCamera',
-  function($scope,NoticeService,$ionicActionSheet,$cordovaCamera) {
+.controller('AccountInfoCtrl', ['$scope','$ionicActionSheet','$cordovaCamera',
+  function($scope,$ionicActionSheet,$cordovaCamera) {
 
   $scope.changeAvatger = function(){
     var options = {
@@ -251,7 +251,6 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.cameraImg = "data:image/jpeg;base64," + imageData;
   }
   function onPictureFailed(err){
-    NoticeService.loadingNotice('获取图像失败',1000);
     console.log('Get picture failed: ');
     console.log(err);
   }
