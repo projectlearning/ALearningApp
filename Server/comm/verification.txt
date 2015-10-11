@@ -1,0 +1,9 @@
+Field Type Key
+VerificationID bigint(20) PRI
+UserID bigint(20) MUL
+VericationType tinyint(4) NULL
+CodeNumber varchar(255) NULL
+VerificationStatus tinyint(4) NULL
+UploadImageFrontURL varchar(255) NULL
+UploadImageBackURL varchar(255) NULL
+UploadImageWithFaceURL varchar(255) NULL

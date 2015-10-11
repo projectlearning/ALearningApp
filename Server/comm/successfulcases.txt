@@ -1,0 +1,6 @@
+Field Type Key
+SuccessfulCasesID bigint(20) PRI
+UserID bigint(20) MUL
+StartTime int(11) NULL
+EndTime int(11) NULL
+Description varchar(500) NULL
