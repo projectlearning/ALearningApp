@@ -1,12 +1,21 @@
-angular.module('alearn.config',[])
+angular.module('alearn.config',['ionic'])
 
 .constant('config',{
-  /*time: 2015-08-16
-  *author: ant
-  *content: platform config
-  */
-  platFormConfig: {
-    host: '',
-    verision: '0.0.0.0',
-  },
+  url: "",
+  host: "",
+  api: "",
+  version: "",
+  uuid: "",
+  model: "",
+  platform: "",
+  os_version: "",
+  latitude: 0,
+  longitude: 0,
+  signature: '',
+  address_city: "",
+  user_status: ""
+})
+.constant('patterns',{
+  mobile: /^1\d{10}$/,
+  email: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,
 })

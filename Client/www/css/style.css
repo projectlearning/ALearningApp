@@ -4,7 +4,11 @@
 html, body,
 h1, h2, h3, h4, h5, h6,
 div, span {
-  font-family: "poiretone", "youyuan" !important;
+  font-family: Helvetica, "微软雅黑", "Hiragino Sans GB", Tahoma, Arial, \5b8b\4f53, sans-serif !important;
+}
+
+button,input,select,textarea {
+	font-family: Helvetica, "微软雅黑", "Hiragino Sans GB", Tahoma, Arial, \5b8b\4f53, sans-serif !important;
 }
 
 html, body {
@@ -16,10 +20,6 @@ ol, ul {
   padding: 0;
   margin: 0;
   list-style: none;
-}
-
-pre {
-  font-family: Helvetica Neue, Helvetica, Arial, Lantinghei SC, Microsoft Yahei !important;
 }
 
 img {
@@ -507,23 +507,54 @@ i.icon-search, i.icon-location {
 
 
 /*城市切换页面*/
-#now-city{
-
-}
-#now-city p{
-  margin-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  font-size: 11pt;
-  border-bottom: 1px solid #eeeeee;
+.city-select .list {
+	margin-bottom: 0
 }
 
-#city h4{
-  margin: 0;
-  padding: 0 15px;
-  font-size: 13pt;
-  color: #fe5252;
-  line-height: 2.2;
+.city-select .list.hot .item-text-wrap {
+	background: #fff
+}
+
+.city-select .item {
+	padding-left: 16px
+}
+
+.city-select .item span:first-child {
+	color: #999;
+	margin-left: 5px;
+	font-size: 13px
+}
+
+.city-select .item .checkbox {
+	left: auto
+}
+
+.city-select .item .more .icon {
+	font-size: 22px;
+	color: #aaa
+}
+
+.city-select .item-divider {
+	border: none;
+	background: #E5E6E7
+}
+
+.city-select .item-divider .icon {
+	left: 80px;
+	right: auto;
+	font-size: 20px;
+	color: #777
+}
+
+.city-select .item-text-wrap {
+	background: #f8f8f8
+}
+
+.city-select .item-text-wrap.city {
+	background: #fff;
+	padding-left: 30px;
+	font-size: 14px;
+	border-color: #E5E6E7
 }
 
 /*Account*/

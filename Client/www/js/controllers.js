@@ -1,9 +1,10 @@
 angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
-.controller('HomeTabCtrl', ['$scope','$location','$state','$ionicModal','$ionicHistory','HomeBanner','config','CityService',
-  function($scope, $location, $state, $ionicModal, $ionicHistory,HomeBanner,config,CityService) {
-    $scope.banner = HomeBanner.all();
-    $scope.city = CityService.getNowCity();
+.controller('HomeTabCtrl', ['$scope', '$location', '$state', '$ionicModal', '$ionicHistory', 'BannerService', 'CityPickerService',
+  function($scope, $location, $state, $ionicModal, $ionicHistory, BannerService, CityPickerService) {
+    $scope.banner = BannerService.get();
+    $scope.currentCity = CityPickerService.getCurrentCity();
+
     $scope.homeLocationIconPressed = function() {
       $state.go("homeCitySelect");
     };
@@ -13,13 +14,28 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
    };
 }])
 
-.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
+/*.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
   $scope.nowCity = CityService.getNowCity();
   $scope.hotCity = CityService.getHotCities();
   $scope.allCity = CityService.getAllCities();
   $scope.goBack = function() {
     $state.go("tabs.homeTab");
   };
+}])*/
+
+.controller('CityPickerCtrl', ['$scope', '$state', 'CityPickerService', function($scope, $state, CityService) {
+  $scope.popularCities = CityService.getPopularCities();
+  $scope.currentCity = CityService.getCurrentCity();
+  $scope.cityClicked = $scope.currentCity;
+
+  $scope.onClickCity = function(cityClicked){
+    $scope.cityClicked = cityClicked;
+  }
+
+  $scope.onClickConfirm = function(){
+    CityService.setCurrentCity($scope.cityClicked);
+    $state.go("tabs.homeTab");
+  }
 }])
 
 .controller('HomeSearchCtrl', function($scope,$state) {
@@ -28,7 +44,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   };
 })
 
-.controller('ClassTabCtrl', function($scope) {})
+.controller('ClassTabCtrl', ['$scope','$http',function($scope,$http) {
+  var requirement = [];
+
+
+  $scope.getRequire = function(){
+  }
+
+}])
 
 .controller('ChatsTabCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -160,6 +183,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   .controller('moneyAccountDetailCtrl', function($scope) {
 
   })
+    .controller('moneyAccountEntryDetailCtrl', function($scope) {
+
+    })
   .controller('moneyAccountTopUpCtrl', function($scope) {
 
   })
@@ -180,8 +206,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountInfoCtrl', ['$scope','NoticeService','$ionicActionSheet','$cordovaCamera',
-  function($scope,NoticeService,$ionicActionSheet,$cordovaCamera) {
+.controller('AccountInfoCtrl', ['$scope','$ionicActionSheet','$cordovaCamera',
+  function($scope,$ionicActionSheet,$cordovaCamera) {
 
   $scope.changeAvatger = function(){
     var options = {
@@ -225,7 +251,6 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.cameraImg = "data:image/jpeg;base64," + imageData;
   }
   function onPictureFailed(err){
-    NoticeService.loadingNotice('获取图像失败',1000);
     console.log('Get picture failed: ');
     console.log(err);
   }
@@ -256,5 +281,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 })
 
 .controller('IdentityVerificationCtrl', function($scope) {
+
+})
+
+.controller('RequirementPostCtrl', function($scope) {
 
 });

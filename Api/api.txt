@@ -1,0 +1,89 @@
+App Start:
+获取App最新版本: 
+	访问:/system/appversion?_method=get_version&platform=
+	(GET)
+	返回:error_code,version,新版本连接
+用户自动登录
+用户定位，上传当前位置经纬度以及地位城市
+
+上传设备信息
+	访问:/system/device?_method=post
+
+首页：
+获取首页轮播图
+	访问:/index/indexbanner?_method=get
+	(GET)
+	返回:error_code,轮播图列表
+获取同城前10条热门老师/10最新需求
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page
+	返回一页热门老师/最新需求列表
+分类页：
+搜索老师/需求（分页显示）
+根据下拉分类获取老师/需求（分页显示）
+
+详情页:
+根据老师id/需求id获取老师详情/需求详情
+
+选择城市:
+获取当前平台开通城市
+更新用户选择城市
+
+课程页：
+获取该用户未完成预约的需求（家长身份）/获取该用户预约的需求（老师身份）
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
+获取该用户已经预约尚未完成的课程
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
+获取该用户已经完成的课程
+	访问:/product?_method=get_product&code=
+	(POST) param: city,status,page,user
+	返回一页热门老师/最新需求列表
+发布用户需求（家长身份）/约课设置（老师身份）
+	访问:/product?_method=require
+	(POST) params:
+	
+查看对方信息
+家长预约老师
+老师预约需求，家长确认预约老师
+授课后评价
+
+消息页：
+发送消息
+获取消息
+消息推送
+获取历史消息
+
+个人主页：
+登录：
+	POST {phone,password}
+	返回: Login status, token
+注册：
+	POST {phone,验证码, password}
+	返回: Register status
+	
+获取用户个人信息
+	GET
+修改用户个人信息
+	POST
+
+用户钱包：
+	获取用户钱包
+	获取优惠券信息
+	获取明细
+	充值
+	提现
+	兑换优惠
+
+获取用户评价
+
+身份验证接口
+	实名验证接口: 上传图片、证件号、名称
+	资格验证接口: 上传图片、证件号（一般为教师资格证)
+	学历验证接口: 上传图片、证件号（毕业证或者学生证）
+	
+邀请好友（分享链接）
+	

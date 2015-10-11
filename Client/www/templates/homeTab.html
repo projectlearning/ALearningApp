@@ -2,11 +2,7 @@
   <!--位置按钮和搜索按钮-->
   <ion-nav-buttons side="left">
     <!-- todo: correct the implementation -->
-    <button class="button ion-ios-location-outline button-clear button-default" ng-click="homeLocationIconPressed()"> {{city}}</button>
-  </ion-nav-buttons>
-
-  <ion-nav-buttons side="right">
-    <button class="button button-clear icon ion-ios-plus-empty"></button>
+    <button class="button ion-ios-location-outline button-clear button-default" ui-sref="tabs.citypicker"> {{currentCity}}</button>
   </ion-nav-buttons>
 
   <ion-content class="padding">

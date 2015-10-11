@@ -1,0 +1,19 @@
+<ion-view view-title="选择城市" hide-tabs="true" class="city-select">
+  <ion-nav-buttons side="right">
+    <button class="button button-clear button-default" ng-click="onClickConfirm()">确定</button>
+  </ion-nav-buttons>
+
+  <ion-content has-bouncing="true">
+    <div class="list">
+      <div class="item item-divider">开通城市</div>
+
+      <label class="item item-radio" ng-repeat="city in popularCities" ng-click="onClickCity(city.name_zh)">
+        <input type="radio" name="group" ng-checked="city.name_zh === currentCity">
+        <div class="item-content">
+          {{city.name_zh}}
+        </div>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+    </div>
+  </ion-content>
+</ion-view>

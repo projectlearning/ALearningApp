@@ -4,24 +4,45 @@
 // the 2nd parameter is an array of 'requires'
 // 'alearn.controllers' is found in controllers.js
 // 'alearn.services' is found in services.js
-var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services','alearn.directives',
-                          'alearn.config'])
+var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services', 'alearn.directives', 'alearn.config', 'ngCordova']);
 
-app.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+app.run(['$ionicPlatform','$rootScope','cacheService','config','$cordovaDevice','$cordovaAppVersion',
+  function($ionicPlatform,$rootScope,cacheService,config,$cordovaDevice,$cordovaAppVersion) {
+    $rootScope.user = {};
+    $rootScope.user.token = cacheService.system.get('SESSIONID') || "";
+    $ionicPlatform.ready(function() {
+      console.log('Platform ready');
+      config.platform = ionic.Platform.platform();
+      config.os_version = ionic.Platform.version();
+      config.uuid = $cordovaDevice.getUUID();
+      config.model = $cordovaDevice.getModel();
+      $cordovaAppVersion.getVersionNumber().then(function (version){
+        config.version = version;
+        var r = versionService.check(config.platform);
+        r.success(function(data){
+          if(data.error == 0)
+          {
+            if(config.version != data.version)
+            {
+              console.log(config.version);
+            }
+          }
+        });
+      });
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+    // for form inputs)  
+      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
-    }
+      }
+      if (window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleLightContent();
+      }
   });
-})
+}])
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // ====================================================
@@ -49,6 +70,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // Each tab has its own nav history stack:
 
   .state('tabs.homeTab', {
+    cache: false, // to-do: temporarily workaround for refreshing the page, we would still like to have cache mechanism
     url: '/home',
     views: {
       'homeTab': {
@@ -57,10 +79,14 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
-    .state('homeCitySelect', {
-      url: '/homeCitySelect',
-      templateUrl: 'templates/homeCitySelect.html',
-      controller: 'HomeCitySelectCtrl'
+    .state('tabs.citypicker', {
+      url: '/citypicker',
+      views: {
+        'homeTab': {
+          templateUrl: 'templates/public/citypicker.html',
+          controller: 'CityPickerCtrl'
+        }
+      }
     })
 
     .state('homeSearch', {
@@ -152,6 +178,15 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+      .state('tabs.moneyAccountEntryDetail', {
+        url: '/account/money/moneyAccountEntryDetail',
+        views: {
+          'accountTab': {
+            templateUrl: 'templates/account/moneyAccount/moneyAccountEntryDetail.html',
+            controller: 'moneyAccountEntryDetailCtrl'
+          }
+        }
+      })
     .state('tabs.moneyAccountTopUp', {
       url: '/account/money/topUp',
       views: {
@@ -267,6 +302,16 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       'accountTab': {
         templateUrl: 'templates/verification/identityVerification.html',
         controller: 'IdentityVerificationCtrl'
+      }
+    }
+  })
+
+  .state('tabs.requirementPost', {
+    url: '/requirement/post',
+    views: {
+      'classTab': {
+        templateUrl: 'templates/requirement/post.html',
+        controller: 'RequirementPostCtrl'
       }
     }
   });

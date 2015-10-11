@@ -1,4 +1,4 @@
-angular.module('alearn.services', ['ionic'])
+angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -49,70 +49,43 @@ angular.module('alearn.services', ['ionic'])
   };
 })
 
-.factory('HomeBanner',function(){
-  // Might use a resource here that returns a JSON array
+.factory('CityPickerService',function(){
 
-  // Some fake testing data
-  var banners = [{
-    id: 0,
-    image: 'img/home-slider01.jpg',
-    title: '',
-    url: ''
-  }, {
-    id: 1,
-    image: 'img/home-slider02.jpg',
-    title: '',
-    url: ''
-  }];
+  if (null === window.localStorage.getItem("currentCity"))
+  {
+    window.localStorage.setItem("currentCity", '广州');
+  }
 
-  return {
-    all: function() {
-      return banners;
-    },
-  };
-})
-
-.factory('CityService',function(){
   var cities = {
-    nowCity: '广州',
-    hotCity: [{
+    popularCities: [{
       id: 0,
-      name: '广州'
+      name_zh: '广州',
+      name_en: 'Guang Zhou'
     },{
       id: 1,
-      name: '佛山'
+      name_zh: '佛山',
+      name_en: 'Fo Shan'
     },{
       id: 2,
-      name: '深圳'
+      name_zh: '深圳',
+      name_en: 'Shen Zhen'
     }],
-    allCity: [{
-      id: 0,
-      name: '广州'
-    },{
-      id: 1,
-      name: '佛山'
-    },{
-      id: 2,
-      name: '深圳'
-    }]
   };
 
   return {
-    getNowCity: function(){
-      return cities.nowCity;
+    getCurrentCity: function(){
+      return window.localStorage.getItem("currentCity");
     },
-    changeCity: function(city)
-    {
-      cities.nowCity=city;
-      return cities;
+    setCurrentCity: function(city){
+      window.localStorage.setItem("currentCity", city);
     },
-    getHotCities: function()
+    getPopularCities: function()
     {
-      return cities.hotCity;
+      return cities.popularCities;
     },
     getAllCities: function()
     {
-      return cities.allCity;
+      return cities.allCities;
     }
   };
 })
@@ -128,77 +101,87 @@ angular.module('alearn.services', ['ionic'])
     getAccount: function(){
       return account;
     },
-
     login: function(user){
 
     }
   };
 })
 
-/*Connection Service*/
-.factory('ConnectionService', function(Connection)
-{
-  var states = {};
-  states[Connection.UNKNOWN]  = 'Unknown connection';
-  states[Connection.ETHERNET] = 'Ethernet connection';
-  states[Connection.WIFI]     = 'WiFi connection';
-  states[Connection.CELL_2G]  = 'Cell 2G connection';
-  states[Connection.CELL_3G]  = 'Cell 3G connection';
-  states[Connection.CELL_4G]  = 'Cell 4G connection';
-  states[Connection.CELL]     = 'Cell generic connection';
-  states[Connection.NONE]     = 'No network connection';
+/*App 版本服务*/
+.factory('versionService',['$http','config',function($http,config){
   return {
-    getConnectionStatus: function(){
-      var networkState = navigator.connection.type;
-      console.log(states[networkState]);
-      return states[networkState];
+    check: function(platform){
+      var r = $http.get(config.api + "/system/appversion?_method=get_version&platform=" + platform);
+      return r;
     },
-    isConnected: function(){
-      return navigator && navigator.connection && navigator.connection.type != Connection.UNKNOWN;
-    }
-  }
-})
+    show: function(){
 
-/*Warning Form*/
-.factory('NoticeService', ['$timeout','$ionicLoading',function($timeout,$ionicLoading){
-  return {
-    loadingNotice: function(msg, timeout){
-      if(!msg)
-        return;
-      $ionicLoading.show({
-        template: msg,
-        noBackdrop: true
-      });
-      $timeout(function(){
-                $ionicLoading.hide();
-            }, timeout || 1000);
     }
   }
 }])
 
-/*Config Service*/
-.factory('ConfigService',['$cordovaAppVersion','$ionicLoading',
-  function($cordovaAppVersion,$ionicLoading){
-  var config = {
-    platform: {
-      serverUrl: '',
-      version: ''
-    },
-    pattern: {
-      phone: '/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/',
-      identityCard: '(^\d{15}$)|(^\d{17}([0-9]|X)$)',
+/*首页轮播图*/
+.factory('BannerService',['$http','config',function($http,config){
+  var banners = [{
+    id: 0,
+    image: 'img/home-slider01.jpg',
+    title: '',
+    url: ''
+  }, {
+    id: 1,
+    image: 'img/home-slider02.jpg',
+    title: '',
+    url: ''
+  }];
+
+  return {
+    get: function() {
+      var r = $http.get(config.api + "/index/indexbanner?_method=get");
+      r.success(function(data){
+        if(data.error === 0)
+        {
+          //banners = data.list;
+        }
+      });
+      return banners;
     },
   };
+}])
 
-  return{
-    checkAppVersion: function(){
-      $cordovaAppVersion.getVersionNumber().then(function(version){
-        $ionicLoading.show({
-          template: '检测版本中...'
+.factory('productService',['$http','config','$rootScope',
+  function($http,config,$rootScope){
+    return {
+      getHot: function(){
+        var r = $http.post(config.api + "/product?_method=get_product",{
+          city: $rootScope.user.city,
+          status: $rootScope.user.status
         });
-        config.platform.version = version;
-        window.localStorage[version] = version;
-      });
+        var list = {};
+        r.success(function(data){
+          if(data.error === 0)
+          {
+            list = data.list;
+          }
+        });
+        return list;
+      }
     }
+  }])
+
+/*Local Cache*/
+.factory('cacheService',['$cacheFactory',function($cacheFactory){
+  return {
+    product: $cacheFactory('cacheProduct', {
+      maxAge: 9e5,
+      cacheFlushInterval: 9e5,
+      deleteOnExpire: "aggressive",
+      storageMode: "localStorage",
+      storagePrefix: "product"
+    }),
+    system: $cacheFactory("cacheSystem", {
+      deleteOnExpire: "aggressive",
+      storageMode: "localStorage",
+      storagePrefix: "system"
+    })
   }
 }])
