@@ -68,7 +68,7 @@ CREATE TABLE Successful_Cases
     PRIMARY KEY (SuccessfulCasesID)
 };
 
-CREATE TABLE Verifications
+CREATE TABLE Verification
 {
     VerificationID          BIGINT,
     UserID                  BIGINT,
