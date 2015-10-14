@@ -1,0 +1,20 @@
+responseStr                                     meaning
+Success                                         All successful
+
+Register_Wrong_Verification_Code                
+
+Login_Fail
+Login_Forgot_Phone_Number_Not_Exist
+
+Account_Info_Update_Fail_Email_Already_Exist
+Account_Info_Update_Fail
+
+Teaching_Records_Update_Fail
+Teaching_Records_Insert_Fail
+Teaching_Records_Delete_Fail
+
+
+Successful_Cases_Update_Fail
+Successful_Cases_Insert_Fail
+Successful_Cases_Delete_Fail
+
