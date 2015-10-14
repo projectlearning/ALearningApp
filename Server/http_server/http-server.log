@@ -1,0 +1,58 @@
+
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 516] - DEBUG - epollin datas: 
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 516] - DEBUG - epollin datas: 
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 516] - DEBUG - epollin datas: 
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 528] - DEBUG - fd: 10, read---------------GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 528] - DEBUG - fd: 10, read---------------GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+2015-09-19 23:06:08,940 - [9254-140206920865600] - [run_main - 528] - DEBUG - fd: 10, read---------------GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 180] - DEBUG - GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 180] - DEBUG - GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 180] - DEBUG - GET /accountservice.get?cid=1 HTTP/1.1
+Host: 127.0.0.1:8989
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 218] - DEBUG - self.command: get, self.path: /accountservice.get?cid=1, self.http_version: HTTP/1.1, self.action: accountservice, self.method: get, self.headers: {'accept-language': 'en-US,en;q=0.5', 'accept-encoding': 'gzip, deflate', 'host': '127.0.0.1:8989', 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0', 'connection': 'keep-alive'}
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 218] - DEBUG - self.command: get, self.path: /accountservice.get?cid=1, self.http_version: HTTP/1.1, self.action: accountservice, self.method: get, self.headers: {'accept-language': 'en-US,en;q=0.5', 'accept-encoding': 'gzip, deflate', 'host': '127.0.0.1:8989', 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0', 'connection': 'keep-alive'}
+2015-09-19 23:06:08,941 - [9254-140206862202624] - [parse - 218] - DEBUG - self.command: get, self.path: /accountservice.get?cid=1, self.http_version: HTTP/1.1, self.action: accountservice, self.method: get, self.headers: {'accept-language': 'en-US,en;q=0.5', 'accept-encoding': 'gzip, deflate', 'host': '127.0.0.1:8989', 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:39.0) Gecko/20100101 Firefox/39.0', 'connection': 'keep-alive'}
+2015-09-19 23:06:09,078 - [9254-140206920865600] - [run_main - 571] - DEBUG - keepalive
+2015-09-19 23:06:09,078 - [9254-140206920865600] - [run_main - 571] - DEBUG - keepalive
+2015-09-19 23:06:09,078 - [9254-140206920865600] - [run_main - 571] - DEBUG - keepalive
