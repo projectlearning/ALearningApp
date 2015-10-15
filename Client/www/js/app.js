@@ -9,7 +9,7 @@ var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.servi
 app.run(['$ionicPlatform','$rootScope','cacheService','config','$cordovaDevice','$cordovaAppVersion',
   function($ionicPlatform,$rootScope,cacheService,config,$cordovaDevice,$cordovaAppVersion) {
     $rootScope.user = {};
-    $rootScope.user.token = cacheService.system.get('SESSIONID') || "";
+    $rootScope.user.token = cacheService.system.get('TOKEN') || "";
     $ionicPlatform.ready(function() {
       console.log('Platform ready');
       config.platform = ionic.Platform.platform();

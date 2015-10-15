@@ -88,12 +88,13 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountRegisterCtrl', ['$scope','$timeout','$cordovaToast',
-  function($scope,$timeout,$cordovaToast) {
+.controller('AccountRegisterCtrl', ['$scope','$timeout','$ionicLoading',
+  function($scope,$timeout,$ionicLoading) {
+    $scope.register = {};
     $scope.verifyFlag = 0;
     $scope.sendSMS = function(){
       if(!$scope.register.username){
-        $cordovaToast.show.show('用户名不能为空', 'short', 'center')
+        $cordovaToast.show.show(responseStr['Phone_Not_Empty'], 'short', 'center')
           .then(function(success) {
         // success
         }, function (error) {
@@ -111,58 +112,109 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     }
 
     $scope.register = function(){
+      if(!$scope.register.phone)
+      {
+        $ionicLoading.show({template: responseCode['Phone_Not_Empty'],duration: 1000});
+        return false;
+      };
+      if(!pattern['mobile'].test($scope.register.phone))
+      {
+        $ionicLoading.show({template: responseCode['Phone_Not_Right'],duration: 1000});
+        return false;
+      };
+      if (!$scope.register.password) {
+        $ionicLoading.show({template:responseCode['Password_Not_Empty'],duration: 1000});
+        return false;
+      };
+      if(!$scope.register.veriSMSCode) {
+        $ionicLoading.show({template: responseCode['Verification_Code_Not_Empty'],duration: 1000});
+        return false;
+      };
+      if(!checkSMSCode())
+      {
+        $ionicLoading.show({template: responseCode['Register_Wrong_Verification_Code'],duration: 1000});
+        return false;
+      }
+      $ionicLoading.show({
+        template: responseCode['Registering']
+      });
+      $http.post(config.url + '/account/register',{
+        phone: $scope.register.phone,
+        password: $scope.register.phone
+        }).success(function(data){
+        $ionicLoading.hide();
+        if(data.responseStr == "Success")
+        {
+            $rootScope.user.isSign = 1;
+            $rootScope.user.id = data.userID;
+            $rootScope.user.token = data.token;
+            cacheService.system.put('USERID',$rootScope.user.token);
+            cacheService.system.put('TOKEN',$rootScope.user.token);
+        }
+        else
+        {
+          $ionicLoading.show({template: responseCode[data.responseStr],duration: 1000});
+          return false;
+        }
+      }).error(function(data){
+        $ionicLoading.hide();
+        $ionicLoading.show({template: responseCode['Register_Fail'],duration: 1000});
+        return false;
+      });
 
+      $state.go("tabs.homeTab");
     }
 }])
 
-.controller('AccountLoginCtrl', ['$scope','$timeout','$ionicLoading','$state','$cordovaToast',
-  function($scope,$timeout,$ionicLoading,$state,$cordovaToast) {
-
-  $scope.login = function() {
-    if (!$scope.login.username) {
-      $cordovaToast.show('用户名不能为空', 'short', 'center')
-        .then(function(success) {
-      // success
-      }, function (error) {
-      // error
-      });
+.controller('AccountLoginCtrl', function($scope,$timeout,$ionicLoading,$state,$cordovaToast,$http,config,$rootScope,cacheService) {
+  $scope.login={};
+  $scope.doLogin = function() {
+    if (!$scope.login.phone) {
+      $ionicLoading.show({template: responseCode['Phone_Not_Empty'],duration: 1000});
       return false;
     };
     if (!$scope.login.password) {
-      $cordovaToast.show('密码不能为空', 'short', 'center')
-        .then(function(success) {
-      // success
-      }, function (error) {
-      // error
-      });
+      $ionicLoading.show({template: responseCode['Password_Not_Empty'],duration: 1000});
+      return false;
+    };
+    if(!pattern['mobile'].test($scope.login.phone))
+    {
+      $ionicLoading.show({template: responseCode['Phone_Not_Right'],duration: 1000});
       return false;
     };
     $ionicLoading.show({
-      template: "正在登录..."
+      template: responseCode['Logining']
     });
-    $timeout(function() {
+    /*$timeout(function() {
       $ionicLoading.hide();
-    }, 1400);
+    }, 1400);*/
+    $http.post(config.url + '/account/login',{
+      phone: $scope.login.phone,
+      password: $scope.login.phone
+    }).success(function(data){
+      $ionicLoading.hide();
+      if(data.responseStr == "Success")
+      {
+          $rootScope.user.isSign = 1;
+          $rootScope.user.id = data.userID;
+          $rootScope.user.token = data.token;
+          cacheService.system.put('USERID',$rootScope.user.token);
+          cacheService.system.put('TOKEN',$rootScope.user.token);
+      }
+      else
+      {
+        $ionicLoading.show({template: responseCode[data.responseStr],duration: 1000});
+        return false;
+      }
+    }).error(function(data){
+      $ionicLoading.hide();
+      $ionicLoading.show({template: responseCode['Login_Fail'],duration: 1000});
+      return false;
+    });
 
     $state.go("tabs.homeTab");
-    /*$http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
-      user: $scope.loginData.username,
-      password: $scope.loginData.password
-    }).success(function(data) {
-      $ionicLoading.hide();
-      if (data.error != 0) {
-        $scope.showMsg(data.info);
-      } else {
-        Userinfo.save(data.user_info);
-        Userinfo.add('flag', 1);
-        $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
-        $scope.flag = 1;
-        $scope.closeLogin();
-      }
-    });*/
   }
-}])
+})
 
 .controller('AccountMoneyCtrl', function($scope,$ionicScrollDelegate) {
   $scope.isActive = 'a', $scope.isb = true, $scope.isTab = false;

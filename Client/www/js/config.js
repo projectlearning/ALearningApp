@@ -15,7 +15,3 @@ angular.module('alearn.config',['ionic'])
   address_city: "",
   user_status: ""
 })
-.constant('patterns',{
-  mobile: /^1\d{10}$/,
-  email: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,
-})

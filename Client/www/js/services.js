@@ -92,7 +92,7 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
 
 .factory('AccountService', function(){
   var account = {
-    loginFlag: 1,
+    loginFlag: 0,
     username: 'Ant',
     tel: '12345678',
   };
