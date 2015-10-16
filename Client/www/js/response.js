@@ -8,4 +8,5 @@ var responseCode = {
   	Logining: "正在登录...",
   	Registering: "正在注册..",
   	Register_Fail: "注册失败",
+    Network_Error: "网络连接失败",
   }

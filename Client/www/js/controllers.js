@@ -80,7 +80,27 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountTabCtrl',['$scope','AccountService',function($scope,AccountService) {
+.controller('AccountTabCtrl',['$scope','AccountService','$rootScope','cacheService','$http','config',
+  function($scope,AccountService,$rootScope,cacheService,$http,config) {
+  $scope.loginFlag = $rootScope.user.isSign;
+  if($rootScope.user.isSign)
+  {
+    $http.get(config.url + '/account/' + $rootScope.user.id).success(function(data){
+      if(data.responseStr == 'Success')
+      {
+        $scope.account = data.user;
+        $scope.account.phone = $rootScope.user.phone;
+      }
+      else
+      {
+        $ionicLoading.show({template: responseCode[data.responseStr],duration: 1000});
+        return false;
+      }
+    }).error(function(data){
+      $ionicLoading.show({template: responseCode['Network_Error'],duration: 1000});
+      return false;
+    });
+  }
   $scope.account = AccountService.getAccount();
 }])
 
@@ -88,27 +108,50 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountRegisterCtrl', ['$scope','$timeout','$ionicLoading',
-  function($scope,$timeout,$ionicLoading) {
+.controller('AccountRegisterCtrl', ['$scope','$timeout','$ionicLoading','cacheService','config',
+  function($scope,$timeout,$ionicLoading,cacheService,config) {
     $scope.register = {};
     $scope.verifyFlag = 0;
+    $scope.SMSTime = 0;
     $scope.sendSMS = function(){
-      if(!$scope.register.username){
-        $cordovaToast.show.show(responseStr['Phone_Not_Empty'], 'short', 'center')
-          .then(function(success) {
-        // success
-        }, function (error) {
-        // error
-        });
+      if(!$scope.register.phone){
+        $ionicLoading.show({template: responseCode['Phone_Not_Empty'],duration: 1000});
         return false;
+      };
+      if(!pattern['mobile'].test($scope.register.phone))
+      {
+        $ionicLoading.show({template: responseCode['Phone_Not_Right'],duration: 1000});
+        return false;
+      };
+      var code = "";
+      for(var i=0;i < 6;i ++)
+      {
+        code += Math.floor(Math.random()*10);
       }
+      $scope.SMSCode = code;
+      cacheService.system.put('SMSCODE',$scope.SMSCode);
+      $ionicLoading.show({template: $scope.SMSCode,duration: 1000});
+      keepTime();
       $scope.verifyFlag = 1;
-
     };
 
-    function checkSMSCode()
+    function keepTime(time){
+      if(time <= 0)
+        return $scope.SMSTime = 0;
+      time = time || config.sms_maxtime;
+      $timeout(function(){
+        $scope.SMSTime = time - 1;
+        keepTime(time - 1);
+      }, 1000);
+    }
+
+    function checkSMSCode(code)
     {
-      return true;
+      $scope.SMSCode = cacheService.system.get('SMSCODE');
+      
+      if(code == $scope.SMSCode)
+        return true;
+      return false;
     }
 
     $scope.register = function(){
@@ -130,7 +173,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.show({template: responseCode['Verification_Code_Not_Empty'],duration: 1000});
         return false;
       };
-      if(!checkSMSCode())
+      if(!checkSMSCode($scope.register.veriSMSCode))
       {
         $ionicLoading.show({template: responseCode['Register_Wrong_Verification_Code'],duration: 1000});
         return false;
@@ -145,11 +188,13 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.hide();
         if(data.responseStr == "Success")
         {
-            $rootScope.user.isSign = 1;
+            $rootScope.user.isSign = true;
             $rootScope.user.id = data.userID;
             $rootScope.user.token = data.token;
+            $rootScope.user.phone = $scope.register.phone;
             cacheService.system.put('USERID',$rootScope.user.token);
             cacheService.system.put('TOKEN',$rootScope.user.token);
+            cacheService.system.put('USERPHONE',$rootScope.user.phone);
         }
         else
         {
@@ -198,8 +243,10 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           $rootScope.user.isSign = 1;
           $rootScope.user.id = data.userID;
           $rootScope.user.token = data.token;
-          cacheService.system.put('USERID',$rootScope.user.token);
-          cacheService.system.put('TOKEN',$rootScope.user.token);
+          $rootScope.user.phone = $scope.login.phone;
+            cacheService.system.put('USERID',$rootScope.user.token);
+            cacheService.system.put('TOKEN',$rootScope.user.token);
+            cacheService.system.put('USERPHONE',$rootScope.user.phone);
       }
       else
       {
@@ -258,8 +305,25 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 })
 
-.controller('AccountInfoCtrl', ['$scope','$ionicActionSheet','$cordovaCamera',
-  function($scope,$ionicActionSheet,$cordovaCamera) {
+.controller('AccountInfoCtrl', ['$scope','$ionicActionSheet','$cordovaCamera','config','$http','$rootScope',
+  function($scope,$ionicActionSheet,$cordovaCamera,config,$http,$rootScope) {
+
+    $http.get(config.url + '/account/' + $rootScope.user.id).success(
+      function(data){
+        if(data.responseStr == 'Success')
+        {
+          $scope.account = data.user;
+          $scope.account.phone = $rootScope.user.phone;
+        }
+        else
+        {
+          $ionicLoading.show({template: responseCode[data.responseStr],duration: 1000});
+          return false;
+        }
+      }).error(function(data){
+          $ionicLoading.show({template: responseCode['Network_Error'],duration: 1000});
+          return false;
+      });
 
   $scope.changeAvatger = function(){
     var options = {

@@ -13,5 +13,6 @@ angular.module('alearn.config',['ionic'])
   longitude: 0,
   signature: '',
   address_city: "",
-  user_status: ""
+  user_status: "",
+  sms_maxtime: 30,
 })
