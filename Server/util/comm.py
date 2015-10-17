@@ -26,26 +26,6 @@ class clientaccount:
         self.lastlogintime = lastlogintime
         self.createtime = createtime
 
-class user:
-    def __init__(self, AcademicQualification = 0, TotalNumOfClassInTimes = 0, AddressForClass = "", FirstName = "", TeacherCertifeVerification = 0, LastName = "", GraduateFrom = "", UserID = 0, UserType = 0, IDCardVerification = 0, ProfilePhotoURL = "", ExperienceInYears = 0, GraduationCertificateVerification = 0, UserProfileID = 0, TotalNumOfClassInHours = 0, OverallRate = 0.0, GoodRate = 0.0):
-        self.AcademicQualification = AcademicQualification
-        self.TotalNumOfClassInTimes = TotalNumOfClassInTimes
-        self.AddressForClass = AddressForClass
-        self.FirstName = FirstName
-        self.TeacherCertifeVerification = TeacherCertifeVerification
-        self.LastName = LastName
-        self.GraduateFrom = GraduateFrom
-        self.UserID = UserID
-        self.UserType = UserType
-        self.IDCardVerification = IDCardVerification
-        self.ProfilePhotoURL = ProfilePhotoURL
-        self.ExperienceInYears = ExperienceInYears
-        self.GraduationCertificateVerification = GraduationCertificateVerification
-        self.UserProfileID = UserProfileID
-        self.TotalNumOfClassInHours = TotalNumOfClassInHours
-        self.OverallRate = OverallRate
-        self.GoodRate = GoodRate
-
 class userprofile:
     def __init__(self, AcademicQualification = 0, TotalNumOfClassInTimes = 0, AddressForClass = "", FirstName = "", TeacherCertifeVerification = 0, LastName = "", GraduateFrom = "", UserID = 0, UserType = 0, IDCardVerification = 0, ProfilePhotoURL = "", ExperienceInYears = 0, GraduationCertificateVerification = 0, UserProfileID = 0, TotalNumOfClassInHours = 0, OverallRate = 0.0, GoodRate = 0.0):
         self.AcademicQualification = AcademicQualification
@@ -91,3 +71,12 @@ class verification:
         self.UploadImageFrontURL = UploadImageFrontURL
         self.UploadImageBackURL = UploadImageBackURL
         self.VerificationStatus = VerificationStatus
+
+class user:
+    def __init__(self, Username = "", UserID = 0, PhoneNum = "", Token = "", Password = "", Email = ""):
+        self.Username = Username
+        self.UserID = UserID
+        self.PhoneNum = PhoneNum
+        self.Token = Token
+        self.Password = Password
+        self.Email = Email

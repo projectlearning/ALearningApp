@@ -71,17 +71,17 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
     get_str += addtab(tab)
     get_str += addtab(tab)+ ("sql = \"Select * from account where %s = \'%s\'\" %% (%s)" % (prikey, formatFromType(itemdict[prikey]), prikey))
 
-    get_str += addtab(tab)+"try:"+addtab(tab+1)+"self.__cursor.execute(sql)"+addtab(tab)+"results = self.__cursor.fetchall()"+addtab(tab)+"for row in results:"
+    get_str += addtab(tab)+"try:"+addtab(tab+1)+"self.__cursor.execute(sql)"+addtab(tab+1)+"results = self.__cursor.fetchall()"+addtab(tab+1)+"for row in results:"
     for index in xrange(itemlen):
-        get_str += addtab(tab+2) + "%s = row[%d]" % (itemlist[index], index)
-    get_str += addtab(tab+2) + "%s = st_%s(" % (tablename, tablename)
+        get_str += addtab(tab+1) + "%s = row[%d]" % (itemlist[index], index)
+    get_str += addtab(tab+1) + "%s = st_%s(" % (tablename, tablename)
     for index in xrange(itemlen):
         if index == itemlen - 1:
             get_str += "%s)" % (itemlist[index])
         else:
             get_str += "%s, " % (itemlist[index])
     get_str += addtab(tab+1) + "return DB_OK, st_%s" % (tablename)
-    get_str += addtab(tab) + "Exception, e:" + addtab(tab+1) + "return DB_GET_FAIL"
+    get_str += addtab(tab) + "except Exception, e:" + addtab(tab+1) + "return DB_GET_FAIL"
     outhandle.write(get_str+'\n')
 
     #db add
@@ -91,7 +91,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
     for op in ops:
         mod_str = ""
         if op == "Insert":
-            func = addtab(1) + "def add_%s(self, st_%s)" % (tablename, tablename)
+            func = addtab(1) + "def add_%s(self, st_%s):" % (tablename, tablename)
             pre = ""
             mid = ""
             post = ""
@@ -108,7 +108,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
             err_code = "DB_ADD_FAIL"
 
         elif op == "Update":
-            func = addtab(1) + "def update_%s(self, st_%s)" % (tablename, tablename)
+            func = addtab(1) + "def update_%s(self, st_%s):" % (tablename, tablename)
             pre = ""
             mid = "Where %s = \'%s\'\" %% (" % (prikey, formatFromType(itemdict[prikey]))
             post = ""
@@ -123,7 +123,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
             sql = addtab(2)+"sql = \"Update %s Set " % (tablename) + pre + mid + post
             err_code = "DB_UPDATE_FAIL"
         elif op == "Delete":
-            func = addtab(1) + "def del_%s(self, st_%s)" % (tablename, tablename)
+            func = addtab(1) + "def del_%s(self, st_%s):" % (tablename, tablename)
             sql = addtab(2)+"sql = \"Delete From %s where %s = \'%s\'\" %% (%s)" % (tablename, prikey, formatFromType(itemdict[prikey]), prikey)
             err_code = "DB_DEL_FAIL"
 

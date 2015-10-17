@@ -11,6 +11,9 @@ import cgi
 from StringIO import StringIO
 import logging
 import getopt
+import json
+
+import accountservice
 
 sys.path.append("../util")
 from util import *
@@ -221,6 +224,8 @@ class QuickHttpRequest(object):
         self.form = dict()
         self.filedic = dict()
         self.body = ""
+
+        print "ison: post: %s" % self.command
         
         if self.command == "get" and "?" in self.path:
             parse_query(self.path.split("?").pop(), self.query_dict)
@@ -240,7 +245,9 @@ class QuickHttpRequest(object):
         elif self.command == "post":
             self.body = data[headend+4:]
             logger.debug("self.body: %s" % (self.body))
-            parse_query(self.body, self.form)
+            #parse_query(self.body, self.form)
+            self.form = json.loads(self.body)
+            print self.body, self.form
 
 class Worker(object):
     def __init__(self):
@@ -312,12 +319,18 @@ class Worker(object):
 
         try:
             #logger.debug("headers: %s, request.res_headers: %s" % (headers, request.res_headers))
-            headers["Content-Type"] = "text/html;charset=utf-8"
+            #headers["Content-Type"] = "text/html;charset=utf-8"
+            headers["Content-Type"] = "application/json"
+            headers["Access-Control-Allow-Origin"] = "*"
             if request.keepalive == True:
                 headers["Connection"] = "keep-alive"
 
             action_key = request.action
             obj = self._obj_dict.get(action_key, None)
+            #print data
+            #print action_key
+            #obj = data.get(action_key, None)
+            #print obj
             load_time = self._mtime_dict.get(action_key, None)
 
             auto_update, action, mtime = self.getGloabalAction(action_key)
@@ -327,11 +340,13 @@ class Worker(object):
                 obj = eval("action.%s()" % action_key)
                 self._obj_dict[action_key] = obj
 
+            print action_key, str(obj)
             method = getattr(obj, request.method)
             res = method(request, headers)
 
             if res == None:
                 return None
+
         except Exception, e:
             logger.error(str(e) + getTraceStackMsg())
             res = "404 Not Found"
@@ -341,6 +356,7 @@ class Worker(object):
                 data["keepalive"] = True
             else:
                 data["keepalive"] = False
+            print res
             res_len = len(res)
             headers["Content-Length"] = res_len
             for key in headers:
@@ -349,6 +365,7 @@ class Worker(object):
                 data["writedata"] = "HTTP/1.1 404 Not Found\r\n%s\r\n%s" % (add_head, res)
             else:
                 data["writedata"] = "HTTP/1.1 200 OK\r\n%s\r\n%s" % (add_head, res)
+            print "response data: %s" % data["writedata"]
         
             epoll_fd.modify(fd, select.EPOLLOUT | select.EPOLLIN | select.EPOLLERR | select.EPOLLHUP)
         except Exception, e:
@@ -472,7 +489,7 @@ def clearfd(epoll_fd, params, fd):
     except Exception, e:
         pass
 
-def run_main(listen_fd):
+def run_main(listen_fd, service):
     try:
         epoll_fd = select.epoll()
         epoll_fd.register(listen_fd.fileno(), select.EPOLLIN | select.EPOLLERR | select.EPOLLHUP)
@@ -499,10 +516,11 @@ def run_main(listen_fd):
                         conn.setblocking(0)
                         epoll_fd.register(conn.fileno(), select.EPOLLIN | select.EPOLLERR | select.EPOLLHUP)
                         conn.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                        params[conn.fileno()] = {"addr":addr, "writelen":0, "connections":conn, "time":cur_time}
+                        params[conn.fileno()] = {"addr":addr, "writelen":0, "connections":conn, "time":cur_time, "accountservice":accountservice}
                     except socket.error, msg:
                         break
             elif select.EPOLLIN & events:
+                print "epollin"
                 param = params.get(fd, None)
                 #print "epollin: %d, params: %s\n\n" % (fd, str(param))               
                 #printdict(param)
@@ -531,6 +549,7 @@ def run_main(listen_fd):
                     except socket.error, msg:
                         if msg.errno == errno.EAGAIN:
                             #print datas
+                            print datas
                             success_parse = http_parse(param, datas, read_len)
                             if success_parse == ERR_HTTP_OK:
                                 tp.add_job(param, epoll_fd, fd) 
@@ -567,6 +586,7 @@ def run_main(listen_fd):
                     try: 
                         sendLen += cur_sock.send(writedata[sendLen:])
                         if sendLen == total_write_len:
+                            print "sendlen: %s" % sendLen
                             if param.get("keepalive", True): #default: keep alive
                                 logger.debug("keepalive")
                                 param["writedata"] = ""
@@ -633,12 +653,15 @@ if __name__ == "__main__":
     loginit()
    
     opts, args = getopt.getopt(sys.argv[1:], "hdi:p:", ["help"])
+    configname = ""
+    port = 8989
 
     for opt, arg in opts:
         if opt in ('-h', '--help'):
             print usage() 
         elif opt == '-i':
             configname = arg
+            print configname
         elif opt == '-p':
             port = int(arg)
         elif opt == '-d':
@@ -672,5 +695,7 @@ if __name__ == "__main__":
     #    newpid = os.fork()
     #    if newpid == 0:
     #        run_main(listen_fd)
-    run_main(listen_fd)
+
+    service = accountservice.accountservice(configname)
+    run_main(listen_fd, service)
                             
