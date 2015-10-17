@@ -1,7 +1,7 @@
 angular.module('alearn.config',['ionic'])
 
 .constant('config',{
-  url: "",
+  url: "http://localhost:8080/",
   host: "",
   api: "",
   version: "",
