@@ -1,4 +1,4 @@
-angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
+angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -49,8 +49,9 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   };
 })
 
-.factory('CityPickerService',function(){
 
+
+.factory('CityPickerService', function() {
   if (null === window.localStorage.getItem("currentCity"))
   {
     window.localStorage.setItem("currentCity", '广州');
@@ -73,24 +74,24 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   };
 
   return {
-    getCurrentCity: function(){
+    getCurrentCity: function() {
       return window.localStorage.getItem("currentCity");
     },
-    setCurrentCity: function(city){
+    setCurrentCity: function(city) {
       window.localStorage.setItem("currentCity", city);
     },
-    getPopularCities: function()
-    {
+    getPopularCities: function() {
       return cities.popularCities;
     },
-    getAllCities: function()
-    {
+    getAllCities: function() {
       return cities.allCities;
     }
   };
 })
 
-.factory('AccountService', function(){
+
+
+.factory('AccountService', function() {
   var account = {
     loginFlag: 0,
     username: 'Ant',
@@ -98,30 +99,34 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   };
 
   return {
-    getAccount: function(){
+    getAccount: function() {
       return account;
     },
-    login: function(user){
+    login: function(user) {
 
     }
   };
 })
 
+
+
 /*App 版本服务*/
-.factory('versionService',['$http','config',function($http,config){
+.factory('versionService', ['$http', 'config', function($http, config) {
   return {
-    check: function(platform){
+    check: function(platform) {
       var r = $http.get(config.api + "/system/appversion?_method=get_version&platform=" + platform);
       return r;
     },
-    show: function(){
+    show: function() {
 
     }
   }
 }])
 
+
+
 /*首页轮播图*/
-.factory('BannerService',['$http','config',function($http,config){
+.factory('BannerService', ['$http', 'config', function($http, config) {
   var banners = [{
     id: 0,
     image: 'img/home-slider01.jpg',
@@ -135,29 +140,30 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   }];
 
   return {
-    get: function() {
-      var r = $http.get(config.api + "/index/indexbanner?_method=get");
-      r.success(function(data){
-        if(data.error === 0)
-        {
-          //banners = data.list;
-        }
-      });
+    getBanners: function() {
+      // var r = $http.get(config.api + "/index/indexbanner?_method=get");
+      // r.success(function(data) {
+      //   if(data.error === 0)
+      //   {
+      //     //banners = data.list;
+      //   }
+      // });
       return banners;
     },
   };
 }])
 
-.factory('productService',['$http','config','$rootScope',
-  function($http,config,$rootScope){
+
+
+.factory('productService', ['$http', 'config', '$rootScope', function($http, config, $rootScope) {
     return {
-      getHot: function(){
-        var r = $http.post(config.api + "/product?_method=get_product",{
+      getHot: function() {
+        var r = $http.post(config.api + "/product?_method=get_product", {
           city: $rootScope.user.city,
           status: $rootScope.user.status
         });
         var list = {};
-        r.success(function(data){
+        r.success(function(data) {
           if(data.error === 0)
           {
             list = data.list;
@@ -166,10 +172,12 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
         return list;
       }
     }
-  }])
+}])
+
+
 
 /*Local Cache*/
-.factory('cacheService',['$cacheFactory',function($cacheFactory){
+.factory('cacheService', ['$cacheFactory', function($cacheFactory) {
   return {
     product: $cacheFactory('cacheProduct', {
       maxAge: 9e5,
