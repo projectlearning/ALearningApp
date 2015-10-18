@@ -48,7 +48,7 @@ angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
       }
       return null;
     }
-  };
+  }
 })
 
 
@@ -109,9 +109,21 @@ angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
 
     login: function (user) {
     }
-  };
+  }
 })
 
+.factory('AccountInfoService', function () {
+
+  return {
+    getCurrentProfilePhotoURI: function () {
+      return window.localStorage.getItem("currentProfilePhotoURI");
+    },
+
+    setCurrentProfilePhotoURI: function (imageURI) {
+      window.localStorage.setItem("currentProfilePhotoURI", imageURI);
+    }
+  }
+})
 
 
 /*App 版本服务*/
@@ -154,7 +166,7 @@ angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
       // });
       return banners;
     },
-  };
+  }
 }])
 
 
@@ -213,6 +225,17 @@ angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
       }, options);
       
       return q.promise;
+    }
+  }
+}])
+
+
+.factory('debugService', ['$ionicPopup', function ($ionicPopup) {
+  return {
+    popupDebugMsg: function (message) {
+      $ionicPopup.alert({
+         template: message
+      })
     }
   }
 }]);

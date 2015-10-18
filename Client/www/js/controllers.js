@@ -80,7 +80,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('AccountTabCtrl', ['$scope', 'AccountService', '$rootScope', 'cacheService', '$http', 'config',
   function ($scope, AccountService, $rootScope, cacheService, $http, config) {
-    //$rootScope.user.isSign = true;
+    $rootScope.user.isSign = true;
     $scope.loginFlag = $rootScope.user.isSign;
     if($rootScope.user.isSign) {
       $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function (data) {
@@ -335,10 +335,19 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountInfoCtrl', ['$scope', '$ionicActionSheet', '$cordovaCamera', 'config', '$http', '$rootScope', '$ionicModal',
-  function ($scope, $ionicActionSheet,  i$cordovaCamera, config, $http, $rootScope, $ionicModal) {
+.controller('AccountInfoCtrl', ['$scope', '$ionicActionSheet', 'config', '$http', '$rootScope',
+  '$ionicModal', '$ionicPopup', 'cameraService', '$ionicLoading', 'AccountInfoService', 'debugService',
+  function ($scope, $ionicActionSheet, config, $http, $rootScope, $ionicModal, $ionicPopup,
+    cameraService, $ionicLoading, AccountInfoService, debugService) {
+
+    //debugService.popupDebugMsg(AccountInfoService.getCurrentProfilePhotoURI());
+
     $scope.update = {};
     $scope.account = {};
+
+    if (null !== AccountInfoService.getCurrentProfilePhotoURI()) {
+      $scope.ProfilePhotoURI = AccountInfoService.getCurrentProfilePhotoURI();
+    }
 
     $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(
       function (data) {
@@ -392,60 +401,46 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         });
       }
 
-  $scope.changeAvatger = function() {
+  var myPopup;
+
+  $scope.showPopup = function () {
+    // An elaborate, custom popup
+    myPopup = $ionicPopup.show({
+      scope: $scope,
+      template: '<button class="button button-full button-positive" ng-click="takePhoto(\'fromCamera\')">拍照选取</button>'
+              + '<button class="button button-full button-positive" ng-click="takePhoto(\'fromPhotoAlbum\')">从相册中选取</button>',
+      buttons: [
+        { text: '取消',
+          type: 'button-positive'
+        }
+      ]
+    });
+
+    myPopup.then(function (res) {
+      console.log('Tapped!', res);
+    });
+  };
+
+  $scope.takePhoto = function (sourceFrom) {
+    myPopup.close();
+
+    var photoSource = sourceFrom === 'fromPhotoAlbum' ? 0 : 1;
+
     var options = {
-      title: '更换头像',
-      buttonLabels: ['拍照', '从相册中选取'],
-      addCancelButtonWithLabel: '取消',
-      androidEnableCancelButton: true,
-      winphoneEnableCancelButton: true
+      quality: 100,
+      allowEdit: true,          // whether to allow editing after the photo is taken
+      sourceType: photoSource  // PHOTOLIBRARY(0): Choose image from picture library (same as SAVEDPHOTOALBUM(2) for Android); CAMERA(1)
+
     };
 
-    $cordovaActionSheet.show(options)
-      .then(function (btnIndex) {
-        switch (btnIndex) {
-          case 1:
-            getPictureFromStorage();
-            break;
-          case 2:
-            getPictureFromCamera();
-            break;
-          default:
-            break;
-        }
-      });
-  }
+    cameraService.getPicture(options).then(function (imageURI) {
+      debugService.popupDebugMsg(imageURI);
 
-  function getPictureFromCamera() {
-    var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA
-      };
-      $cordovaCamera.getPicture(options).then(onPictureSuccess, onPictureFailed);
-  }
+      $scope.ProfilePhotoURI = imageURI;
+      AccountInfoService.setCurrentProfilePhotoURI(imageURI);
 
-  function getPictureFromStorage(options) {
-    var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA
-      };
-    $cordovaCamera.getPicture(options).then(onPictureSuccess, onPictureFailed);
-  }
-
-  function onPictureSuccess(imageData) {
-    $scope.cameraImg = "data:image/jpeg;base64," + imageData;
-  }
-
-  function onPictureFailed(err) {
-    console.log('Get picture failed: ');
-    console.log(err);
-  }
-
-  function uploadImage(imageData) {
-
-  }
+    }, function (err) {}, {});
+  };
 
 }])
 
@@ -482,24 +477,17 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 .controller('IdentityVerificationCtrl', function ($scope, $ionicPopup, cameraService) {
-  $scope.showPopup = function () {
-      $scope.data = {}
+  var myPopup;
 
+  $scope.showPopup = function () {
       // An elaborate, custom popup
-      var myPopup = $ionicPopup.show({
+      myPopup = $ionicPopup.show({
         scope: $scope,
+        template: '<button class="button button-full button-positive" ng-click="takePhoto(\'fromCamera\')">拍照选取</button>'
+                + '<button class="button button-full button-positive" ng-click="takePhoto(\'fromPhotoAlbum\')">从相册中选取</button>',
         buttons: [
-          { text: '拍照选取',
-            type: 'button-positive',
-            onTap: function (e) {
-              $scope.takePhoto('fromCamera');
-            } 
-          }, {
-            text: '从相册中选取',
-            type: 'button-positive',
-            onTap: function (e) {
-              $scope.takePhoto('fromPhotoAlbum');  
-            }
+          { text: '取消',
+            type: 'button-positive'
           }
         ]
       });
@@ -510,13 +498,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     };
 
   $scope.takePhoto = function (sourceFrom) {
+    myPopup.close();
+
     var photoSource = sourceFrom === 'fromPhotoAlbum' ? 0 : 1;
 
     var options = {
       quality: 100,
       allowEdit: true,          // whether to allow editing after the photo is taken
       sourceType: photoSource,  // PHOTOLIBRARY(0): Choose image from picture library (same as SAVEDPHOTOALBUM(2) for Android); CAMERA(1)
-      saveToPhotoAlbum: false
     };
 
     cameraService.getPicture(options).then(function (imageURI) {
