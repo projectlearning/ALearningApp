@@ -10,17 +10,20 @@ var responseCode = {
   Register_Fail: "注册失败",
   Network_Error: "网络连接失败",
   Update_Success: "修改成功",
+  Updateing: "更新中...",
 };
 
-var userType = {
+/*var userType = {
   0: "家长",
   1: "已审核老师",
   2: "未审核老师",
   3: "大学生",
   4: "教育机构"
-};
+};*/
 
-var academic = {
+var userType = ["家长","已审核老师","未审核老师","大学生","教育机构"];
+
+/*var academic = {
   0: "中学",
   1: "本科",
   2: "本科",
@@ -28,4 +31,13 @@ var academic = {
   4: "硕士研究生",
   5: "博士研究生",
   6: "博士研究生"
-}
+}*/
+var academic = [
+  "中学",
+  "本科",
+  "在读本科",
+  "硕士研究生",
+  "在读硕士研究生",
+  "博士研究生",
+  "在读博士研究生"
+]

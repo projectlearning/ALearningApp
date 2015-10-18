@@ -45,7 +45,7 @@ app.run(['$ionicPlatform', '$rootScope', 'cacheService', 'config', '$cordovaDevi
   });
 }]);
 
-app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider,$httpProvider) {
   // ====================================================
   // ionic config
   // ====================================================
@@ -54,6 +54,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.tabs.style('standard'); // tab样式
   $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.navBar.alignTitle('center'); // title位置
+
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
