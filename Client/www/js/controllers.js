@@ -1,65 +1,55 @@
 angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('HomeTabCtrl', ['$scope', '$location', '$state', '$ionicModal', '$ionicHistory', 'BannerService', 'CityPickerService',
-  function($scope, $location, $state, $ionicModal, $ionicHistory, BannerService, CityPickerService) {
+  function ($scope, $location, $state, $ionicModal, $ionicHistory, BannerService, CityPickerService) {
     $scope.banners = BannerService.getBanners();
     $scope.currentCity = CityPickerService.getCurrentCity();
 
-    $scope.homeLocationIconPressed = function() {
+    $scope.homeLocationIconPressed = function () {
       $state.go("homeCitySelect");
     };
 
-    $scope.homeSearchIconPressed = function() {
+    $scope.homeSearchIconPressed = function () {
       $state.go("homeSearch");
    };
 }])
 
-/*.controller('HomeCitySelectCtrl',['$scope','$state','CityService',function($scope, $state, CityService) {
-  $scope.nowCity = CityService.getNowCity();
-  $scope.hotCity = CityService.getHotCities();
-  $scope.allCity = CityService.getAllCities();
-  $scope.goBack = function() {
-    $state.go("tabs.homeTab");
-  };
-}])*/
 
-.controller('CityPickerCtrl', ['$scope', '$state', 'CityPickerService', function($scope, $state, CityService) {
+
+.controller('CityPickerCtrl', ['$scope', '$state', 'CityPickerService', function ($scope, $state, CityService) {
   $scope.popularCities = CityService.getPopularCities();
   $scope.currentCity = CityService.getCurrentCity();
   $scope.cityClicked = $scope.currentCity;
 
-  $scope.onClickCity = function(cityClicked) {
+  $scope.onClickCity = function (cityClicked) {
     $scope.cityClicked = cityClicked;
-  }
+  };
 
-  $scope.onClickConfirm = function(){
+  $scope.onClickConfirm = function () {
     CityService.setCurrentCity($scope.cityClicked);
     $state.go("tabs.homeTab");
-  }
+  };
 }])
 
 
 
-.controller('HomeSearchCtrl', function($scope, $state) {
-  $scope.goBack = function() {
+.controller('HomeSearchCtrl', function ($scope, $state) {
+  $scope.goBack = function () {
     $state.go("tabs.homeTab");
   };
 })
 
 
 
-.controller('ClassTabCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('ClassTabCtrl', ['$scope', '$http', function ($scope, $http) {
   var requirement = [];
-
-
-  $scope.getRequire = function() {
-  }
-
+  $scope.getRequire = function () {
+  };
 }])
 
 
 
-.controller('ChatsTabCtrl', function($scope, Chats) {
+.controller('ChatsTabCtrl', function ($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -69,14 +59,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   //});
 
   $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
+  $scope.remove = function (chat) {
     Chats.remove(chat);
   };
 })
 
 
 
-.controller('ChatDetailsCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailsCtrl', function ($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 
   $scope.btn_keypad = false;
@@ -89,53 +79,48 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 .controller('AccountTabCtrl', ['$scope', 'AccountService', '$rootScope', 'cacheService', '$http', 'config',
-  function($scope, AccountService, $rootScope, cacheService, $http, config) {
-  //$rootScope.user.isSign = true;
-  $scope.loginFlag = $rootScope.user.isSign;
-  if($rootScope.user.isSign)
-  {
-    $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function(data) {
-      if(data.responseStr == 'Success')
-      {
-        $scope.account = data.user;
-        $scope.account.phone = $rootScope.user.phone;
-      }
-      else
-      {
-        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+  function ($scope, AccountService, $rootScope, cacheService, $http, config) {
+    //$rootScope.user.isSign = true;
+    $scope.loginFlag = $rootScope.user.isSign;
+    if($rootScope.user.isSign) {
+      $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function (data) {
+        if(data.responseStr == 'Success') {
+          $scope.account = data.user;
+          $scope.account.phone = $rootScope.user.phone;
+        } else {
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
         return false;
-      }
-    }).error(function(data){
-      $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
-      return false;
-    });
-  }
-  $scope.account = AccountService.getAccount();
+      });
+    }
+    $scope.account = AccountService.getAccount();
 }])
 
 
 
-.controller('AccountLoginFailedCtrl', function() {
-
+.controller('AccountLoginFailedCtrl', function () {
 })
 
 
 
 .controller('AccountRegisterCtrl', ['$scope', '$timeout', '$ionicLoading', 'cacheService', 'config',
-  function($scope, $timeout,$ionicLoading, cacheService, config) {
+  function ($scope, $timeout,$ionicLoading, cacheService, config) {
     $scope.register = {};
     $scope.verifyFlag = 0;
     $scope.SMSTime = 0;
-    $scope.sendSMS = function() {
+    $scope.sendSMS = function () {
       if(!$scope.register.phone) {
         $ionicLoading.show({template: responseCode['Phone_Not_Empty'], duration: 1000});
         return false;
-      };
+      }
 
       if(!pattern['mobile'].test($scope.register.phone)) {
         $ionicLoading.show({template: responseCode['Phone_Not_Right'], duration: 1000});
         return false;
-      };
+      }
 
       var code = "";
       for(var i=0; i < 6; ++i) {
@@ -143,8 +128,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       }
 
       $scope.SMSCode = code;
-      cacheService.system.put('SMSCODE',$scope.SMSCode);
-      $ionicLoading.show({template: $scope.SMSCode,duration: 1000});
+      cacheService.system.put('SMSCODE', $scope.SMSCode);
+      $ionicLoading.show({template: $scope.SMSCode, duration: 1000});
       keepTime();
       $scope.verifyFlag = 1;
     };
@@ -175,22 +160,22 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       if(!$scope.register.phone) {
         $ionicLoading.show({template: responseCode['Phone_Not_Empty'], duration: 1000});
         return false;
-      };
+      }
 
       if(!pattern['mobile'].test($scope.register.phone)) {
         $ionicLoading.show({template: responseCode['Phone_Not_Right'], duration: 1000});
         return false;
-      };
+      }
 
       if (!$scope.register.password) {
         $ionicLoading.show({template:responseCode['Password_Not_Empty'], duration: 1000});
         return false;
-      };
+      }
 
       if(!$scope.register.veriSMSCode) {
         $ionicLoading.show({template: responseCode['Verification_Code_Not_Empty'], duration: 1000});
         return false;
-      };
+      }
 
       if(!checkSMSCode($scope.register.veriSMSCode)) {
         $ionicLoading.show({template: responseCode['Register_Wrong_Verification_Code'], duration: 1000});
@@ -204,26 +189,25 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $http.post(config.url + cmd['user_register'], {
         phone: $scope.register.phone,
         password: $scope.register.phone
-        }).success(function(data) {
+        }).success(function (data) {
+          $ionicLoading.hide();
 
+          if(data.responseStr == "Success") {
+              $rootScope.user.isSign = true;
+              $rootScope.user.id = data.userID;
+              $rootScope.user.token = data.token;
+              $rootScope.user.phone = $scope.register.phone;
+              cacheService.system.put('USERID', $rootScope.user.token);
+              cacheService.system.put('TOKEN', $rootScope.user.token);
+              cacheService.system.put('USERPHONE', $rootScope.user.phone);
+          }
+          else {
+            $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+            return false;
+          }
+      }).error(function (data) {
         $ionicLoading.hide();
-
-        if(data.responseStr == "Success") {
-            $rootScope.user.isSign = true;
-            $rootScope.user.id = data.userID;
-            $rootScope.user.token = data.token;
-            $rootScope.user.phone = $scope.register.phone;
-            cacheService.system.put('USERID',$rootScope.user.token);
-            cacheService.system.put('TOKEN',$rootScope.user.token);
-            cacheService.system.put('USERPHONE',$rootScope.user.phone);
-        }
-        else {
-          $ionicLoading.show({template: responseCode[data.responseStr],duration: 1000});
-          return false;
-        }
-      }).error(function(data) {
-        $ionicLoading.hide();
-        $ionicLoading.show({template: responseCode['Register_Fail'],duration: 1000});
+        $ionicLoading.show({template: responseCode['Register_Fail'], duration: 1000});
         return false;
       });
 
@@ -233,24 +217,23 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountLoginCtrl', function($scope, $timeout, $ionicLoading, $state, $cordovaToast, $http,config, $rootScope, cacheService) {
-  $scope.login={};
-  $scope.doLogin = function() {
+.controller('AccountLoginCtrl', function ($scope, $timeout, $ionicLoading, $state, $cordovaToast, $http,config, $rootScope, cacheService) {
+  $scope.login = {};
+  $scope.doLogin = function () {
     if (!$scope.login.phone) {
       $ionicLoading.show({template: responseCode['Phone_Not_Empty'], duration: 1000});
       return false;
-    };
+    }
 
     if (!$scope.login.password) {
       $ionicLoading.show({template: responseCode['Password_Not_Empty'], duration: 1000});
       return false;
-    };
+    }
 
-    if(!pattern['mobile'].test($scope.login.phone))
-    {
+    if(!pattern['mobile'].test($scope.login.phone)) {
       $ionicLoading.show({template: responseCode['Phone_Not_Right'], duration: 1000});
       return false;
-    };
+    }
 
     $ionicLoading.show({
       template: responseCode['Logining']
@@ -261,7 +244,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $http.post(config.url + cmd['user_login'], {
       phone: $scope.login.phone,
       password: $scope.login.phone
-    }).success(function(data) {
+    }).success(function (data) {
       $ionicLoading.hide();
 
       if(data.responseStr == "Success") {
@@ -269,34 +252,33 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           $rootScope.user.id = data.userID;
           $rootScope.user.token = data.token;
           $rootScope.user.phone = $scope.login.phone;
-            cacheService.system.put('USERID',$rootScope.user.token);
-            cacheService.system.put('TOKEN',$rootScope.user.token);
-            cacheService.system.put('USERPHONE',$rootScope.user.phone);
-      }
-      else
-      {
+            cacheService.system.put('USERID', $rootScope.user.token);
+            cacheService.system.put('TOKEN', $rootScope.user.token);
+            cacheService.system.put('USERPHONE', $rootScope.user.phone);
+      } else {
         $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
         return false;
       }
-    }).error(function(data) {
+    }).error(function (data) {
       $ionicLoading.hide();
       $ionicLoading.show({template: responseCode['Login_Fail'], duration: 1000});
       return false;
     });
 
     $state.go("tabs.homeTab");
-  }
+  };
 })
 
 
 
-.controller('AccountMoneyCtrl', function($scope, $ionicScrollDelegate) {
+.controller('AccountMoneyCtrl', function ($scope, $ionicScrollDelegate) {
   $scope.isActive = 'a', $scope.isb = true, $scope.isTab = false;
 
   $scope.changeTab = function(evt) {
     if ($scope.isTab) {
       return;
     }
+
     var elem = evt.currentTarget;
     $scope.isActive = elem.getAttributeNode('data-active').value;
     $ionicScrollDelegate.scrollTop(false);
@@ -309,70 +291,67 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 })
 
 
-  .controller('moneyAccountDetailCtrl', function($scope) {
+  .controller('moneyAccountDetailCtrl', function ($scope) {
 
   })
 
 
-  .controller('moneyAccountEntryDetailCtrl', function($scope) {
+  .controller('moneyAccountEntryDetailCtrl', function ($scope) {
 
     })
   
 
-  .controller('moneyAccountTopUpCtrl', function($scope) {
+  .controller('moneyAccountTopUpCtrl', function ($scope) {
 
   })
   
 
-  .controller('moneyWithdrawalCtrl', function($scope) {
+  .controller('moneyWithdrawalCtrl', function ($scope) {
 
   })
   
 
-  .controller('couponRedeemCtrl', function($scope) {
+  .controller('couponRedeemCtrl', function ($scope) {
 
   })
 
 
 
-.controller('AccountOrdersCtrl', function($scope) {
+.controller('AccountOrdersCtrl', function ($scope) {
 
 })
 
 
 
-.controller('AccountVerificationCtrl', function($scope) {
+.controller('AccountVerificationCtrl', function ($scope) {
 
 })
 
 
 
-.controller('AccountCommentsCtrl', function($scope) {
+.controller('AccountCommentsCtrl', function ($scope) {
 
 })
 
 
 
 .controller('AccountInfoCtrl', ['$scope', '$ionicActionSheet', '$cordovaCamera', 'config', '$http', '$rootScope', '$ionicModal',
-  function($scope, $ionicActionSheet,  i$cordovaCamera, config, $http, $rootScope, $ionicModal) {
+  function ($scope, $ionicActionSheet,  i$cordovaCamera, config, $http, $rootScope, $ionicModal) {
     $scope.update = {};
     $scope.account = {};
 
     $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(
-      function(data) {
-        if(data.responseStr == 'Success')
-        {
+      function (data) {
+        if(data.responseStr == 'Success') {
           $scope.account = data.user;
           $scope.account.phone = $rootScope.user.phone;
           $scope.account.status = userType[$scope.account.userType];
           $scope.account.academic = academic[$scope.account.userType];
-        }
-        else
-        {
+        } else {
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
           return false;
         }
-      }).error(function(data) {
+      }).error(function (data) {
           $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
           return false;
       });
@@ -385,33 +364,32 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $scope.updateNameModal = modal;
       });
 
-      $scope.openUpdateNameModal = function() {
+      $scope.openUpdateNameModal = function () {
         $scope.updateNameModal.show();
       };
-      $scope.closeUpdateNameModal = function() {
+
+      $scope.closeUpdateNameModal = function () {
         $scope.updateNameModal.hide();
       };
 
-      $scope.updateUserName = function() {
-          $scope.account.FirstName = $scope.update.FirstName;
-          $scope.account.LastName = $scope.update.LastName;
-          $http.post(config.url + cmd['user_info_update'],{
-            user: $scope.account
-          }).success(function(data) {
-            if(data.responseStr == "Success")
-            {
-              $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
-              $scope.updateNameModal.hide();
-            }
-            else
-            {
-              $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
-              return false;
-            }
-          }).error(function(data) {
-            $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+      $scope.updateUserName = function () {
+        $scope.account.FirstName = $scope.update.FirstName;
+        $scope.account.LastName = $scope.update.LastName;
+
+        $http.post(config.url + cmd['user_info_update'],{
+          user: $scope.account
+        }).success(function (data) {
+          if(data.responseStr == "Success") {
+            $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
+            $scope.updateNameModal.hide();
+          } else {
+            $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
             return false;
-          });
+          }
+        }).error(function (data) {
+          $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+          return false;
+        });
       }
 
   $scope.changeAvatger = function() {
@@ -424,7 +402,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     };
 
     $cordovaActionSheet.show(options)
-      .then(function(btnIndex) {
+      .then(function (btnIndex) {
         switch (btnIndex) {
           case 1:
             getPictureFromStorage();
@@ -436,7 +414,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
             break;
         }
       });
-  };
+  }
 
   function getPictureFromCamera() {
     var options = {
@@ -473,42 +451,84 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountInvitationCtrl', function($scope) {
+.controller('AccountInvitationCtrl', function ($scope) {
 
 })
 
 
 
-.controller('AccountSettingsCtrl', function($scope) {
+.controller('AccountSettingsCtrl', function ($scope) {
 
 })
 
 
 
-.controller('PublicCatagoryCtrl', function($rootScope, $scope) {
+.controller('PublicCatagoryCtrl', function ($rootScope, $scope) {
 
 })
 
 
 
-.controller('ClassDetailCtrl', function($scope) {
+.controller('ClassDetailCtrl', function ($scope) {
 
 })
 
 
 
-.controller('OrderClassCtrl', function($scope) {
+.controller('OrderClassCtrl', function ($scope) {
 
 })
 
 
 
-.controller('IdentityVerificationCtrl', function($scope) {
+.controller('IdentityVerificationCtrl', function ($scope, $ionicPopup, cameraService) {
+  $scope.showPopup = function () {
+      $scope.data = {}
 
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        scope: $scope,
+        buttons: [
+          { text: '拍照选取',
+            type: 'button-positive',
+            onTap: function (e) {
+              $scope.takePhoto('fromCamera');
+            } 
+          }, {
+            text: '从相册中选取',
+            type: 'button-positive',
+            onTap: function (e) {
+              $scope.takePhoto('fromPhotoAlbum');  
+            }
+          }
+        ]
+      });
+
+      myPopup.then(function (res) {
+        console.log('Tapped!', res);
+      });
+    };
+
+  $scope.takePhoto = function (sourceFrom) {
+    var photoSource = sourceFrom === 'fromPhotoAlbum' ? 0 : 1;
+
+    var options = {
+      quality: 100,
+      allowEdit: true,          // whether to allow editing after the photo is taken
+      sourceType: photoSource,  // PHOTOLIBRARY(0): Choose image from picture library (same as SAVEDPHOTOALBUM(2) for Android); CAMERA(1)
+      saveToPhotoAlbum: false
+    };
+
+    cameraService.getPicture(options).then(function (imageURI) {
+      $scope.lastPhoto = imageURI;
+    }, function (err) {}, {});
+  };
 })
 
 
 
-.controller('RequirementPostCtrl', function($scope) {
+.controller('RequirementPostCtrl', function ($scope) {
 
 });
+
+

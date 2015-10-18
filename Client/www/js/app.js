@@ -6,24 +6,25 @@
 // 'alearn.services' is found in services.js
 var app = angular.module('alearn', ['ionic', 'alearn.controllers', 'alearn.services', 'alearn.directives', 'alearn.config', 'ngCordova']);
 
-app.run(['$ionicPlatform','$rootScope','cacheService','config','$cordovaDevice','$cordovaAppVersion',
-  function($ionicPlatform,$rootScope,cacheService,config,$cordovaDevice,$cordovaAppVersion) {
+app.run(['$ionicPlatform', '$rootScope', 'cacheService', 'config', '$cordovaDevice', '$cordovaAppVersion',
+  function ($ionicPlatform, $rootScope, cacheService, config, $cordovaDevice, $cordovaAppVersion) {
     $rootScope.user = {};
     $rootScope.user.token = cacheService.system.get('TOKEN') || "";
-    $ionicPlatform.ready(function() {
+
+    $ionicPlatform.ready(function () {
       console.log('Platform ready');
       config.platform = ionic.Platform.platform();
       config.os_version = ionic.Platform.version();
       config.uuid = $cordovaDevice.getUUID();
       config.model = $cordovaDevice.getModel();
-      $cordovaAppVersion.getVersionNumber().then(function (version){
+
+      $cordovaAppVersion.getVersionNumber().then(function (version) {
         config.version = version;
         var r = versionService.check(config.platform);
-        r.success(function(data){
-          if(data.error == 0)
-          {
-            if(config.version != data.version)
-            {
+
+        r.success(function (data){
+          if(data.error == 0) {
+            if(config.version != data.version) {
               console.log(config.version);
             }
           }
@@ -35,16 +36,16 @@ app.run(['$ionicPlatform','$rootScope','cacheService','config','$cordovaDevice',
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
-
       }
+
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleLightContent();
       }
   });
-}])
+}]);
 
-app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   // ====================================================
   // ionic config
   // ====================================================
@@ -89,11 +90,13 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     })
 
+
     .state('homeSearch', {
       url: '/homeSearch',
       templateUrl: 'templates/homeSearch.html',
       controller: 'HomeSearchCtrl'
     })
+
 
   .state('tabs.classTab', {
     url: '/class',
@@ -105,6 +108,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   })
 
+
   .state('tabs.chatsTab', {
       url: '/chats',
       views: {
@@ -114,6 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+
     .state('tabs.chatDetails', {
       url: '/chats/:chatId',
       views: {
@@ -124,6 +129,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     })
 
+
   .state('tabs.accountTab', {
     url: '/account',
     views: {
@@ -133,6 +139,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountLoginFailed', {
     url: '/account/loginFailed',
     views: {
@@ -142,6 +150,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountRegister', {
     url: '/account/register',
     views: {
@@ -151,6 +161,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountLogin', {
     url: '/account/login',
     views: {
@@ -160,6 +172,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountMoney', {
     url: '/account/money',
     views: {
@@ -169,6 +183,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
     .state('tabs.moneyAccountDetail', {
       url: '/account/money/moneyAccountDetail',
       views: {
@@ -178,6 +194,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+
       .state('tabs.moneyAccountEntryDetail', {
         url: '/account/money/moneyAccountEntryDetail',
         views: {
@@ -187,6 +204,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
           }
         }
       })
+
     .state('tabs.moneyAccountTopUp', {
       url: '/account/money/topUp',
       views: {
@@ -196,6 +214,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+
     .state('tabs.moneyWithdrawal', {
       url: '/account/money/moneyWithdrawal',
       views: {
@@ -205,6 +224,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+
     .state('tabs.couponRedeem', {
       url: '/account/money/couponRedeem',
       views: {
@@ -214,6 +234,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         }
       }
     })
+
+
   .state('tabs.accountOrders', {
     url: '/account/orders',
     views: {
@@ -223,6 +245,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountVerification', {
     url: '/account/verification',
     views: {
@@ -232,6 +256,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountComments', {
     url: '/account/comments',
     views: {
@@ -241,6 +267,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountInfo', {
     url: '/account/info',
     views: {
@@ -250,6 +278,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountInvitation', {
     url: '/account/invitation',
     views: {
@@ -259,6 +289,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.accountSettings', {
     url: '/account/settings',
     views: {
@@ -268,6 +300,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.publicCatagory', {
     url: '/public/catagory',
     views: {
@@ -277,6 +311,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.classDetail', {
     url: '/public/detail',
     views: {
@@ -286,6 +322,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
+
   .state('tabs.orderClass', {
     url: '/public/order-class',
     views: {
@@ -296,6 +334,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     }
   })
 
+
   .state('tabs.identityVerification', {
     url: '/verification/identity',
     views: {
@@ -305,6 +344,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
       }
     }
   })
+
 
   .state('tabs.requirementPost', {
     url: '/requirement/post',
