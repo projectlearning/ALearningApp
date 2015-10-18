@@ -23,18 +23,18 @@
       <div class="item" ng-click="openUpdateNameModal()">
         用户名
         <span class="item-note">
-          {{account.LastName}}{{account.FirstName}}
+          {{account.FistName}} {{account.LastName}}
         </span>
       </div>
 
-      <div class="item">
+      <div class="item" ng-click="openUpdateTypeModal()">
         身份
-        <span class="item-note">
+        <span class="item-note" >
           {{account.status}}
         </span>
       </div>
 
-      <div class="item">
+      <div class="item" ng-click="openUpdateAcademicModal()">
         学历
         <span class="item-note">
           {{account.academic}}
@@ -106,7 +106,7 @@
       <div class="modal">
         <ion-header-bar class="bar-stable">
           <div class="buttons">
-            <button class="button icon ion-ios-arrow-back" ng-click="closeUpdateNameModal()"></button>
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateNameModal()"></button>
           </div>
           <h1 class="title">用户名</h1>
         </ion-header-bar>
@@ -114,16 +114,66 @@
           <form class="input-set" ng-submit="updateUserName()">
             <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
               <span style="padding-right:10px">姓:</span>
-              <input type="text" name="phone" ng-model="update.LastName" value="{{account.LastName}}">
+              <input type="text" name="phone" ng-model="update.FirstName" value="{{account.FistName}}">
             </label>
             <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
               <span style="padding-right:10px">名:</span>
-              <input type="text" name="phone" ng-model="update.FirstName" value="{{account.FirstName}}">
+              <input type="text" name="phone" ng-model="update.LastName" value="{{account.LastName}}">
             </label>
             <label class="padding">
               <button class="button button-block button-positive" type="submit">保存</button>
             </label>
           </form>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_type_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateTypeModal()"></button>
+          </div>
+          <h1 class="title">用户身份</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="user_type in user_type_list" class="item item-checkbox">
+              <label class="checkbox">
+                <input ng-model="update.user_type" value="{{$index}}" type="radio">
+              </label> 
+              {{user_type}}
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="updateUserType()">
+              确定
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_academic_model.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateAcademicModal()"></button>
+          </div>
+          <h1 class="title">用户学历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="user_academic in user_academic_list" class="item item-checkbox">
+              <label class="checkbox">
+                <input ng-model="update.user_academic" value="{{$index}}" type="radio">
+              </label> 
+              {{user_academic}}
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="updateUserAcademic()">
+              确定
+            </button>
+          </div>
         </ion-content>
       </div>
     </script>
