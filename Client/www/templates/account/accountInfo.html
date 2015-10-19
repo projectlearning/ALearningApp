@@ -92,12 +92,12 @@
         </span>
       </div>
 
-      <div class="item">
+      <div class="item" ng-click="openGetTeachingRecordModal()">
         教学经历
         <span class="badge badge-assertive">{{account.NumberOfTeachingRecords}}</span>
       </div>
       <div class="item">
-        教学经历
+        成功案例
         <span class="badge badge-assertive">{{account.NumberOfSuccessfulCases}}</span>
       </div>
     </div>
@@ -173,6 +173,55 @@
             <button class="button button-block button-positive"  ng-click="updateUserAcademic()">
               确定
             </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="get_teaching_record.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeGetTeachingRecordModal()"></button>
+          </div>
+          <h1 class="title">教学经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="teaching in teaching_record" class="item">
+              <h2>{{teaching.StartTime}} - {{teaching.EndTime}}</h2>
+              <p>{{teaching.Description}}</p>
+
+              <ion-option-button class="button button-assertive" on-tap="deleteTeachingRecord({{teaching.TeachingRecordsID}},{{$index}})">
+                删除
+              </ion-option-button>
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="openTeachingRecordDetailModal()">
+              添加
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="teaching_record_detail.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeGetTeachingRecordModal()"></button>
+          </div>
+          <h1 class="title">添加经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <span>开始日期:</span>
+          <ionic-datepicker input-obj="startDate">
+            <button class="button button-block button-positive"> {{startDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
+          </ionic-datepicker>
+          <span>开始日期:</span>
+          <ionic-datepicker input-obj="endDate">
+            <button class="button button-block button-positive"> {{endDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
+          </ionic-datepicker>>
           </div>
         </ion-content>
       </div>

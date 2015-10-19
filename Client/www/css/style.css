@@ -668,6 +668,22 @@ i.icon-search, i.icon-location {
   margin-left: -1px
 }
 
+.item .more
+{
+  position: absolute;
+  top: 0;
+  right: 35px;
+  color: #aaa;
+  height: 100%;
+  font-size: 13px
+}
+
+.item .more i.icon
+{
+  color: #bbb;
+  
+}
+
 
 /*Account Info*/
 #accountInfoAvater{

@@ -343,8 +343,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 .controller('AccountInfoCtrl', ['$scope', '$ionicActionSheet', 'config', '$http', '$rootScope',
   '$ionicModal', '$ionicPopup', 'cameraService', '$ionicLoading', 'AccountInfoService', 'debugService',
+  '$ionicActionSheet','$ionicListDelegate',
   function ($scope, $ionicActionSheet, config, $http, $rootScope, $ionicModal, $ionicPopup,
-    cameraService, $ionicLoading, AccountInfoService, debugService) {
+    cameraService, $ionicLoading, AccountInfoService, debugService,$ionicActionSheet,$ionicListDelegate) {
 
     //debugService.popupDebugMsg(AccountInfoService.getCurrentProfilePhotoURI());
 
@@ -374,20 +375,6 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       }).error(function (data) {
           $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
           return false;
-      });
-
-    $http.get(config.url + cmd['acountservice.teaching.records_get'] + '?userID=' + $rootScope.user.id).success(
-      function (data) {
-        if(data.responseStr == 'Success') {
-          $scope.account.teaching_record = data.record;
-        }
-        else {
-          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
-          return false;
-        }
-      }).error(function (data) {
-        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
-        return false;
       });
 
     $scope.update.user_type = $scope.account.UserType;
@@ -515,6 +502,95 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         return false;
       });
     }
+
+  $ionicModal.fromTemplateUrl('get_teaching_record.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.getTeachingRecordModal = modal;
+  });
+
+  $scope.openGetTeachingRecordModal = function () {
+    $http.get(config.url + cmd['teaching_record_get'] + '?userID=' + $rootScope.user.id).success(
+      function (data) {
+        if(data.responseStr == 'Success') {
+          $scope.account.teaching_record = data.record;
+        }
+        else {
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+         return false;
+      });
+    $scope.getTeachingRecordModal.show();
+  };
+  $scope.closeGetTeachingRecordModal = function () {
+    $scope.getTeachingRecordModal.hide();
+  };
+  $scope.deleteTeachingRecord = function (id, index) {
+    var deleteRecord = $ionicActionSheet.show({
+      titleText: '确认删除?',
+      cancelText: '确认',
+      destructiveText: '删除',
+      cancel: function () {
+      // 如果用户选择cancel, 则会隐藏删除按钮
+        $ionicListDelegate.closeOptionButtons();
+      },
+      destructiveButtonClicked: function () {
+        // 通过id删除开支记录
+        $http.post(config.url + cmd['teaching_record_delete'] + '?userId=' + $rootScope.user.id,{}).success(
+          function(data) {
+            if(data.responseStr == 'Success') {
+              $ionicLoading.show({template: responseCode["Delete_Success"], duration: 1000});
+              //删除数组中的元素
+              $scope.account.teaching_record.splice(index , 1);
+            }
+            else {
+              $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+              return false;
+            }
+          }).error(function (data) {
+            $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+            return false;
+          })
+
+        // 隐藏对话框
+        deleteTeachingRecord();
+      }
+    });
+  };
+
+  $ionicModal.fromTemplateUrl('teaching_record_detail.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.teachingRecordDetailModal = modal;
+  });
+  $scope.openTeachingRecordDetailModal = function () {
+    $scope.teachingRecordDetailModal.show();
+    $scope.startDate = {
+      titleLabel: '开始日期',  //Optional
+      todayLabel: '今天',  //Optional
+      closeLabel: '关闭',  //Optional
+      setLabel: '确定',  //Optional
+      setButtonType : 'button-assertive',  //Optional
+      todayButtonType : 'button-assertive',  //Optional
+      closeButtonType : 'button-assertive',  //Optional
+      inputDate: new Date(),    //Optional
+      mondayFirst: true,    //Optional
+      templateType: 'popup', //Optional
+      showTodayButton: 'true', //Optional
+      modalHeaderColor: 'bar-positive', //Optional
+      modalFooterColor: 'bar-positive', //Optional
+      from: new Date(2010, 1, 1),   //Optional
+      to: new Date(2018, 12, 31),    //Optional
+      callback: function (val) {    //Mandatory
+        datePickerCallback(val);
+      }
+    };
+  };
 
   var myPopup;
 
