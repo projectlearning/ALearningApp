@@ -12,6 +12,7 @@ var responseCode = {
   Update_Success: "修改成功",
   Updateing: "更新中...",
   Delete_Success: "删除成功",
+  Save_Success: "保存成功",
 };
 
 /*var userType = {

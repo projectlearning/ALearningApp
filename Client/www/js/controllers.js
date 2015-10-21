@@ -568,6 +568,24 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   }).then(function(modal) {
     $scope.teachingRecordDetailModal = modal;
   });
+
+  $scope.startDate = {};
+  var startDatePickerCallback = function (val) {
+    if (typeof(val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      $scope.startDate.inputDate = val;
+    }
+  };
+
+  $scope.endDate = {};
+  var endDatePickerCallback = function (val) {
+    if (typeof(val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      $scope.endDate.inputDate = val;
+    }
+  };
   $scope.openTeachingRecordDetailModal = function () {
     $scope.teachingRecordDetailModal.show();
     $scope.startDate = {
@@ -587,10 +605,74 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       from: new Date(2010, 1, 1),   //Optional
       to: new Date(2018, 12, 31),    //Optional
       callback: function (val) {    //Mandatory
-        datePickerCallback(val);
+        startDatePickerCallback(val);
+      }
+    };
+
+    $scope.endDate = {
+      titleLabel: '结束日期',  //Optional
+      todayLabel: '今天',  //Optional
+      closeLabel: '关闭',  //Optional
+      setLabel: '确定',  //Optional
+      setButtonType : 'button-assertive',  //Optional
+      todayButtonType : 'button-assertive',  //Optional
+      closeButtonType : 'button-assertive',  //Optional
+      inputDate: new Date(),    //Optional
+      mondayFirst: true,    //Optional
+      templateType: 'popup', //Optional
+      showTodayButton: 'true', //Optional
+      modalHeaderColor: 'bar-positive', //Optional
+      modalFooterColor: 'bar-positive', //Optional
+      from: new Date(2010, 1, 1),   //Optional
+      to: new Date(2018, 12, 31),    //Optional
+      callback: function (val) {    //Mandatory
+        endDatePickerCallback(val);
       }
     };
   };
+
+  $scope.closeTeachingRecordDetailModal = function () {
+    $scope.teachingRecordDetailModal.hide();
+  };
+
+  $scope.teaching_record_description = "";
+  $scope.insertTeachingRecord = function () {
+    $http.post(config.url + cmd['teaching_record_add'] + '?userId=' + $rootScope.user.id,{
+      StartTime: $scope.startDate.inputDate,
+      EndTime: $scope.endDate.inputDate,
+      Description: $scope.teaching_record_description,
+    }).success(function (data) {
+      if(data.responseStr == "Success")
+      {
+        $ionicLoading.show({template: responseCode["Save_Success"], duration: 1000});
+      } else {
+        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+        return false;
+      }
+    }).error(function (data) {
+      $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+      return false;
+    })
+  }
+
+  $scope.updateTeachingRecord = function (id) {
+    $http.post(config.url + cmd['teaching_record_update'] + '?userId=' + $rootScope.user.id + '&teachingRecordId=' + id,{
+      StartTime: $scope.startDate.inputDate,
+      EndTime: $scope.endDate.inputDate,
+      Description: $scope.teaching_record_description
+    }).success(function (data) {
+      if(data.responseStr == "Success")
+      {
+        $ionicLoading.show({template: responseCode["Save_Success"], duration: 1000});
+      } else {
+        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+        return false;
+      }
+    }).error(function (data) {
+      $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+      return false;
+    })
+  }
 
   var myPopup;
 

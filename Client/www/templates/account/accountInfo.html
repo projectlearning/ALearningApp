@@ -209,20 +209,28 @@
       <div class="modal">
         <ion-header-bar class="bar-stable">
           <div class="buttons">
-            <button class="button icon ion-ios-arrow-left" ng-click="closeGetTeachingRecordModal()"></button>
+            <button class="button icon ion-ios-arrow-left" ng-click="closeTeachingRecordDetailModal()"></button>
           </div>
           <h1 class="title">添加经历</h1>
         </ion-header-bar>
         <ion-content>
-          <span>开始日期:</span>
+          <h4>开始日期:</h4>
           <ionic-datepicker input-obj="startDate">
             <button class="button button-block button-positive"> {{startDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
           </ionic-datepicker>
-          <span>开始日期:</span>
+          <h4>结束日期:</h4>
           <ionic-datepicker input-obj="endDate">
             <button class="button button-block button-positive"> {{endDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
-          </ionic-datepicker>>
-          </div>
+          </ionic-datepicker>
+
+          <h4>简述:</h4>
+          <label class="item item-input">
+            <textarea placeholder="描述" ng-model="teaching_record_description"></textarea>
+          </label>
+
+          <button class="button button-block button-positive"  ng-click="insertTeachingRecord()">
+              保存
+          </button>
         </ion-content>
       </div>
     </script>
