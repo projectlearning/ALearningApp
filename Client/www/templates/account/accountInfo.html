@@ -96,7 +96,7 @@
         教学经历
         <span class="badge badge-assertive">{{account.NumberOfTeachingRecords}}</span>
       </div>
-      <div class="item">
+      <div class="item" ng-click="openGetSuccessfulCasesModal()">
         成功案例
         <span class="badge badge-assertive">{{account.NumberOfSuccessfulCases}}</span>
       </div>
@@ -214,21 +214,92 @@
           <h1 class="title">添加经历</h1>
         </ion-header-bar>
         <ion-content>
-          <h4>开始日期:</h4>
-          <ionic-datepicker input-obj="startDate">
-            <button class="button button-block button-positive"> {{startDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
-          </ionic-datepicker>
-          <h4>结束日期:</h4>
-          <ionic-datepicker input-obj="endDate">
-            <button class="button button-block button-positive"> {{endDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
-          </ionic-datepicker>
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">开始日期:</span>
+            <ionic-datepicker input-obj="teachRecordStartDate">
+              <input type="text" ng-model="teachRecordStartDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
 
-          <h4>简述:</h4>
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">结束日期:</span>
+            <ionic-datepicker input-obj="teachRecordEndDate">
+              <input type="text" ng-model="teachRecordEndDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">简述:</span>
+          </label>
           <label class="item item-input">
-            <textarea placeholder="描述" ng-model="teaching_record_description"></textarea>
+            <textarea placeholder="请输入" ng-model="teaching_record_description" rows="8"></textarea>
           </label>
 
           <button class="button button-block button-positive"  ng-click="insertTeachingRecord()">
+              保存
+          </button>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="get_successful_cases.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeGetSuccessfulCasesModal()"></button>
+          </div>
+          <h1 class="title">成功案例</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="case in successful_cases" class="item">
+              <h2>{{case.StartTime}} - {{case.EndTime}}</h2>
+              <p>{{case.Description}}</p>
+
+              <ion-option-button class="button button-assertive" on-tap="deleteSuccessfulCases({{teaching.TeachingRecordsID}},{{$index}})">
+                删除
+              </ion-option-button>
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="openSuccessfulCasesDetailModal()">
+              添加
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="successful_cases_detail.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeSuccessfulCasesDetailModal()"></button>
+          </div>
+          <h1 class="title">添加经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">开始日期:</span>
+            <ionic-datepicker input-obj="successfulCasesStartDate">
+              <input type="text" ng-model="successfulCasesStartDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">结束日期:</span>
+            <ionic-datepicker input-obj="successfulCasesEndDate">
+              <input type="text" ng-model="successfulCasesEndDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">简述:</span>
+          </label>
+          <label class="item item-input">
+            <textarea placeholder="请输入" ng-model="successful_cases_description" rows="8"></textarea>
+          </label>
+
+          <button class="button button-block button-positive"  ng-click="insertSuccessfulCases()">
               保存
           </button>
         </ion-content>

@@ -106,7 +106,7 @@ Teaching_Records:
         responseStr:
     }
     
-    URL: /account/accountInfo/teachingRecords?_method=insert&userID= (cmd: accountservice.teching_records_add?userId=)
+    URL: /account/accountInfo/teachingRecords?_method=insert&userID= (cmd: accountservice.teaching_records_add?userId=)
     POST
     INPUT {
         StartTime:
@@ -117,14 +117,14 @@ Teaching_Records:
         responseStr:
     }
     
-    URL: /account/accountInfo/teachingRecords?userID=&teachingRecordsID=(cmd: accountservice
+    URL: /account/accountInfo/teachingRecords?userID=&teachingRecordsID=(cmd: accountservice.teaching_records_delete?recordId=)
     DELETE
     OUT {
         responseStr:
     }
     
 Successful_Cases:
-    URL: /account/accountInfo/successfulCases?userID=
+    URL: /account/accountInfo/successfulCases?userID=(cmd accountservice.successful_case_get?userId=)
     GET
     OUTPUT {
         list {
@@ -135,7 +135,7 @@ Successful_Cases:
         }
     }
     
-    URL: /account/ accountInfo/successfulCases?_method=update&userID=&successfulCasesID=
+    URL: /account/ accountInfo/successfulCases?_method=update&userID=&successfulCasesID=(cmd:accountservice.successful_case_update?userId=caseId=
     POST
     INPUT {
         StartTime:
@@ -146,7 +146,7 @@ Successful_Cases:
         responseStr:
     }
     
-    URL: /account/accountInfo/successfulCases?_method=insert&userID=
+    URL: /account/accountInfo/successfulCases?_method=insert&userID=(cmd:accountservice.successful_case_add?userId=)
     POST
     INPUT {
         StartTime:
@@ -157,7 +157,7 @@ Successful_Cases:
         responseStr:
     }
     
-    URL: /account/accountInfo/successfulCases?userID=&successfulCasesID=
+    URL: /account/accountInfo/successfulCases?userID=&successfulCasesID=(cmd:accountservice.successful_case_delete?recordid=)
     DELETE
     OUT {
         responseStr:

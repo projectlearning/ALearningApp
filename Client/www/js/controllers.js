@@ -569,26 +569,26 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.teachingRecordDetailModal = modal;
   });
 
-  $scope.startDate = {};
+  $scope.teachRecordStartDate = {};
   var startDatePickerCallback = function (val) {
     if (typeof(val) === 'undefined') {
       console.log('No date selected');
     } else {
-      $scope.startDate.inputDate = val;
+      $scope.teachRecordStartDate.inputDate = val;
     }
   };
 
-  $scope.endDate = {};
+  $scope.teachRecordEndDate = {};
   var endDatePickerCallback = function (val) {
     if (typeof(val) === 'undefined') {
       console.log('No date selected');
     } else {
-      $scope.endDate.inputDate = val;
+      $scope.teachRecordEndDate.inputDate = val;
     }
   };
   $scope.openTeachingRecordDetailModal = function () {
     $scope.teachingRecordDetailModal.show();
-    $scope.startDate = {
+    $scope.teachRecordStartDate = {
       titleLabel: '开始日期',  //Optional
       todayLabel: '今天',  //Optional
       closeLabel: '关闭',  //Optional
@@ -609,7 +609,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       }
     };
 
-    $scope.endDate = {
+    $scope.teachRecordEndDate = {
       titleLabel: '结束日期',  //Optional
       todayLabel: '今天',  //Optional
       closeLabel: '关闭',  //Optional
@@ -638,8 +638,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   $scope.teaching_record_description = "";
   $scope.insertTeachingRecord = function () {
     $http.post(config.url + cmd['teaching_record_add'] + '?userId=' + $rootScope.user.id,{
-      StartTime: $scope.startDate.inputDate,
-      EndTime: $scope.endDate.inputDate,
+      StartTime: $scope.teachRecordStartDate.inputDate,
+      EndTime: $scope.teachRecordEndDate.inputDate,
       Description: $scope.teaching_record_description,
     }).success(function (data) {
       if(data.responseStr == "Success")
@@ -657,8 +657,178 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
   $scope.updateTeachingRecord = function (id) {
     $http.post(config.url + cmd['teaching_record_update'] + '?userId=' + $rootScope.user.id + '&teachingRecordId=' + id,{
-      StartTime: $scope.startDate.inputDate,
-      EndTime: $scope.endDate.inputDate,
+      StartTime: $scope.teachRecordStartDate.inputDate,
+      EndTime: $scope.teachRecordEndDate.inputDate,
+      Description: $scope.teaching_record_description
+    }).success(function (data) {
+      if(data.responseStr == "Success")
+      {
+        $ionicLoading.show({template: responseCode["Save_Success"], duration: 1000});
+      } else {
+        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+        return false;
+      }
+    }).error(function (data) {
+      $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+      return false;
+    })
+  }
+
+  $ionicModal.fromTemplateUrl('get_successful_cases.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.getSuccessfulCasesModal = modal;
+  });
+
+  $scope.openGetSuccessfulCasesModal = function () {
+    $http.get(config.url + cmd['successful_cases_get'] + '?userID=' + $rootScope.user.id).success(
+      function (data) {
+        if(data.responseStr == 'Success') {
+          $scope.account.successful_cases = data.record;
+        }
+        else {
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+         return false;
+      });
+    $scope.getSuccessfulCasesModal.show();
+  };
+  $scope.closeGetSuccessfulCasesModal = function () {
+    $scope.getSuccessfulCasesModal.hide();
+  };
+  $scope.deleteSuccessfulCases = function (id, index) {
+    var deleteRecord = $ionicActionSheet.show({
+      titleText: '确认删除?',
+      cancelText: '确认',
+      destructiveText: '删除',
+      cancel: function () {
+      // 如果用户选择cancel, 则会隐藏删除按钮
+        $ionicListDelegate.closeOptionButtons();
+      },
+      destructiveButtonClicked: function () {
+        // 通过id删除开支记录
+        $http.post(config.url + cmd['successful_cases_delete'] + '?userId=' + $rootScope.user.id,{}).success(
+          function(data) {
+            if(data.responseStr == 'Success') {
+              $ionicLoading.show({template: responseCode["Delete_Success"], duration: 1000});
+              //删除数组中的元素
+              $scope.account.successful_cases.splice(index , 1);
+            }
+            else {
+              $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+              return false;
+            }
+          }).error(function (data) {
+            $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+            return false;
+          })
+
+        // 隐藏对话框
+        deleteTeachingRecord();
+      }
+    });
+  };
+
+  $ionicModal.fromTemplateUrl('successful_cases_detail.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.successfulCasesDetailModal = modal;
+  });
+  $scope.successfulCasesStartDate = {};
+  var successfulCasesStartDatePickerCallback = function (val) {
+    if (typeof(val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      $scope.successfulCasesStartDate.inputDate = val;
+    }
+  };
+
+  $scope.successfulCasesEndDate = {};
+  var successfulCasesEndDatePickerCallback = function (val) {
+    if (typeof(val) === 'undefined') {
+      console.log('No date selected');
+    } else {
+      $scope.successfulCasesEndDate.inputDate = val;
+    }
+  };
+  $scope.openSuccessfulCasesDetailModal = function () {
+    $scope.successfulCasesDetailModal.show();
+    $scope.successfulCasesStartDate = {
+      titleLabel: '开始日期',  //Optional
+      todayLabel: '今天',  //Optional
+      closeLabel: '关闭',  //Optional
+      setLabel: '确定',  //Optional
+      setButtonType : 'button-assertive',  //Optional
+      todayButtonType : 'button-assertive',  //Optional
+      closeButtonType : 'button-assertive',  //Optional
+      inputDate: new Date(),    //Optional
+      mondayFirst: true,    //Optional
+      templateType: 'popup', //Optional
+      showTodayButton: 'true', //Optional
+      modalHeaderColor: 'bar-positive', //Optional
+      modalFooterColor: 'bar-positive', //Optional
+      from: new Date(2010, 1, 1),   //Optional
+      to: new Date(2018, 12, 31),    //Optional
+      callback: function (val) {    //Mandatory
+        successfulCasesStartDatePickerCallback(val);
+      }
+    };
+
+    $scope.successfulCasesEndDate = {
+      titleLabel: '结束日期',  //Optional
+      todayLabel: '今天',  //Optional
+      closeLabel: '关闭',  //Optional
+      setLabel: '确定',  //Optional
+      setButtonType : 'button-assertive',  //Optional
+      todayButtonType : 'button-assertive',  //Optional
+      closeButtonType : 'button-assertive',  //Optional
+      inputDate: new Date(),    //Optional
+      mondayFirst: true,    //Optional
+      templateType: 'popup', //Optional
+      showTodayButton: 'true', //Optional
+      modalHeaderColor: 'bar-positive', //Optional
+      modalFooterColor: 'bar-positive', //Optional
+      from: new Date(2010, 1, 1),   //Optional
+      to: new Date(2018, 12, 31),    //Optional
+      callback: function (val) {    //Mandatory
+        successfulCasesEndDatePickerCallback(val);
+      }
+    };
+  };
+
+  $scope.closeSuccessfulCasesDetailModal = function () {
+    $scope.successfulCasesDetailModal.hide();
+  };
+
+  $scope.successful_cases_description = "";
+  $scope.insertSuccessfulCases = function () {
+    $http.post(config.url + cmd['successful_cases_add'] + '?userId=' + $rootScope.user.id,{
+      StartTime: $scope.successfulCasesStartDate.inputDate,
+      EndTime: $scope.successfulCasesEndDate.inputDate,
+      Description: $scope.successful_cases_description,
+    }).success(function (data) {
+      if(data.responseStr == "Success")
+      {
+        $ionicLoading.show({template: responseCode["Save_Success"], duration: 1000});
+      } else {
+        $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+        return false;
+      }
+    }).error(function (data) {
+      $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+      return false;
+    })
+  }
+
+  $scope.updateSuccessfulCases = function (id) {
+    $http.post(config.url + cmd['successful_cases_update'] + '?userId=' + $rootScope.user.id + '&successfulCasesId=' + id,{
+      StartTime: $scope.successfulCasesStartDate.inputDate,
+      EndTime: $scope.successfulCasesEndDate.inputDate,
       Description: $scope.teaching_record_description
     }).success(function (data) {
       if(data.responseStr == "Success")
