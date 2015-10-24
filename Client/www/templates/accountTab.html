@@ -1,32 +1,117 @@
 <ion-view view-title="我">
   <ion-content>
-    <div class="content">
-      <section id="account-bg" class="relative">
-		      <div class="account-ava relative" ui-sref="tabs.accountInfo" ng-if="account.loginFlag == 1">
+    <div class="content account">
+      <!--section id="account-bg" class="relative" -->
+		      <!--div class="account-ava relative" ui-sref="tabs.accountInfo" ng-if="loginFlag == true">
 			         <div class="fl" ng-click="upLoadImg()">
 				             <img src="img/ava-block.png" alt="" class="avater" style="background-image:url(img/iconfont-avater.png)">
 			          </div>
 			          <div class="account-info fl">
-				            <p><span style="padding-right:10px">ant</p>
-				            <p>电话: 1234567890</p>
+				            <p><span style="padding-right:10px">{{account.FirstName}}</p>
+				            <p>电话: {{account.phone}}</p>
 			          </div>
-		      </div>
-		      <p ng-if="account.loginFlag != 1" style="text-align:center;font-size:20px;color:#fff;padding-top:3.55rem">欢迎来到蚁学教育</p>
-		      <p ng-if="account.loginFlag != 1" style="text-align:center;padding-top:0.592rem"><a ui-sref="tabs.accountLogin" class="decora-none" style="color:#fff;font-size:16px">点击登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ui-sref="tabs.accountRegister" class="decora-none" style="color:#fff;font-size:16px">免费注册</a> </p>
+		      </div-->
+        <section>
+          <!--div class="list card" ng-if="loginFlag == true">
+            <div class="item item-avatar">
+              <a ui-sref="tabs.accountInfo">
+                <img ng-src="{{account.ProfilePhotoURL}}">
+                <h2>{{account.FirstName}} {{account.LastName}}</h2>
+                <p></p>
+              </a>
+            </div>
+          </div-->
+
+          <div class="list" ng-if="loginFlag != true">
+            <div class="item item-borderless user" ui-sref="tabs.accountLogin" >
+              <img class="avatar" ng-src="img/user/user-thumbnail.png" >
+              <p>欢迎来到蚁学教育</p>
+              <p>点击登录</p>
+            </div>
+          </div>
+          <div class="list" ng-if="loginFlag == true">
+            <div class="item item-borderless user" ui-sref="tabs.accountInfo" >
+              <img class="avatar" ng-src="{{account.ProfilePhotoURL}}">
+              <p> 开启蚁学之旅</p>
+            </div>
+            <div class="bar">
+                <a class="tab-item">
+                    <span>教龄</span>
+                    <span>{{loginFlag?account.ExperienceInYears:0}}</span>
+                </a>
+                <a class="tab-item">
+                    <span>学时</span>
+                    <span>{{loginFlag?account.TotalNumOfClassInHours:0}}</span>
+                </a>
+                <a class="tab-item">
+                    <span>好评率</span>
+                    <span>{{loginFlag?account.GoodRate:0}}</span>
+                </a>
+            </div>
+          </div>
+
+		      <!--p ng-if="loginFlag != true" style="text-align:center;font-size:20px;color:#fff;padding-top:3.55rem">欢迎来到蚁学教育</p>
+		      <p ng-if="loginFlag != true" style="text-align:center;padding-top:0.592rem"><a ui-sref="tabs.accountLogin" class="decora-none" style="color:#fff;font-size:16px">点击登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ui-sref="tabs.accountRegister" class="decora-none" style="color:#fff;font-size:16px">免费注册</a> </p -->
 	    </section>
 
       <section>
-        <ul class="list list-li-bg">
+      	<div class="list">
+      		<a ui-sref="tabs.accountMoney" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-ios-pricetags-outline"></i>
+      			我的钱包
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+      		<a ui-sref="tabs.accountOrders" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-ios-paper-outline"></i>
+      			我的订单
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+      		<a ui-sref="tabs.accountComments" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-ios-compose-outline"></i>
+      			我的评价
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+      		<a ui-sref="tabs.accountVerification" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-person"></i>
+      			身份验证
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+      	</div>
+        <!--ul class="list list-li-bg">
  	        <li class="item" ui-sref="tabs.accountMoney"><img src="img/icon/iconfont-qianbao.png" alt="">我的钱包</li>
  	        <li class="item" ui-sref="tabs.accountOrders"><img src="img/icon/iconfont-dingdan.png" alt="">我的订单</li>
  	        <li class="item" ui-sref="tabs.accountComments"><img src="img/icon/iconfont-pingjia.png" alt="">我的评价</li>
-          <li class="item" ui-sref="tabs.accountVerification"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
-        </ul>
+          	<li class="item" ui-sref="tabs.accountVerification"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
+        </ul-->
+        <div class="list">
+        	<a ui-sref="tabs.accountInvitation" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-person-add"></i>
+      			邀请好友
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+      		<a ui-sref="tabs.accountSettings" class="item item-icon-left item-icon-right">
+      			<i class="icon ion-gear-a"></i>
+      			我的设置
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+      		</a>
+        </div>
 
-        <ul class="list list-li-bg">
+        <!--ul class="list list-li-bg">
  	        <li class="item" ui-sref="tabs.accountInvitation"><img src="img/icon/iconfont-yaoqing.png" alt="">邀请好友</li>
  	        <li class="item" ui-sref="tabs.accountSettings"><img src="img/icon/iconfont-shezhi.png" alt="">我的设置</li>
-        </ul>
+        </ul-->
       </section>
 
     </div>

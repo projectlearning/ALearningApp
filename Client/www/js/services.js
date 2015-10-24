@@ -1,6 +1,6 @@
-angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
+angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
 
-.factory('Chats', function() {
+.factory('Chats', function () {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -32,13 +32,15 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   }];
 
   return {
-    all: function() {
+    all: function () {
       return chats;
     },
-    remove: function(chat) {
+
+    remove: function (chat) {
       chats.splice(chats.indexOf(chat), 1);
     },
-    get: function(chatId) {
+
+    get: function (chatId) {
       for (var i = 0; i < chats.length; i++) {
         if (chats[i].id === parseInt(chatId)) {
           return chats[i];
@@ -46,13 +48,13 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
       }
       return null;
     }
-  };
+  }
 })
 
-.factory('CityPickerService',function(){
 
-  if (null === window.localStorage.getItem("currentCity"))
-  {
+
+.factory('CityPickerService', function () {
+  if (null === window.localStorage.getItem("currentCity")) {
     window.localStorage.setItem("currentCity", '广州');
   }
 
@@ -61,11 +63,11 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
       id: 0,
       name_zh: '广州',
       name_en: 'Guang Zhou'
-    },{
+    }, {
       id: 1,
       name_zh: '佛山',
       name_en: 'Fo Shan'
-    },{
+    }, {
       id: 2,
       name_zh: '深圳',
       name_en: 'Shen Zhen'
@@ -73,55 +75,74 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   };
 
   return {
-    getCurrentCity: function(){
+    getCurrentCity: function () {
       return window.localStorage.getItem("currentCity");
     },
-    setCurrentCity: function(city){
+
+    setCurrentCity: function (city) {
       window.localStorage.setItem("currentCity", city);
     },
-    getPopularCities: function()
-    {
+
+    getPopularCities: function () {
       return cities.popularCities;
     },
-    getAllCities: function()
-    {
+
+    getAllCities: function () {
       return cities.allCities;
     }
-  };
+  }
 })
 
-.factory('AccountService', function(){
+
+
+.factory('AccountService', function () {
   var account = {
-    loginFlag: 1,
+    loginFlag: 0,
     username: 'Ant',
     tel: '12345678',
   };
 
   return {
-    getAccount: function(){
+    getAccount: function () {
       return account;
     },
-    login: function(user){
 
+    login: function (user) {
     }
-  };
+  }
 })
 
-/*App 版本服务*/
-.factory('versionService',['$http','config',function($http,config){
+.factory('AccountInfoService', function () {
+
   return {
-    check: function(platform){
+    getCurrentProfilePhotoURI: function () {
+      return window.localStorage.getItem("currentProfilePhotoURI");
+    },
+
+    setCurrentProfilePhotoURI: function (imageURI) {
+      window.localStorage.setItem("currentProfilePhotoURI", imageURI);
+    }
+  }
+})
+
+
+/*App 版本服务*/
+.factory('versionService', ['$http', 'config', function ($http, config) {
+  return {
+    check: function (platform) {
       var r = $http.get(config.api + "/system/appversion?_method=get_version&platform=" + platform);
       return r;
     },
-    show: function(){
 
+    show: function () {
     }
   }
 }])
 
+
+
 /*首页轮播图*/
-.factory('BannerService',['$http','config',function($http,config){
+.factory('BannerService', ['$http', 'config', function ($http, config) {
   var banners = [{
     id: 0,
     image: 'img/home-slider01.jpg',
@@ -135,41 +156,43 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
   }];
 
   return {
-    get: function() {
-      var r = $http.get(config.api + "/index/indexbanner?_method=get");
-      r.success(function(data){
-        if(data.error === 0)
-        {
-          //banners = data.list;
-        }
-      });
+    getBanners: function () {
+      // var r = $http.get(config.api + "/index/indexbanner?_method=get");
+      // r.success(function(data) {
+      //   if(data.error === 0)
+      //   {
+      //     //banners = data.list;
+      //   }
+      // });
       return banners;
     },
-  };
+  }
 }])
 
-.factory('productService',['$http','config','$rootScope',
-  function($http,config,$rootScope){
+
+
+.factory('productService', ['$http', 'config', '$rootScope', function ($http, config, $rootScope) {
     return {
-      getHot: function(){
-        var r = $http.post(config.api + "/product?_method=get_product",{
+      getHot: function() {
+        var r = $http.post(config.api + "/product?_method=get_product", {
           city: $rootScope.user.city,
           status: $rootScope.user.status
         });
         var list = {};
-        r.success(function(data){
-          if(data.error === 0)
-          {
+        r.success(function (data) {
+          if(data.error === 0) {
             list = data.list;
           }
         });
         return list;
       }
     }
-  }])
+}])
+
+
 
 /*Local Cache*/
-.factory('cacheService',['$cacheFactory',function($cacheFactory){
+.factory('cacheService', ['$cacheFactory', function ($cacheFactory) {
   return {
     product: $cacheFactory('cacheProduct', {
       maxAge: 9e5,
@@ -178,6 +201,7 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
       storageMode: "localStorage",
       storagePrefix: "product"
     }),
+
     system: $cacheFactory("cacheSystem", {
       deleteOnExpire: "aggressive",
       storageMode: "localStorage",
@@ -185,3 +209,33 @@ angular.module('alearn.services', ['ionic','ngCordova','alearn.config'])
     })
   }
 }])
+
+
+
+.factory('cameraService', ['$q', function ($q) {
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+
+      navigator.camera.getPicture(function(result) {
+        // Do any magic you need
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+      
+      return q.promise;
+    }
+  }
+}])
+
+
+.factory('debugService', ['$ionicPopup', function ($ionicPopup) {
+  return {
+    popupDebugMsg: function (message) {
+      $ionicPopup.alert({
+         template: message
+      })
+    }
+  }
+}]);

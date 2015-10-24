@@ -1,13 +1,312 @@
 <ion-view view-title="我的信息">
   <ion-content has-bouncing="true">
-    <div style="text-align:center;width:100%;padding:40px;height:200px;">
+    <!--div style="text-align:center;width:100%;padding:40px;height:200px;">
       <div id="accountInfoAvater" ng-click="changeAvatger()">
         <div class="accountInfoImg" style="background-image:url(img/iconfont-touxiang.png)"></div>
         <i class="icon ion-ios-camera fontGray4 iconFormInput iconEditPhotoProfile"></i>
       </div>
+    </div-->
+
+    <div class="list">
+      <a class="item item-icon-left item-icon-right" href="#" ng-click="showPopup()">
+        <img ng-src="{{ProfilePhotoURI}}" style="max-width: 5%">
+        {{account.LastName}}{{account.FirstName}}
+        <span class="item-note">
+        上传
+        </span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </a>
+
     </div>
 
-    <section id="accountInfo">
+    <div class="list">
+      <div class="item" ng-click="openUpdateNameModal()">
+        用户名
+        <span class="item-note">
+          {{account.FistName}} {{account.LastName}}
+        </span>
+      </div>
+
+      <div class="item" ng-click="openUpdateTypeModal()">
+        身份
+        <span class="item-note" >
+          {{account.status}}
+        </span>
+      </div>
+
+      <div class="item" ng-click="openUpdateAcademicModal()">
+        学历
+        <span class="item-note">
+          {{account.academic}}
+        </span>
+      </div>
+
+      <div class="item">
+        毕业学校
+        <span class="item-note">
+          {{account.GraduateFrom}}
+        </span>
+      </div>
+    </div>
+
+    <div class="list">
+      <div class="item">
+        手机
+        <span class="item-note">
+          {{account.phone}}
+        </span>
+      </div>
+
+      <div class="item">
+        邮箱
+        <span class="item-note">
+          {{account.email}}
+        </span>
+      </div>
+      <div class="item">
+        常用地址
+        <span class="item-note">
+          {{account.AddressForClass}}
+        </span>
+      </div>
+    </div>
+
+    <div class="list">
+      <div class="item">
+        课时
+        <span class="item-note">
+          {{account.TotalNumOfClassInHours}}
+        </span>
+      </div>
+      <div class="item">
+        好评率
+        <span class="item-note">
+          {{account.GoodRate}}
+        </span>
+      </div>
+
+      <div class="item">
+        教育经验
+         <span class="badge badge-assertive">
+          {{account.ExperienceInYears}} 年
+        </span>
+      </div>
+
+      <div class="item" ng-click="openGetTeachingRecordModal()">
+        教学经历
+        <span class="badge badge-assertive">{{account.NumberOfTeachingRecords}}</span>
+      </div>
+      <div class="item" ng-click="openGetSuccessfulCasesModal()">
+        成功案例
+        <span class="badge badge-assertive">{{account.NumberOfSuccessfulCases}}</span>
+      </div>
+    </div>
+
+    <script id="update_name_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateNameModal()"></button>
+          </div>
+          <h1 class="title">用户名</h1>
+        </ion-header-bar>
+        <ion-content>
+          <form class="input-set" ng-submit="updateUserName()">
+            <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+              <span style="padding-right:10px">姓:</span>
+              <input type="text" name="phone" ng-model="update.FirstName" value="{{account.FistName}}">
+            </label>
+            <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+              <span style="padding-right:10px">名:</span>
+              <input type="text" name="phone" ng-model="update.LastName" value="{{account.LastName}}">
+            </label>
+            <label class="padding">
+              <button class="button button-block button-positive" type="submit">保存</button>
+            </label>
+          </form>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_type_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateTypeModal()"></button>
+          </div>
+          <h1 class="title">用户身份</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="user_type in user_type_list" class="item item-checkbox">
+              <label class="checkbox">
+                <input ng-model="update.user_type" value="{{$index}}" type="radio">
+              </label> 
+              {{user_type}}
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="updateUserType()">
+              确定
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_academic_model.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateAcademicModal()"></button>
+          </div>
+          <h1 class="title">用户学历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="user_academic in user_academic_list" class="item item-checkbox">
+              <label class="checkbox">
+                <input ng-model="update.user_academic" value="{{$index}}" type="radio">
+              </label> 
+              {{user_academic}}
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="updateUserAcademic()">
+              确定
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="get_teaching_record.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeGetTeachingRecordModal()"></button>
+          </div>
+          <h1 class="title">教学经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="teaching in teaching_record" class="item">
+              <h2>{{teaching.StartTime}} - {{teaching.EndTime}}</h2>
+              <p>{{teaching.Description}}</p>
+
+              <ion-option-button class="button button-assertive" on-tap="deleteTeachingRecord({{teaching.TeachingRecordsID}},{{$index}})">
+                删除
+              </ion-option-button>
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="openTeachingRecordDetailModal()">
+              添加
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="teaching_record_detail.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeTeachingRecordDetailModal()"></button>
+          </div>
+          <h1 class="title">添加经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">开始日期:</span>
+            <ionic-datepicker input-obj="teachRecordStartDate">
+              <input type="text" ng-model="teachRecordStartDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">结束日期:</span>
+            <ionic-datepicker input-obj="teachRecordEndDate">
+              <input type="text" ng-model="teachRecordEndDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">简述:</span>
+          </label>
+          <label class="item item-input">
+            <textarea placeholder="请输入" ng-model="teaching_record_description" rows="8"></textarea>
+          </label>
+
+          <button class="button button-block button-positive"  ng-click="insertTeachingRecord()">
+              保存
+          </button>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="get_successful_cases.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeGetSuccessfulCasesModal()"></button>
+          </div>
+          <h1 class="title">成功案例</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <li ng-repeat="case in successful_cases" class="item">
+              <h2>{{case.StartTime}} - {{case.EndTime}}</h2>
+              <p>{{case.Description}}</p>
+
+              <ion-option-button class="button button-assertive" on-tap="deleteSuccessfulCases({{teaching.TeachingRecordsID}},{{$index}})">
+                删除
+              </ion-option-button>
+            </li>
+
+            <button class="button button-block button-positive"  ng-click="openSuccessfulCasesDetailModal()">
+              添加
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="successful_cases_detail.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeSuccessfulCasesDetailModal()"></button>
+          </div>
+          <h1 class="title">添加经历</h1>
+        </ion-header-bar>
+        <ion-content>
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">开始日期:</span>
+            <ionic-datepicker input-obj="successfulCasesStartDate">
+              <input type="text" ng-model="successfulCasesStartDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">结束日期:</span>
+            <ionic-datepicker input-obj="successfulCasesEndDate">
+              <input type="text" ng-model="successfulCasesEndDate.inputDate | date:'dd - MMMM - yyyy'">
+            </ionic-datepicker>
+          </label>
+
+          <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+            <span style="padding-right:10px">简述:</span>
+          </label>
+          <label class="item item-input">
+            <textarea placeholder="请输入" ng-model="successful_cases_description" rows="8"></textarea>
+          </label>
+
+          <button class="button button-block button-positive"  ng-click="insertSuccessfulCases()">
+              保存
+          </button>
+        </ion-content>
+      </div>
+    </script>
+
+    <!--section id="accountInfo">
       <div class="item item-divider" style="font-size:10pt;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 个人信息</div>
       <a class="item" style="color:#333;padding:0px 18px;margin:0;">
         <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
@@ -42,6 +341,6 @@
           <div class="col col-50" style="text-align:right;font-size:18px;color:#777;overflow:hidden">本科<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
         </div>
       </a>
-    </section>
+    </section -->
   </ion-content>
 </ion-view>

@@ -1,34 +1,48 @@
 <ion-view view-title="身份信息">
 
   <ion-content has-bouncing="true">
-    <div class="row"  style="border-bottom:1px dotted #ccc;padding:5px 0px;">
-      <div class="col col-30"><span style="font-size: 10pt;"><img src="img/icon/iconfont-shimingrenzheng.png" style="width:20px;vertical-align:text-top;" alt=""></span>
-        <span style="font-size: 10pt;color:#666;padding:3px 3px;">身份证号码</span></div>
-      <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">112324188910053219<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-    </div>
 
-    <div class="row"  style="border-bottom:1px dotted #ccc;padding:5px 0px;">
-      <div class="col col-30"><span style="font-size: 10pt;"><img src="img/icon/iconfont-xueli.png" style="width:20px;vertical-align:text-top;" alt=""></span>
-        <span style="font-size: 10pt;color:#666;padding:3px 3px;">姓名</span></div>
-      <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">王蚂蚁<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-    </div>
+  <div class="list">
+    <a class="item item-icon-right" href="#">
+      身份证号码
+      <span class="item-note">
+      112324188910053219
+      </span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </a>
 
-    <div class="row"  style="border-bottom:1px dotted #ccc;padding:5px 0px;">
-      <div class="col col-30"><span style="font-size: 10pt;"><img src="img/icon/iconfont-zigedaishenhe.png" style="width:20px;vertical-align:text-top;" alt=""></span>
-        <span style="font-size: 10pt;color:#666;padding:3px 3px;">有效期</span></div>
-      <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">2015/09/30<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-    </div>
+    <a class="item item-icon-right" href="#">
+      姓名
+      <span class="item-note">
+      王蚂蚁
+      </span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </a>
 
-    <div class="row"  style="border-bottom:1px dotted #ccc;padding:5px 0px;">
-      <div class="col col-30"><span style="font-size: 10pt;"><img src="img/icon/iconfont-yanzheng.png" style="width:20px;vertical-align:text-top;" alt=""></span>
-        <span style="font-size: 10pt;color:#666;padding:3px 3px;">身份验证</span></div>
-        <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">未上传<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
+    <a class="item item-icon-right" href="#">
+      有效期
+      <span class="item-note">
+      2015-09-30
+      </span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </a>
+
+    <a class="item item-icon-right" href="#" ng-click="showPopup()">
+      验证状态
+      <span class="item-note">
+      未上传
+      </span>
+      <i class="icon ion-ios-arrow-right"></i>
+    </a>
+  </div>
+
+  <div>
+    <div class="padding">
+        <button class="button button-block button-positive">申请验证</button>
     </div>
-    <div>
-      <div class="padding">
-          <button class="button button-block button-positive">申请验证</button>
-      </div>
-    </div>
+  </div>
+
+  <img ng-src="{{lastPhoto}}" style="max-width: 100%">
 
   </ion-content>
 

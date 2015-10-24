@@ -1,0 +1,174 @@
+Register:
+    URL: /account/register?(cmd: accountservice.user_register)
+    POST
+    INPUT {
+        phone:
+        password:
+    }
+    OUPUT {
+        responseStr:
+        token:
+        userID:
+    }
+    
+Login:
+    URL: /account/login? (cmd: accountservice.user_login)
+    POST
+    INPUT {
+        phone:
+        password:
+    }
+    OUPUT {
+        responseStr:
+        token:
+        userID:
+    }
+    
+    URL: /account/forgot?
+    POST
+    INPUT {
+        phone:
+        verificationCode:
+    }
+    OUPUT {
+        responseStr:
+        token:
+        userID:
+    }
+    
+    
+    
+Account_Info:
+    URL: /account/accountInfo?userId=*** (cmd: accountservice.userprofile_get?userId=****)
+    GET
+    OUTPUT {
+		responseStr:
+		user:{  
+			token:
+			userID:
+			FirstName:
+			LastName:
+			ProfilePhotoURL:
+			UserType:
+			ExperienceInYears:
+			AcademicQualification:
+			GraduateFrom:
+			IDCardVerification:
+			TeacherCertifeVerification:
+			GraduationCertificateVerification:
+			TotalNumOfClassInHours:
+			TotalNumOfClassInTimes:
+			OverallRate:
+			GoodRate:
+			AddressForClass:
+			Email:
+			NumberOfTeachingRecords:
+			NumberOfSuccessfulCases:
+		}
+    }
+    
+    ProfilePhoto download(To be determined)
+        reference: filetransfer  cordova plugin
+        
+    ProfilePhoto upload(To be determined)
+        reference: filetransfer  cordova plugin
+        
+Account_Info:
+    URL: /account/accountInfo?_method=update&userID=  (cmd: accountservice.userprofile_update?userID=)
+    POST
+    INPUT {
+        user:
+    }
+    OUTPUT {
+        responseStr:
+    }
+
+Teaching_Records:
+    URL: /account/accountInfo/teachingRecords?userID= (cmd: acountservice.teaching.records_get?userId=)
+    GET
+    OUTPUT {
+        list {
+            TeachingRecordsID:
+            StartTime:
+            EndTime:
+            Description:
+        }
+    }
+    
+    URL: /account/accountInfo/teachingRecords?_method=update&userID=&teachingRecordsID= (cmd: accountservice.teaching_records_update?userId=)
+    POST
+    INPUT {
+        StartTime:
+        EndTime:
+        Description:        
+    }
+    OUT {
+        responseStr:
+    }
+    
+    URL: /account/accountInfo/teachingRecords?_method=insert&userID= (cmd: accountservice.teaching_records_add?userId=)
+    POST
+    INPUT {
+        StartTime:
+        EndTime:
+        Description:        
+    }
+    OUT {
+        responseStr:
+    }
+    
+    URL: /account/accountInfo/teachingRecords?userID=&teachingRecordsID=(cmd: accountservice.teaching_records_delete?recordId=)
+    DELETE
+    OUT {
+        responseStr:
+    }
+    
+Successful_Cases:
+    URL: /account/accountInfo/successfulCases?userID=(cmd accountservice.successful_case_get?userId=)
+    GET
+    OUTPUT {
+        list {
+            SuccessfulCasesID:
+            StartTime:
+            EndTime:
+            Description:
+        }
+    }
+    
+    URL: /account/ accountInfo/successfulCases?_method=update&userID=&successfulCasesID=(cmd:accountservice.successful_case_update?userId=caseId=
+    POST
+    INPUT {
+        StartTime:
+        EndTime:
+        Description:
+    }
+    OUT {
+        responseStr:
+    }
+    
+    URL: /account/accountInfo/successfulCases?_method=insert&userID=(cmd:accountservice.successful_case_add?userId=)
+    POST
+    INPUT {
+        StartTime:
+        EndTime:
+        Description:        
+    }
+    OUT {
+        responseStr:
+    }
+    
+    URL: /account/accountInfo/successfulCases?userID=&successfulCasesID=(cmd:accountservice.successful_case_delete?recordid=)
+    DELETE
+    OUT {
+        responseStr:
+    }
+    
+Verifications:
+    URL: /account/accountInfo/verifications?userID=
+    GET
+    
+    Verifications download(To be determined)
+        reference: filetransfer  cordova plugin
+    
+    
+    

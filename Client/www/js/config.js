@@ -1,7 +1,7 @@
 angular.module('alearn.config',['ionic'])
 
 .constant('config',{
-  url: "",
+  url: "http://localhost:8080/",
   host: "",
   api: "",
   version: "",
@@ -13,9 +13,6 @@ angular.module('alearn.config',['ionic'])
   longitude: 0,
   signature: '',
   address_city: "",
-  user_status: ""
-})
-.constant('patterns',{
-  mobile: /^1\d{10}$/,
-  email: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,
+  user_status: "",
+  sms_maxtime: 30,
 })
