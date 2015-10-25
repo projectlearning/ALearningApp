@@ -402,8 +402,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           template: responseCode['Updateing']
         });
         $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
-          FirstName: $scope.update.FirstName,
-          LastName: $scope.update.LastName
+          //firstname: $scope.update.FirstName,
+          //lastname: $scope.update.LastName
+          username: $scope.update.UserName
         }).success(function (data) {
           if(data.responseStr == "Success") {
             $ionicLoading.hide();
@@ -444,7 +445,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         template: responseCode['Updateing']
       });
       $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
-        UserType: $scope.update.user_type
+        usertype: $scope.update.user_type
       }).success(function (data) {
         if(data.responseStr == "Success") {
           $ionicLoading.hide();
@@ -484,11 +485,93 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         template: responseCode['Updateing']
       });
       $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
-        AcademicQualification: $scope.update.user_academic
+        academicqualification: $scope.update.user_academic
       }).success(function (data) {
         if(data.responseStr == "Success") {
           $ionicLoading.hide();
           $scope.account.AcademicQualification = $scope.update.user_academic;
+          $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
+          $scope.updateAcademicModal.hide();
+        } else {
+          $ionicLoading.hide();
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.hide();
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+        return false;
+      });
+    }
+
+  /*设置USER学校*/
+  $ionicModal.fromTemplateUrl('update_school_modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.updateSchoolModal = modal;
+      });
+
+    $scope.openUpdateSchoolModal = function () {
+        $scope.updateSchoolModal.show();
+      };
+
+    $scope.closeUpdateSchoolModal = function () {
+        $scope.updateSchoolModal.hide();
+      };
+
+    $scope.updateUserSchool = function () {
+      console.log($scope.update.user_school);
+      $ionicLoading.show({
+        template: responseCode['Updateing']
+      });
+      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+        graduatefrom: $scope.update.user_school
+      }).success(function (data) {
+        if(data.responseStr == "Success") {
+          $ionicLoading.hide();
+          $scope.account.GraduateFrom = $scope.update.user_school;
+          $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
+          $scope.updateAcademicModal.hide();
+        } else {
+          $ionicLoading.hide();
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.hide();
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+        return false;
+      });
+    }
+
+  /*设置USER地址*/
+  $ionicModal.fromTemplateUrl('update_address_modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.updateAddressModal = modal;
+      });
+
+    $scope.openUpdateAddressModal = function () {
+        $scope.updateAddressModal.show();
+      };
+
+    $scope.closeUpdateAddressModal = function () {
+        $scope.updateAddressModal.hide();
+      };
+
+    $scope.updateUserAddress = function () {
+      console.log($scope.update.user_address);
+      $ionicLoading.show({
+        template: responseCode['Updateing']
+      });
+      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+        addressforclass: $scope.update.user_address
+      }).success(function (data) {
+        if(data.responseStr == "Success") {
+          $ionicLoading.hide();
+          $scope.account.AddressForClass = $scope.update.user_address;
           $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
           $scope.updateAcademicModal.hide();
         } else {
@@ -638,9 +721,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   $scope.teaching_record_description = "";
   $scope.insertTeachingRecord = function () {
     $http.post(config.url + cmd['teaching_record_add'] + '?userId=' + $rootScope.user.id,{
-      StartTime: $scope.teachRecordStartDate.inputDate,
-      EndTime: $scope.teachRecordEndDate.inputDate,
-      Description: $scope.teaching_record_description,
+      starttime: $scope.teachRecordStartDate.inputDate,
+      endtime: $scope.teachRecordEndDate.inputDate,
+      description: $scope.teaching_record_description,
     }).success(function (data) {
       if(data.responseStr == "Success")
       {
@@ -657,9 +740,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
   $scope.updateTeachingRecord = function (id) {
     $http.post(config.url + cmd['teaching_record_update'] + '?userId=' + $rootScope.user.id + '&teachingRecordId=' + id,{
-      StartTime: $scope.teachRecordStartDate.inputDate,
-      EndTime: $scope.teachRecordEndDate.inputDate,
-      Description: $scope.teaching_record_description
+      starttime: $scope.teachRecordStartDate.inputDate,
+      endtime: $scope.teachRecordEndDate.inputDate,
+      description: $scope.teaching_record_description
     }).success(function (data) {
       if(data.responseStr == "Success")
       {
@@ -808,9 +891,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   $scope.successful_cases_description = "";
   $scope.insertSuccessfulCases = function () {
     $http.post(config.url + cmd['successful_cases_add'] + '?userId=' + $rootScope.user.id,{
-      StartTime: $scope.successfulCasesStartDate.inputDate,
-      EndTime: $scope.successfulCasesEndDate.inputDate,
-      Description: $scope.successful_cases_description,
+      starttime: $scope.successfulCasesStartDate.inputDate,
+      endtime: $scope.successfulCasesEndDate.inputDate,
+      description: $scope.successful_cases_description,
     }).success(function (data) {
       if(data.responseStr == "Success")
       {
@@ -827,9 +910,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
   $scope.updateSuccessfulCases = function (id) {
     $http.post(config.url + cmd['successful_cases_update'] + '?userId=' + $rootScope.user.id + '&successfulCasesId=' + id,{
-      StartTime: $scope.successfulCasesStartDate.inputDate,
-      EndTime: $scope.successfulCasesEndDate.inputDate,
-      Description: $scope.teaching_record_description
+      starttime: $scope.successfulCasesStartDate.inputDate,
+      endtime: $scope.successfulCasesEndDate.inputDate,
+      description: $scope.teaching_record_description
     }).success(function (data) {
       if(data.responseStr == "Success")
       {
