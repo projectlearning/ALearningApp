@@ -343,7 +343,6 @@ class Worker(object):
                 self._obj_dict[action_key] = obj
 
             print action_key, str(obj)
-            method = getattr(obj, "user_get")
             method = getattr(obj, request.method)
             res = method(request, headers)
 

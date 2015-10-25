@@ -46,9 +46,14 @@ class accountservice(object):
 
             userinfo = user(Username=username, PhoneNum=phonenum, Password=password, Email=email)
             ret = self.__dao.add_user(userinfo)
-            ret_dict = {
+            if ret == 0:
+                ret_dict = {
+                    "userid": userinfo.UserID,
                     "responseStr":"Success"
-
+                    }
+            else:
+                ret_dict = {
+                    "responseStr":"Register_failed"
                     }
             json_ret = json.dumps(ret_dict)
             return json_ret
@@ -56,10 +61,11 @@ class accountservice(object):
             print str(e)
 
     def user_login(self, request, headers):
-        query_dict = request.query
+        query_dict = request.form
         try:
-            ret, acct = self.__dao.getAccount(int(query_dict["cid"]))
-            if acct.PhoneNum== query_dict["PhoneNum"] and acct.Password == query_dict["Password"]:
+            ret, acct = self.__dao.get_user(str(query_dict["phonenum"]))
+            print ret, acct.PhoneNum, acct.Password
+            if acct.PhoneNum == query_dict["phonenum"] and acct.Password == query_dict["password"]:
                 ret_dict = {
                     "responseStr":"Success"
 
@@ -72,6 +78,25 @@ class accountservice(object):
             return json_ret
         except Exception, e:
             print str(e)
+
+    def user_get(self, request, headers):
+        query_dict = request.query_dict
+        try:
+            ret, acct = self.__dao.get_user(str(query_dict["userid"]))
+            if ret == 0:
+                ret_dict = {
+                    "responseStr":"Success"
+                    }
+                ret_dict[]
+            else:
+                ret_dict = {
+                    "responseStr":"Login_Fail"
+                        }
+            json_ret = json.dumps(ret_dict)
+            return json_ret
+        except Exception, e:
+            print str(e)
+
 
     def user_update(self, request, headers):
         query_dict = request.form

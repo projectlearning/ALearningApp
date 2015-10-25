@@ -57,18 +57,18 @@ def getDict(tablename):
             prikey = items[0]
     return itemdict, itemlist, typelist, prikey
  
-def genClass(itemdict, tablename, commname):
+def genClass(itemdict, itemlist, tablename, commname):
     outhandle= open(commname+".py", "a+")
     outhandle.write("class %s:\n" % (tablename))
     member_str = "    def __init__(self"
    
-    for key, value in itemdict.items():
-        member_str += ", %s = %s" % (key, initFromType(value))
+    for index in xrange(len(itemlist)):
+        member_str += ", %s = %s" % (itemlist[index], initFromType(itemdict[itemlist[index]]))
     member_str += "):"
 
     tab = 2
-    for key, value in itemdict.items():
-        member_str += addtab(2) + "self.%s = %s" % (key, key)
+    for index in xrange(len(itemlist)):
+        member_str += addtab(2) + "self.%s = %s" % (itemlist[index], itemlist[index])
     
     outhandle.write(member_str+'\n');
     outhandle.close()
@@ -144,6 +144,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
         outhandle.write(mod_str)
 
 def genService(itemdict, itemlist, typelist, tablename, servicename, prikey):
+    outhandle = open(servicename+".py", "a+")
     #update 
     update_str = addtab(1) + "def %s_update(self, request, headers):" % (tablename)
     update_str += addtab(2) + "query_dict = request.form"
@@ -171,8 +172,35 @@ def genService(itemdict, itemlist, typelist, tablename, servicename, prikey):
     update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}"
     update_str += addtab(3) + "json.dums(ret_dict)" + addtab(3) + "return json_ret"
     update_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
-    outhandle = open(servicename+".py", "a+")
+
+
+    #get
+    get_str = addtab(1) + "def %s_get(self, request, headers):" % (tablename)
+    get_str += addtab(2) + "query_dict = request.query_dict"
+    get_str += addtab(2) + "try:"
+
+    get_str += addtab(3) + "ret, %s_info = self.__dao.get_%s(int(query_dict[\"%s\"]))" % (tablename, tablename, prikey.lower())
+    get_str += addtab(3) + "if ret != 0:"
+    get_str += addtab(4) + "ret_dict = {\"responseStr\":\"get_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
+
+    get_str += addtab(3) + "ret_dict = {\"responseStr\":\"Success\"}"
+    for index in xrange(len(itemlist)):
+        get_str += addtab(3) + "ret_dict[\"%s\"] = %s_info.%s" % (itemlist[index].lower(), tablename, itemlist[index])
+
+    #get_str += addtab(3) + "%s_info = %s(" % (tablename, tablename)
+    #for index in xrange(len(itemlist)):
+    #    if index == len(itemlist) - 1:
+    #        get_str += "%s=%s)" % (itemlist[index],itemlist[index].lower())
+    #    else:
+    #        get_str += "%s=%s," % (itemlist[index], itemlist[index].lower())
+
+    get_str += addtab(3) + "json.dums(ret_dict)" + addtab(3) + "return json_ret"
+    get_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+
     outhandle.write(update_str)
+    outhandle.write(get_str)
+    outhandle.close()
+
 
 def main():
     command = sys.argv[1]
@@ -181,7 +209,7 @@ def main():
     #gen db struct
     if (command == "comm"):
         commname = sys.argv[3]
-        genClass(itemdict, tablename, commname)
+        genClass(itemdict, itemlist, tablename, commname)
     #gen db operator
     elif (command == "dao"):
         daoname = sys.argv[3]
