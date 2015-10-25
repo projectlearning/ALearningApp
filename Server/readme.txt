@@ -14,14 +14,6 @@ database table:
          Username                VARCHAR(50),   -- NOT for user login, but for display to other users; e.g. Will Smith   
          Email                   VARCHAR(255),  -- user can also choose to register with email
          Token                   VARCHAR(255),  -- used to distinguish different user clients?
-
-         PRIMARY KEY (UserID)
-    );
-
-    CREATE TABLE userprofile
-    (
-         UserID                  BIGINT, 
-         UserProfileID           BIGINT,
          FirstName               VARCHAR(50),    -- should be real and matches the IDCard
          LastName                VARCHAR(50),    -- should be real and matches the IDCard
          ProfilePhotoURL         VARCHAR(255),   -- URL of the profile photo
@@ -42,10 +34,9 @@ database table:
 
          AddressForClass         VARCHAR(255),   -- To be confirmed what exactly it is for
 
-         FOREIGN KEY (UserID) REFERENCES User(UserID),
-                 PRIMARY KEY (UserProfileID)
 
-     );
+         PRIMARY KEY (UserID)
+    );
 
     CREATE TABLE teachingrecords
     (
