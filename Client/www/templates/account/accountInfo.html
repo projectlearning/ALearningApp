@@ -41,7 +41,7 @@
         </span>
       </div>
 
-      <div class="item">
+      <div class="item" ng-click="openUpdateSchoolModal()">
         毕业学校
         <span class="item-note">
           {{account.GraduateFrom}}
@@ -63,7 +63,7 @@
           {{account.email}}
         </span>
       </div>
-      <div class="item">
+      <div class="item" ng-click="openUpdateAddressModal()">
         常用地址
         <span class="item-note">
           {{account.AddressForClass}}
@@ -113,12 +113,8 @@
         <ion-content>
           <form class="input-set" ng-submit="updateUserName()">
             <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
-              <span style="padding-right:10px">姓:</span>
-              <input type="text" name="phone" ng-model="update.FirstName" value="{{account.FistName}}">
-            </label>
-            <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
-              <span style="padding-right:10px">名:</span>
-              <input type="text" name="phone" ng-model="update.LastName" value="{{account.LastName}}">
+              <span style="padding-right:10px">用户名:</span>
+              <input type="text" name="username" ng-model="update.UserName" value="{{account.UserName}}">
             </label>
             <label class="padding">
               <button class="button button-block button-positive" type="submit">保存</button>
@@ -174,6 +170,50 @@
               确定
             </button>
           </div>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_school_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateSchoolModal()"></button>
+          </div>
+          <h1 class="title">设置学校</h1>
+        </ion-header-bar>
+        <ion-content>
+          <form class="input-set" ng-submit="updateUserSchool()">
+            <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+              <span style="padding-right:10px">毕业学校:</span>
+              <input type="text" name="phone" ng-model="update.user_school" value="{{account.GraduateFrom}}">
+            </label>
+            <label class="padding">
+              <button class="button button-block button-positive" type="submit">保存</button>
+            </label>
+          </form>
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="update_address_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left" ng-click="closeUpdateAddressModal()"></button>
+          </div>
+          <h1 class="title">设置地址</h1>
+        </ion-header-bar>
+        <ion-content>
+          <form class="input-set" ng-submit="updateUserAddress()">
+            <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
+              <span style="padding-right:10px">地址:</span>
+              <input type="text" name="phone" ng-model="update.user_address" value="{{account.AddressForClass}}">
+            </label>
+            <label class="padding">
+              <button class="button button-block button-positive" type="submit">保存</button>
+            </label>
+          </form>
         </ion-content>
       </div>
     </script>
