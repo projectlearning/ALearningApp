@@ -79,25 +79,6 @@ class accountservice(object):
         except Exception, e:
             print str(e)
 
-    def user_get(self, request, headers):
-        query_dict = request.query_dict
-        try:
-            ret, acct = self.__dao.get_user(str(query_dict["userid"]))
-            if ret == 0:
-                ret_dict = {
-                    "responseStr":"Success"
-                    }
-                ret_dict[]
-            else:
-                ret_dict = {
-                    "responseStr":"Login_Fail"
-                        }
-            json_ret = json.dumps(ret_dict)
-            return json_ret
-        except Exception, e:
-            print str(e)
-
-
     def user_update(self, request, headers):
         query_dict = request.form
         try:
@@ -152,6 +133,40 @@ class accountservice(object):
                 ret_dict = {"responseStr":"Success"}
             else:
                 ret_dict = {"responseStr":"Update_failed"}
+            json.dums(ret_dict)
+            return json_ret
+        except Exception, e:
+            print str(e)
+
+    def user_get(self, request, headers):
+        query_dict = request.query_dict
+        try:
+            ret, user_info = self.__dao.get_user(int(query_dict["userid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"get_failed"}
+                return json.dumps(ret_dict)
+            ret_dict = {"responseStr":"Success"}
+            ret_dict["userid"] = user_info.UserID
+            ret_dict["phonenum"] = user_info.PhoneNum
+            ret_dict["password"] = user_info.Password
+            ret_dict["username"] = user_info.Username
+            ret_dict["email"] = user_info.Email
+            ret_dict["token"] = user_info.Token
+            ret_dict["firstname"] = user_info.FirstName
+            ret_dict["lastname"] = user_info.LastName
+            ret_dict["profilephotourl"] = user_info.ProfilePhotoURL
+            ret_dict["usertype"] = user_info.UserType
+            ret_dict["academicqualification"] = user_info.AcademicQualification
+            ret_dict["experienceinyears"] = user_info.ExperienceInYears
+            ret_dict["graduatefrom"] = user_info.GraduateFrom
+            ret_dict["idcardverification"] = user_info.IDCardVerification
+            ret_dict["teachercertifeverification"] = user_info.TeacherCertifeVerification
+            ret_dict["graduationcertificateverification"] = user_info.GraduationCertificateVerification
+            ret_dict["totalnumofclassinhours"] = user_info.TotalNumOfClassInHours
+            ret_dict["totalnumofclassintimes"] = user_info.TotalNumOfClassInTimes
+            ret_dict["overallrate"] = user_info.OverallRate
+            ret_dict["goodrate"] = user_info.GoodRate
+            ret_dict["addressforclass"] = user_info.AddressForClass
             json.dums(ret_dict)
             return json_ret
         except Exception, e:
