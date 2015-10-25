@@ -326,11 +326,13 @@ class Worker(object):
                 headers["Connection"] = "keep-alive"
 
             action_key = request.action
-            obj = self._obj_dict.get(action_key, None)
+            #obj = self._obj_dict.get(action_key, None)
             #print data
             #print action_key
-            #obj = data.get(action_key, None)
+            obj = data.get(action_key, None)
+            
             #print obj
+            #print dir(obj)
             load_time = self._mtime_dict.get(action_key, None)
 
             auto_update, action, mtime = self.getGloabalAction(action_key)
@@ -341,6 +343,7 @@ class Worker(object):
                 self._obj_dict[action_key] = obj
 
             print action_key, str(obj)
+            method = getattr(obj, "user_get")
             method = getattr(obj, request.method)
             res = method(request, headers)
 
@@ -516,7 +519,7 @@ def run_main(listen_fd, service):
                         conn.setblocking(0)
                         epoll_fd.register(conn.fileno(), select.EPOLLIN | select.EPOLLERR | select.EPOLLHUP)
                         conn.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                        params[conn.fileno()] = {"addr":addr, "writelen":0, "connections":conn, "time":cur_time, "accountservice":accountservice}
+                        params[conn.fileno()] = {"addr":addr, "writelen":0, "connections":conn, "time":cur_time, "accountservice":service}
                     except socket.error, msg:
                         break
             elif select.EPOLLIN & events:

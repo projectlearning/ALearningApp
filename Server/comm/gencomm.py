@@ -16,6 +16,18 @@ def initFromType(dbtype):
     else:
         print dbtype
 
+def changeFromType(dbtype):
+    if dbtype == "varchar":
+        return "str"
+    elif dbtype == "int":
+        return "int"
+    elif dbtype == "bigint":
+        return "long"
+    elif dbtype == "tinyint":
+        return "int"
+    elif dbtype == "decimal":
+        return "float"
+
 def formatFromType(dbtype):
     if dbtype == "varchar":
         return "%s"
@@ -131,15 +143,53 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
     
         outhandle.write(mod_str)
 
+def genService(itemdict, itemlist, typelist, tablename, servicename, prikey):
+    #update 
+    update_str = addtab(1) + "def %s_update(self, request, headers):" % (tablename)
+    update_str += addtab(2) + "query_dict = request.form"
+    update_str += addtab(2) + "try:"
+
+    update_str += addtab(3) + "ret, %s_info = self.__dao.get_%s(int(query_dict[\"%s\"]))" % (tablename, tablename, prikey.lower())
+    update_str += addtab(3) + "if ret != 0:"
+    update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
+
+    for index in xrange(len(itemlist)):
+        #update_str += addtab(3) + "%s = query_dict.get(\"%s\", %s):" % (itemlist[index].lower(), itemlist[index].lower(), initFromType(itemdict[itemlist[index]]))
+        update_str += addtab(3) + "if query_dict.get(\"%s\") != None:" % (itemlist[index].lower())
+        update_str += addtab(4) + "%s_info.%s = %s(query_dict.get(\"%s\"))" % (tablename, itemlist[index], changeFromType(itemdict[itemlist[index]]), itemlist[index].lower())
+    #update_str += addtab(3) + "%s_info = %s(" % (tablename, tablename)
+    #for index in xrange(len(itemlist)):
+    #    if index == len(itemlist) - 1:
+    #        update_str += "%s=%s)" % (itemlist[index],itemlist[index].lower())
+    #    else:
+    #        update_str += "%s=%s," % (itemlist[index], itemlist[index].lower())
+
+    update_str += addtab(3) + "ret = self.__dao.update_%s(%s_info)" % (tablename, tablename)
+    update_str += addtab(3) + "if ret == 0:"
+    update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Success\"}"
+    update_str += addtab(3) + "else:"
+    update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}"
+    update_str += addtab(3) + "json.dums(ret_dict)" + addtab(3) + "return json_ret"
+    update_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+    outhandle = open(servicename+".py", "a+")
+    outhandle.write(update_str)
+
 def main():
-    tablename = sys.argv[1]
-    commname = sys.argv[2]
-    daoname = sys.argv[3]
+    command = sys.argv[1]
+    tablename = sys.argv[2]
     itemdict, itemlist, typelist, prikey = getDict(tablename)
     #gen db struct
-    genClass(itemdict, tablename, commname)
+    if (command == "comm"):
+        commname = sys.argv[3]
+        genClass(itemdict, tablename, commname)
     #gen db operator
-    genDao(itemdict, itemlist, typelist, tablename, daoname, prikey)
+    elif (command == "dao"):
+        daoname = sys.argv[3]
+        genDao(itemdict, itemlist, typelist, tablename, daoname, prikey)
+    #gen service operator
+    elif (command == "service"): 
+        servicename = sys.argv[3]
+        genService(itemdict, itemlist, typelist, tablename, servicename, prikey)
 
 if __name__ == '__main__':
     main()
