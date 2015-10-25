@@ -189,14 +189,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       });
 
       $http.post(config.url + cmd['user_register'], {
-        phone: $scope.register.phone,
+        phonenum: $scope.register.phone,
         password: $scope.register.password
         }).success(function (data) {
           $ionicLoading.hide();
           if(data.responseStr == "Success") {
               $http.post(config.url + cmd['user_login'],{
-                phone: $scope.register.phone,
-                password: $scope.register.phone
+                phonenum: $scope.register.phone,
+                password: $scope.register.password
               }).success(function(data) {
                 $rootScope.user.isSign = true;
                 $rootScope.user.id = data.userID;
@@ -248,7 +248,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.hide();
     }, 1400);*/
     $http.post(config.url + cmd['user_login'], {
-      phone: $scope.login.phone,
+      phonenum: $scope.login.phone,
       password: $scope.login.password
     }).success(function (data) {
       $ionicLoading.hide();
