@@ -1,5 +1,6 @@
 var responseCode = {
 	Login_Fail: "登录失败",
+  Login_Success: "登录成功",
   Phone_Not_Empty: "请输入手机号",
   Phone_Not_Right: "手机格式不正确",
   Password_Not_Empty: "请输入密码",

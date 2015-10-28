@@ -78,17 +78,20 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountTabCtrl', ['$scope', 'AccountService', '$rootScope', 'cacheService', '$http', 'config','$ionicLoading',
-  function ($scope, AccountService, $rootScope, cacheService, $http, config, $ionicLoading) {
-    $rootScope.user.isSign = true;
+.controller('AccountTabCtrl', ['$scope', 'AccountService', '$rootScope', 'cacheService', '$http', 'config','$ionicLoading','$state',
+  function ($scope, AccountService, $rootScope, cacheService, $http, config, $ionicLoading,$state) {
+    //$rootScope.user.isSign = true;
     //$rootScope.user.id = 1001;
-    console.log(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id);
+    //console.log(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id);
+    $scope.account = {};
+    //console.log($rootScope.user);
     $scope.loginFlag = $rootScope.user.isSign;
-    if($rootScope.user.isSign) {
+    //console.log($rootScope.user.isSign);
+    if($rootScope.user.isSign == true) {
       $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function (data) {
+        console.log(data);
         if(data.responseStr == 'Success') {
           $scope.account = data.user;
-          $scope.account.phone = $rootScope.user.phone;
         } else {
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
           return false;
@@ -99,6 +102,14 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       });
     }
     $scope.account = AccountService.getAccount();
+
+    $scope.logout = function () {
+      $rootScope.user.isSign = false;
+      $rootScope.user.id = "";
+      cacheService.system.remove('USERID');
+      cacheService.system.remove('USERPHONE');
+      $state.go('tabs.accountTab',{},{reload:true});
+    }
 }])
 
 
@@ -108,8 +119,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountRegisterCtrl', ['$scope', '$timeout', '$ionicLoading', 'cacheService', 'config','$http',
-  function ($scope, $timeout,$ionicLoading, cacheService, config,$http) {
+.controller('AccountRegisterCtrl', ['$scope', '$timeout', '$ionicLoading', 'cacheService', 'config','$http','$state','$rootScope',
+  function ($scope, $timeout,$ionicLoading, cacheService, config,$http,$state,$rootScope) {
     $scope.register = {};
     $scope.verifyFlag = 0;
     $scope.SMSTime = 0;
@@ -185,27 +196,43 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       }
 
       $ionicLoading.show({
-        template: responseCode['Registering']
+        template: '<ion-spinner icon="spiral">' + responseCode['Registering'] + '</ion-spinner>'
       });
-
+      //console.log(config.url + cmd['user_register']);
       $http.post(config.url + cmd['user_register'], {
         phonenum: $scope.register.phone,
         password: $scope.register.password
         }).success(function (data) {
           $ionicLoading.hide();
+          //console.log(data.responseStr);
           if(data.responseStr == "Success") {
+              $ionicLoading.show({
+                  template: '<ion-spinner icon="spiral">' + responseCode['Logining'] + '</ion-spinner>'
+                });
               $http.post(config.url + cmd['user_login'],{
                 phonenum: $scope.register.phone,
                 password: $scope.register.password
               }).success(function(data) {
-                $rootScope.user.isSign = true;
-                $rootScope.user.id = data.userID;
-                $rootScope.user.token = data.token;
-                $rootScope.user.phone = $scope.register.phone;
-                cacheService.system.put('USERID', $rootScope.user.token);
-                cacheService.system.put('TOKEN', $rootScope.user.token);
-                cacheService.system.put('USERPHONE', $rootScope.user.phone);
-              })
+                //console.log(data);
+                if(data.responseStr == "Success") {
+                  $rootScope.user.isSign = true;
+                  $rootScope.user.id = data.userid;
+          //$rootScope.user.token = data.token;
+                  $rootScope.user.phone = $scope.register.phone;
+                  cacheService.system.put('USERID', $rootScope.user.token);
+            //cacheService.system.put('TOKEN', $rootScope.user.token);
+                  cacheService.system.put('USERPHONE', $rootScope.user.phone);
+                  $ionicLoading.show({template: responseCode['Login_Success'], duration: 1000});
+                  $state.go('tabs.accountTab',{},{reload:true});
+                } else {
+                  $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+                  return false;
+                }
+              }).error(function (data) {
+                $ionicLoading.hide();
+                $ionicLoading.show({template: responseCode['Login_Fail'], duration: 1000});
+                return false;
+            });
           }
           else {
             $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
@@ -216,8 +243,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.show({template: responseCode['Register_Fail'], duration: 1000});
         return false;
       });
-
-      $state.go("tabs.homeTab");
+      //$state.go('tabs.accountTab',{},{reload:true});
+      //$state.go("tabs.homeTab");
     }
 }])
 
@@ -242,7 +269,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     }
 
     $ionicLoading.show({
-      template: responseCode['Logining']
+      template: '<ion-spinner icon="spiral"></ion-spinner>'
     });
     /*$timeout(function() {
       $ionicLoading.hide();
@@ -254,13 +281,16 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.hide();
 
       if(data.responseStr == "Success") {
+          //console.log(data);
           $rootScope.user.isSign = true;
-          $rootScope.user.id = data.userID;
-          $rootScope.user.token = data.token;
+          $rootScope.user.id = data.userid;
+          //$rootScope.user.token = data.token;
           $rootScope.user.phone = $scope.login.phone;
             cacheService.system.put('USERID', $rootScope.user.token);
-            cacheService.system.put('TOKEN', $rootScope.user.token);
+            //cacheService.system.put('TOKEN', $rootScope.user.token);
             cacheService.system.put('USERPHONE', $rootScope.user.phone);
+          $ionicLoading.show({template: responseCode['Login_Success'], duration: 1000});
+          $state.go('tabs.accountTab',{},{reload:true});
       } else {
         $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
         return false;
@@ -271,7 +301,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       return false;
     });
 
-    $state.go("tabs.homeTab");
+    //$state.go('tabs.accountTab',{},{reload:true});
+    //$state.go("tabs.homeTab");
   };
 })
 

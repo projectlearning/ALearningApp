@@ -1,8 +1,8 @@
 var cmd = {
 	user_login: "accountservice.user_login",
 	user_register: "accountservice.user_register",
-	user_info_get: "accountservice.userprofile_get",
-	user_info_update: "accountservice.userprofile_update",
+	user_info_get: "accountservice.user_get",
+	user_info_update: "accountservice.user_update",
 
 	teaching_record_get: "acountservice.teachingrecords_get",
 	teaching_record_add: "acountservice.teachingrecords_add",

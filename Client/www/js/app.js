@@ -11,6 +11,11 @@ app.run(['$ionicPlatform', '$rootScope', 'cacheService', 'config', '$cordovaDevi
   function ($ionicPlatform, $rootScope, cacheService, config, $cordovaDevice, $cordovaAppVersion) {
     $rootScope.user = {};
     $rootScope.user.token = cacheService.system.get('TOKEN') || "";
+    $rootScope.user.id = cacheService.system.get('USERID') || "";
+    if($rootScope.user.id == "")
+      $rootScope.user.isSign = false;
+    else
+      $rootScope.user.isSign = true;
 
     $ionicPlatform.ready(function () {
       console.log('Platform ready');
@@ -135,6 +140,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider,$h
 
   .state('tabs.accountTab', {
     url: '/account',
+    cache: false,
     views: {
       'accountTab': {
         templateUrl: 'templates/accountTab.html',
@@ -146,6 +152,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider,$h
 
   .state('tabs.accountLoginFailed', {
     url: '/account/loginFailed',
+    cache: 'false',
     views: {
       'accountTab': {
         templateUrl: 'templates/account/accountLoginFailed.html',
