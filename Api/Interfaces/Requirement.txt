@@ -1,0 +1,100 @@
+Get_All_Course:
+	URL: /course/all_course_get?(cmd: courseservice.course_get)  //course这张表是平台自己维护的参数表，
+	Method：GET
+	OUTPUT {
+        responseStr:
+        list {
+			CourseID
+			Grade
+			Name
+		}
+    }
+	
+Requirement：
+	URL：/requirement/requirement_add?userId=(cmd: requirementservice.requirement_add)
+	Method: POST
+	INPUT {
+		RequirementID
+		RequirementType
+		Price
+		TeachingMethod
+		list {
+			CourseID
+		}
+		list {
+			Time
+			IsActive
+		}
+	}
+	
+	OUPUT {
+		responseStr:
+	}
+	
+	URL: /requirement/requirement_get?userId= //获取用户发布的需求
+	Method: GET
+	OUTPUT {
+		responseStr:
+		list {
+			RequirementID
+			UserID
+			RequirementType
+			Price
+			TeachingMethod
+			Address
+			IsActive
+			list {
+				CourseID
+			}
+			list {
+				Time
+				IsActive
+			}
+		}
+	}
+	
+	URL: /requirement/requirement_search?
+	Method: POST
+	INPUT {
+		上传搜索字段
+	}
+	OUTPUT {
+		responseStr:
+		list {
+			RequirementID
+			UserID
+			RequirementType
+			Price
+			TeachingMethod
+			Address
+			IsActive
+			list {
+				CourseID
+			}
+			list {
+				Time
+				IsActive
+			}
+		}
+	}
+	
+	URL: /requirement/requirement_update?requirementId=
+	Method: POST
+	INPUT {
+		上传修改字段
+	}
+	OUTPUT {
+		responseStr:
+	}
+	
+	URL：/requirement/requirement_order?requirementId=  //下订单交易
+	Method: POST
+	INPUT {
+		userId
+		Time
+	}
+	OUTPUT {
+		responseStr:
+		生成订单并且将订单数据返回
+	}
+	

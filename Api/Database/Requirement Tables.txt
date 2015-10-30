@@ -1,0 +1,42 @@
+CREATE TABLE requirement
+{
+	RequirementID                  BIGINT,        -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+	UserID						   BIGINT,
+	RequirementType				   TINYINT,		  -- 0为找老师，1为找学生
+	Price						   FLOAT,
+	TeachingMethod				   TINYINT,       -- 授课方式，0为老师上门，1为学生上门，2为双方协定地址，3以上都可
+	Address						   VARCHAR(255),  -- 授课地址，如果RequirementType值为0并且TeachingMethod值为0时，此值必填；如果RequirementType值为1并且TeachingMethod值为1时，此值必填
+	IsActive					   TINYINT，	  -- 需求状态，0为此需求已失效，1为此需求有效，2为该需求部分被承接
+	
+	FOREIGN KEY (UserID) REFERENCES User(UserID),
+    PRIMARY KEY (RequirementID)
+}
+
+CREATE TABLE requirement_course                   -- 该需求所对应科目
+{
+	id	BIGINT,        -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+	RequirementID	BIGINT,
+	CourseID	INT,
+	
+	FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+	FOREIGN KEY (CourseID) REFERENCES course(CourseID),
+    PRIMARY KEY (id)
+}
+
+CREATE TABLE requirement_time                     -- 该需求的时间
+{
+	id	BIGIMT,		-- unique, should be unsigned integer type(so the BIGINT is just for draft)
+	RequirementID	BIGINT,
+	Time	INT,
+	IsActive	TINYINT,
+	
+	FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+	PRIMARY KEY (id)
+}
+
+CREATE TABLE course					-- 存储平台课程参数
+{
+	CourseID  BIGIMT,		-- unique, should be unsigned integer type(so the BIGINT is just for draft)
+	Grade	TINYINT,	-- 0为学前教育，1为小学，2为中学，3为高中
+	Name	VARCHAR(255),
+}
