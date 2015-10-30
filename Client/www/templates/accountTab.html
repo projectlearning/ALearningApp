@@ -92,6 +92,14 @@
           	<li class="item" ui-sref="tabs.accountVerification"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
         </ul-->
         <div class="list">
+          <a ui-sref="#" class="item item-icon-left item-icon-right">
+            <i class="icon ion-ios-toggle" ng-if="loginFlag == false || account.UserType > 0"></i>
+            约课设置
+            <span class="more">
+              <i class="icon ion-ios-arrow-right"></i>
+            </span>
+          </a>
+
         	<a ui-sref="tabs.accountInvitation" class="item item-icon-left item-icon-right">
       			<i class="icon ion-person-add"></i>
       			邀请好友

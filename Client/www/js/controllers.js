@@ -89,6 +89,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     //console.log($rootScope.user.isSign);
     if($rootScope.user.isSign == true) {
       $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function (data) {
+        console.log('user info:');
         console.log(data);
         if(data.responseStr == 'Success') {
           $scope.account = data.user;
@@ -201,7 +202,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       //console.log(config.url + cmd['user_register']);
       $http.post(config.url + cmd['user_register'], {
         phonenum: $scope.register.phone,
-        password: $scope.register.password
+        password: encrypt($scope.register.password)
         }).success(function (data) {
           $ionicLoading.hide();
           //console.log(data.responseStr);
@@ -211,7 +212,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
                 });
               $http.post(config.url + cmd['user_login'],{
                 phonenum: $scope.register.phone,
-                password: $scope.register.password
+                password: encrypt($scope.register.password)
               }).success(function(data) {
                 //console.log(data);
                 if(data.responseStr == "Success") {
@@ -274,9 +275,10 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     /*$timeout(function() {
       $ionicLoading.hide();
     }, 1400);*/
+    console.log(encrypt($scope.login.password));
     $http.post(config.url + cmd['user_login'], {
       phonenum: $scope.login.phone,
-      password: $scope.login.password
+      password: encrypt($scope.login.password)
     }).success(function (data) {
       $ionicLoading.hide();
 
@@ -437,10 +439,11 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           //lastname: $scope.update.LastName
           username: $scope.update.UserName
         }).success(function (data) {
+          console.log(data);
           if(data.responseStr == "Success") {
             $ionicLoading.hide();
-            $scope.account.FirstName = $scope.update.FirstName;
-            $scope.account.LastName = $scope.update.LastName;
+            //$scope.account.FirstName = $scope.update.FirstName;
+            $scope.account.UserName = $scope.update.UserName;
             $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
             $scope.updateNameModal.hide();
           } else {
