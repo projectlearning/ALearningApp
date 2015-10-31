@@ -158,10 +158,11 @@ class QuickHttpRequest(object):
         self.keepalive = False
 
     def parse(self, param):
-        #print printdict(param)
+        #print "parse: ", printdict(param)
         self.client_ip = param["addr"][0]
         self.client_port = param["addr"][1]
         
+        headend = -1
         if "rc" in param:
             fp = param["rc"]
             data = ""
@@ -180,7 +181,6 @@ class QuickHttpRequest(object):
             fp = StringIO(data)
         
         if headend > 0: #have header
-            logger.debug(data[0:headend])
             headlist = data[0:headend].split("\r\n")
         else:
             headlist = data.split("\r\n")
@@ -190,6 +190,8 @@ class QuickHttpRequest(object):
 
         self.baseuri = self.path.split('?')[0]
         indexlist = self.baseuri.split('/')
+
+        #print str(indexlist)
 
         while len(indexlist) != 0:
             self.index = indexlist.pop()
@@ -225,7 +227,7 @@ class QuickHttpRequest(object):
         self.filedic = dict()
         self.body = ""
 
-        print "ison: post: %s" % self.command
+        #print "ison: post: %s, method: %s" % (self.command, self.method)
         
         if self.command == "get" and "?" in self.path:
             parse_query(self.path.split("?").pop(), self.query_dict)

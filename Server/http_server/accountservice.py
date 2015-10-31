@@ -44,7 +44,7 @@ class accountservice(object):
             password = query_dict.get('password', '')
             email = query_dict.get('email', '')
 
-            userinfo = user(Username=username, PhoneNum=phonenum, Password=password, Email=email)
+            userinfo = User(Username=username, PhoneNum=phonenum, Password=password, Email=email)
             ret = self.__dao.add_user(userinfo)
             if ret == 0:
                 ret_dict = {
@@ -63,13 +63,14 @@ class accountservice(object):
     def user_login(self, request, headers):
         query_dict = request.form
         try:
-            ret, acct = self.__dao.get_user(str(query_dict["phonenum"]))
+            ret, acct = self.__dao.get_user_by_phonenum(str(query_dict["phonenum"]))
             print ret, acct.PhoneNum, acct.Password
             if acct.PhoneNum == query_dict["phonenum"] and acct.Password == query_dict["password"]:
                 ret_dict = {
                     "responseStr":"Success"
 
                     }
+                ret_dict["userid"] = acct.UserID
             else:
                 ret_dict = {
                     "responseStr":"Login_Fail"
@@ -82,10 +83,11 @@ class accountservice(object):
     def user_update(self, request, headers):
         query_dict = request.form
         try:
-            ret, user_info = self.__dao.get_user(int(query_dict["userid"]))
+            ret, user_info = self.__dao.get_user_by_userid(int(query_dict["userid"]))
             if ret != 0:
                 ret_dict = {"responseStr":"Update_failed"}
                 return json.dumps(ret_dict)
+            print query_dict
             if query_dict.get("userid") != None:
                 user_info.UserID = long(query_dict.get("userid"))
             if query_dict.get("phonenum") != None:
@@ -133,15 +135,15 @@ class accountservice(object):
                 ret_dict = {"responseStr":"Success"}
             else:
                 ret_dict = {"responseStr":"Update_failed"}
-            json.dums(ret_dict)
+            json_ret = json.dumps(ret_dict)
             return json_ret
         except Exception, e:
-            print str(e)
+            print str(e)  + getTraceStackMsg()
 
     def user_get(self, request, headers):
         query_dict = request.query_dict
         try:
-            ret, user_info = self.__dao.get_user(int(query_dict["userid"]))
+            ret, user_info = self.__dao.get_user_by_userid(int(query_dict["userid"]))
             if ret != 0:
                 ret_dict = {"responseStr":"get_failed"}
                 return json.dumps(ret_dict)
@@ -167,7 +169,7 @@ class accountservice(object):
             ret_dict["overallrate"] = user_info.OverallRate
             ret_dict["goodrate"] = user_info.GoodRate
             ret_dict["addressforclass"] = user_info.AddressForClass
-            json.dums(ret_dict)
+            json_ret = json.dumps(ret_dict)
             return json_ret
         except Exception, e:
-            print str(e)
+            print str(e) + getTraceStackMsg()

@@ -126,13 +126,13 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
             post = ""
             for index in xrange(itemlen):
                 if index == itemlen - 1:
-                    pre += "%s = \'%s\')" % (itemlist[index], formatFromType(itemdict[itemlist[index]]))
+                    pre += "%s = \'%s\' " % (itemlist[index], formatFromType(itemdict[itemlist[index]]))
 
-                    post += "st_%s.%s)" % (tablename, itemlist[index]) 
+                    post += "st_%s.%s, " % (tablename, itemlist[index]) 
                 else:
                     pre += "%s = \'%s\', " % (itemlist[index], formatFromType(itemdict[itemlist[index]]))
                     post += "st_%s.%s, " % (tablename, itemlist[index]) 
-            sql = addtab(2)+"sql = \"Update %s Set " % (tablename) + pre + mid + post
+            sql = addtab(2)+"sql = \"Update %s Set " % (tablename) + pre + mid + post + ("st_%s.%s)" % (tablename, prikey))
             err_code = "DB_UPDATE_FAIL"
         elif op == "Delete":
             func = addtab(1) + "def del_%s(self, st_%s):" % (tablename, tablename)

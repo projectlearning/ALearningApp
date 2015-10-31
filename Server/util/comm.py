@@ -26,57 +26,52 @@ class clientaccount:
         self.lastlogintime = lastlogintime
         self.createtime = createtime
 
-class userprofile:
-    def __init__(self, AcademicQualification = 0, TotalNumOfClassInTimes = 0, AddressForClass = "", FirstName = "", TeacherCertifeVerification = 0, LastName = "", GraduateFrom = "", UserID = 0, UserType = 0, IDCardVerification = 0, ProfilePhotoURL = "", ExperienceInYears = 0, GraduationCertificateVerification = 0, UserProfileID = 0, TotalNumOfClassInHours = 0, OverallRate = 0.0, GoodRate = 0.0):
-        self.AcademicQualification = AcademicQualification
-        self.TotalNumOfClassInTimes = TotalNumOfClassInTimes
-        self.AddressForClass = AddressForClass
-        self.FirstName = FirstName
-        self.TeacherCertifeVerification = TeacherCertifeVerification
-        self.LastName = LastName
-        self.GraduateFrom = GraduateFrom
-        self.UserID = UserID
-        self.UserType = UserType
-        self.IDCardVerification = IDCardVerification
-        self.ProfilePhotoURL = ProfilePhotoURL
-        self.ExperienceInYears = ExperienceInYears
-        self.GraduationCertificateVerification = GraduationCertificateVerification
-        self.UserProfileID = UserProfileID
-        self.TotalNumOfClassInHours = TotalNumOfClassInHours
-        self.OverallRate = OverallRate
-        self.GoodRate = GoodRate
-class teachingrecords:
-    def __init__(self, EndTime = 0, TeachingRecordsID = 0, UserID = 0, Description = "", StartTime = 0):
-        self.EndTime = EndTime
-        self.TeachingRecordsID = TeachingRecordsID
-        self.UserID = UserID
-        self.Description = Description
-        self.StartTime = StartTime
 
-class successfulcases:
-    def __init__(self, EndTime = 0, SuccessfulCasesID = 0, UserID = 0, Description = "", StartTime = 0):
-        self.EndTime = EndTime
-        self.SuccessfulCasesID = SuccessfulCasesID
-        self.UserID = UserID
-        self.Description = Description
-        self.StartTime = StartTime
-
-class verification:
-    def __init__(self, VericationType = 0, VerificationID = 0, CodeNumber = "", UserID = 0, UploadImageWithFaceURL = "", UploadImageFrontURL = "", UploadImageBackURL = "", VerificationStatus = 0):
-        self.VericationType = VericationType
-        self.VerificationID = VerificationID
-        self.CodeNumber = CodeNumber
-        self.UserID = UserID
-        self.UploadImageWithFaceURL = UploadImageWithFaceURL
-        self.UploadImageFrontURL = UploadImageFrontURL
-        self.UploadImageBackURL = UploadImageBackURL
-        self.VerificationStatus = VerificationStatus
-
-class user:
-    def __init__(self, Username = "", UserID = 0, PhoneNum = "", Token = "", Password = "", Email = ""):
-        self.Username = Username
+class User:
+    def __init__(self, UserID = 0, PhoneNum = "", Password = "", Username = "", Email = "", Token = "", FirstName = "", LastName = "", ProfilePhotoURL = "", UserType = 0, AcademicQualification = 0, ExperienceInYears = 0, GraduateFrom = "", IDCardVerification = 0, TeacherCertifeVerification = 0, GraduationCertificateVerification = 0, TotalNumOfClassInHours = 0, TotalNumOfClassInTimes = 0, OverallRate = 0.0, GoodRate = 0.0, AddressForClass = ""):
         self.UserID = UserID
         self.PhoneNum = PhoneNum
-        self.Token = Token
         self.Password = Password
+        self.Username = Username
         self.Email = Email
+        self.Token = Token
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.ProfilePhotoURL = ProfilePhotoURL
+        self.UserType = UserType
+        self.AcademicQualification = AcademicQualification
+        self.ExperienceInYears = ExperienceInYears
+        self.GraduateFrom = GraduateFrom
+        self.IDCardVerification = IDCardVerification
+        self.TeacherCertifeVerification = TeacherCertifeVerification
+        self.GraduationCertificateVerification = GraduationCertificateVerification
+        self.TotalNumOfClassInHours = TotalNumOfClassInHours
+        self.TotalNumOfClassInTimes = TotalNumOfClassInTimes
+        self.OverallRate = OverallRate
+        self.GoodRate = GoodRate
+        self.AddressForClass = AddressForClass
+
+class teachingrecords:
+    def __init__(self, TeachingRecordsID = 0, UserID = 0, StartTime = 0, EndTime = 0, Description = ""):
+        self.TeachingRecordsID = TeachingRecordsID
+        self.UserID = UserID
+        self.StartTime = StartTime
+        self.EndTime = EndTime
+        self.Description = Description
+class successfulcases:
+    def __init__(self, SuccessfulCasesID = 0, UserID = 0, StartTime = 0, EndTime = 0, Description = ""):
+        self.SuccessfulCasesID = SuccessfulCasesID
+        self.UserID = UserID
+        self.StartTime = StartTime
+        self.EndTime = EndTime
+        self.Description = Description
+class verification:
+    def __init__(self, VerificationID = 0, UserID = 0, VericationType = 0, CodeNumber = "", VerificationStatus = 0, UploadImageFrontURL = "", UploadImageBackURL = "", UploadImageWithFaceURL = ""):
+        self.VerificationID = VerificationID
+        self.UserID = UserID
+        self.VericationType = VericationType
+        self.CodeNumber = CodeNumber
+        self.VerificationStatus = VerificationStatus
+        self.UploadImageFrontURL = UploadImageFrontURL
+        self.UploadImageBackURL = UploadImageBackURL
+        self.UploadImageWithFaceURL = UploadImageWithFaceURL
