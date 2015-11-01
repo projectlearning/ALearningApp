@@ -92,7 +92,7 @@
           	<li class="item" ui-sref="tabs.accountVerification"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
         </ul-->
         <div class="list">
-          <a ui-sref="#" class="item item-icon-left item-icon-right">
+          <a ui-sref="tabs.accountClassSetting" class="item item-icon-left item-icon-right">
             <i class="icon ion-ios-toggle" ng-if="loginFlag == false || account.UserType > 0"></i>
             约课设置
             <span class="more">
@@ -116,7 +116,7 @@
       		</a>
         </div>
 
-        <div class="list">
+        <div class="list" ng-if="loginFlag == true">
           <button class="button button-block button-stable" ng-click="logout()">退出账户</button>
         </div>
 

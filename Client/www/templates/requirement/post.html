@@ -2,47 +2,320 @@
 
   <ion-content has-bouncing="true">
 
-    <div class="item item-input item-select">
-      <div class="input-label">
-        科目
-      </div>
-      <select>
-        <option selected>语文</option>
-      </select>
-    </div>
+    <div class="list">
+        <div class="item item-icon-right" ng-click="openSetTimeModal()">
+        设置时间
+            <span class="item-note">
+              已设置
+            </span>
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
 
-    <div class="item item-input item-select">
-      <div class="input-label">
-        年级
-      </div>
-      <select>
-        <option selected>小学一年级</option>
-      </select>
-    </div>
+          <div class="item item-icon-right" ng-click="openSetClassModal()">
+           设置科目
+            <span class="item-note">
+              已设置
+            </span>
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
 
-    <div class="item item-input item-select">
-      <div class="input-label">
-        上课地点
-      </div>
-      <select>
-        <option selected>老师上门</option>
-      </select>
-    </div>
+          <div class="item item-icon-right" ng-click="openSetPriceModal()">
+           价格区间
+            <span class="item-note">
+              100-150  
+            </span>
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
 
-    <div class="item item-input item-select">
-      <div class="input-label">
-        价格(每小时)
+          <div class="item item-icon-right" ng-click="openSetCourseTypeModal()">
+           授课方式
+            <span class="item-note">
+              
+            </span>
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
+
+          <div class="item item-icon-right" ng-click="openSetAddressModal()">
+          授课地址
+            <span class="item-note">
+              
+            </span>
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
       </div>
-      <select>
-        <option selected>100-150</option>
-      </select>
-    </div>
 
     <div>
       <div class="padding">
         <button class="button button-block button-positive">提交需求</button>
       </div>
     </div>
+
+
+    <script id="set_class.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-stable">
+            <div class="buttons">
+              <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetClassModal()">返回</button>
+            </div>
+            <h1 class="title">设置科目</h1>
+          </ion-header-bar>
+          <ion-content>
+            <div class="list">
+              <li ng-repeat="course_option in course_option_list" class="item item-checkbox">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label> 
+                {{course_option.name}}
+              </li>
+            </div>
+
+            <div class="padding">
+              <button class="button button-block button-positive"  ng-click="#">
+                保存
+              </button>
+            </div>
+          </ion-content>
+        </div>
+      </script>
+
+      <script id="set_time.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-stable">
+            <div class="buttons">
+              <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetTimeModal()">返回</button>
+            </div>
+            <h1 class="title">设置时间</h1>
+          </ion-header-bar>
+          <ion-content>
+            <div class="row row-center">
+              <div class="col">
+              
+              </div>
+              <div class="col">
+              周一
+              </div>
+              <div class="col">
+              周二
+              </div>
+              <div class="col">
+              周三
+              </div>
+              <div class="col">
+              周四
+              </div>
+              <div class="col">
+              周五
+              </div>
+              <div class="col">
+              周六
+              </div>
+              <div class="col">
+              周日
+              </div>
+            </div>
+
+            <div class="row row-center">
+              <div class="col">
+              上午
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+            </div>
+
+            <div class="row row-center">
+              <div class="col">
+              下午
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+            </div>
+
+            <div class="row row-center">
+              <div class="col">
+              晚上
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+              <div class="col">
+                <label class="checkbox">
+                  <input  value="{{course_option.key}}" type="checkbox">
+                </label>
+              </div>
+            </div>
+
+            <div class="padding">
+              <button class="button button-block button-positive"  ng-click="updateUserType()">
+                保存
+              </button>
+            </div>
+          </ion-content>
+        </div>
+      </script>
+
+      <script id="set_price.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-stable">
+            <div class="buttons">
+              <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetPriceModal()">返回</button>
+            </div>
+            <h1 class="title">设置价格</h1>
+          </ion-header-bar>
+          <ion-content>
+            <div class="list">
+              <label class="item item-input">
+                <input type="text" placeholder="价格">
+              </label>
+              <div class="padding">
+                <button class="button button-block button-positive"  ng-click="updateUserType()">
+                  保存
+              </button>
+            </div>
+          </ion-content>
+        </div>
+      </script>
+
+      <script id="set_course_type.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-stable">
+            <div class="buttons">
+              <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetCourseTypeModal()">返回</button>
+            </div>
+            <h1 class="title">授课方式</h1>
+          </ion-header-bar>
+          <ion-content>
+            <div class="list">
+              <label ng-repeat="type in course_type_list" class="item item-radio">
+                <input type="radio" name="group" value="{{$index}}">
+                  <div class="item-content">
+                    {{type}}
+                  </div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+            <div>
+            <div class="padding">
+              <button class="button button-block button-positive"  ng-click="updateUserType()">
+                  保存
+              </button>
+            </div>
+          </ion-content>
+        </div>
+      </script>
+
+      <script id="set_address.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-stable">
+            <div class="buttons">
+              <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetAddressModal()">返回</button>
+            </div>
+            <h1 class="title">设置地址</h1>
+          </ion-header-bar>
+          <ion-content>
+            <div class="list">
+              <label class="item item-input">
+                <input type="text" placeholder="地址">
+              </label>
+              <div class="padding">
+                <button class="button button-block button-positive"  ng-click="updateUserType()">
+                  保存
+              </button>
+            </div>
+          </ion-content>
+        </div>
+      </script>
 
   </ion-content>
 

@@ -88,7 +88,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.loginFlag = $rootScope.user.isSign;
     //console.log($rootScope.user.isSign);
     if($rootScope.user.isSign == true) {
-      $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(function (data) {
+      $http.get(config.url + cmd['user_info_get'] + '?userid=' + $rootScope.user.id).success(function (data) {
         console.log('user info:');
         console.log(data);
         if(data.responseStr == 'Success') {
@@ -394,7 +394,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $scope.ProfilePhotoURI = AccountInfoService.getCurrentProfilePhotoURI();
     }
 
-    $http.get(config.url + cmd['user_info_get'] + '?userID=' + $rootScope.user.id).success(
+    $http.get(config.url + cmd['user_info_get'] + '?userid=' + $rootScope.user.id).success(
       function (data) {
         if(data.responseStr == 'Success') {
           $scope.account = data.user;
@@ -434,9 +434,10 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.show({
           template: responseCode['Updateing']
         });
-        $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+        $http.post(config.url + cmd['user_info_update'],{
           //firstname: $scope.update.FirstName,
           //lastname: $scope.update.LastName
+          userid: $rootScope.user.id,
           username: $scope.update.UserName
         }).success(function (data) {
           console.log(data);
@@ -478,7 +479,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.show({
         template: responseCode['Updateing']
       });
-      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+      $http.post(config.url + cmd['user_info_update'],{
+        userid: $rootScope.user.id,
         usertype: $scope.update.user_type
       }).success(function (data) {
         if(data.responseStr == "Success") {
@@ -518,7 +520,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.show({
         template: responseCode['Updateing']
       });
-      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+      $http.post(config.url + cmd['user_info_update'],{
+        userid: $rootScope.user.id,
         academicqualification: $scope.update.user_academic
       }).success(function (data) {
         if(data.responseStr == "Success") {
@@ -559,7 +562,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.show({
         template: responseCode['Updateing']
       });
-      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+      $http.post(config.url + cmd['user_info_update'],{
+        userid: $rootScope.user.id,
         graduatefrom: $scope.update.user_school
       }).success(function (data) {
         if(data.responseStr == "Success") {
@@ -600,7 +604,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       $ionicLoading.show({
         template: responseCode['Updateing']
       });
-      $http.post(config.url + cmd['user_info_update'] + '?userId=' + $rootScope.user.id,{
+      $http.post(config.url + cmd['user_info_update'],{
+        userid: $rootScope.user.id,
         addressforclass: $scope.update.user_address
       }).success(function (data) {
         if(data.responseStr == "Success") {
@@ -628,7 +633,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   });
 
   $scope.openGetTeachingRecordModal = function () {
-    $http.get(config.url + cmd['teaching_record_get'] + '?userID=' + $rootScope.user.id).success(
+    $http.get(config.url + cmd['teaching_record_get'] + '?userid=' + $rootScope.user.id).success(
       function (data) {
         if(data.responseStr == 'Success') {
           $scope.account.teaching_record = data.record;
@@ -754,7 +759,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
   $scope.teaching_record_description = "";
   $scope.insertTeachingRecord = function () {
-    $http.post(config.url + cmd['teaching_record_add'] + '?userId=' + $rootScope.user.id,{
+    $http.post(config.url + cmd['teaching_record_add'],{
+      userid: $rootScope.user.id,
       starttime: $scope.teachRecordStartDate.inputDate,
       endtime: $scope.teachRecordEndDate.inputDate,
       description: $scope.teaching_record_description,
@@ -773,7 +779,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   }
 
   $scope.updateTeachingRecord = function (id) {
-    $http.post(config.url + cmd['teaching_record_update'] + '?userId=' + $rootScope.user.id + '&teachingRecordId=' + id,{
+    $http.post(config.url + cmd['teaching_record_update'],{
+      userid: $rootScope.user.id,
+      teachingrecordid: id,
       starttime: $scope.teachRecordStartDate.inputDate,
       endtime: $scope.teachRecordEndDate.inputDate,
       description: $scope.teaching_record_description
@@ -799,7 +807,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   });
 
   $scope.openGetSuccessfulCasesModal = function () {
-    $http.get(config.url + cmd['successful_cases_get'] + '?userID=' + $rootScope.user.id).success(
+    $http.get(config.url + cmd['successful_cases_get'] + '?userid=' + $rootScope.user.id).success(
       function (data) {
         if(data.responseStr == 'Success') {
           $scope.account.successful_cases = data.record;
@@ -828,7 +836,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       },
       destructiveButtonClicked: function () {
         // 通过id删除开支记录
-        $http.post(config.url + cmd['successful_cases_delete'] + '?userId=' + $rootScope.user.id,{}).success(
+        $http.post(config.url + cmd['successful_cases_delete'] + '?userid=' + $rootScope.user.id,{}).success(
           function(data) {
             if(data.responseStr == 'Success') {
               $ionicLoading.show({template: responseCode["Delete_Success"], duration: 1000});
@@ -924,7 +932,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
   $scope.successful_cases_description = "";
   $scope.insertSuccessfulCases = function () {
-    $http.post(config.url + cmd['successful_cases_add'] + '?userId=' + $rootScope.user.id,{
+    $http.post(config.url + cmd['successful_cases_add'],{
+      userid: $rootScope.user.id,
       starttime: $scope.successfulCasesStartDate.inputDate,
       endtime: $scope.successfulCasesEndDate.inputDate,
       description: $scope.successful_cases_description,
@@ -943,7 +952,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   }
 
   $scope.updateSuccessfulCases = function (id) {
-    $http.post(config.url + cmd['successful_cases_update'] + '?userId=' + $rootScope.user.id + '&successfulCasesId=' + id,{
+    $http.post(config.url + cmd['successful_cases_update'],{
+      userid: $rootScope.user.id,
+      successfulcasesid: id,
       starttime: $scope.successfulCasesStartDate.inputDate,
       endtime: $scope.successfulCasesEndDate.inputDate,
       description: $scope.teaching_record_description
@@ -1076,8 +1087,185 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('RequirementPostCtrl', function ($scope) {
+.controller('RequirementPostCtrl', function ($scope,$ionicModal) {
 
-});
+  $ionicModal.fromTemplateUrl('set_class.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setClassModal = modal;
+  });
+
+    $scope.openSetClassModal = function () {
+        $scope.course_option_list = course;
+
+        $scope.setClassModal.show();
+      };
+
+    $scope.closeSetClassModal = function () {
+        $scope.setClassModal.hide();
+      };
+
+
+  $ionicModal.fromTemplateUrl('set_time.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setTimeModal = modal;
+  });
+
+    $scope.openSetTimeModal = function () {
+        //$scope.course_option_list = course;
+
+        $scope.setTimeModal.show();
+      };
+
+    $scope.closeSetTimeModal = function () {
+        $scope.setTimeModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_price.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setPriceModal = modal;
+  });
+
+    $scope.openSetPriceModal = function () {
+        //$scope.course_option_list = course;
+
+        $scope.setPriceModal.show();
+      };
+
+    $scope.closeSetPriceModal = function () {
+        $scope.setPriceModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_course_type.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setCourseTypeModal = modal;
+  });
+
+    $scope.openSetCourseTypeModal = function () {
+        //$scope.course_option_list = course;
+        $scope.course_type_list = course_type;
+        $scope.setCourseTypeModal.show();
+      };
+
+    $scope.closeSetCourseTypeModal = function () {
+        $scope.setCourseTypeModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_address.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setAddressModal = modal;
+  });
+
+    $scope.openSetAddressModal = function () {
+        //$scope.course_option_list = course;
+        //$scope.course_type_list = course_type;
+        $scope.setAddressModal.show();
+      };
+
+    $scope.closeSetAddressModal = function () {
+        $scope.setAddressModal.hide();
+      };
+
+})
+
+.controller('ClassSettingCtrl', function ($scope,$ionicModal) {
+
+  $ionicModal.fromTemplateUrl('set_class.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setClassModal = modal;
+  });
+
+    $scope.openSetClassModal = function () {
+        $scope.course_option_list = course;
+
+        $scope.setClassModal.show();
+      };
+
+    $scope.closeSetClassModal = function () {
+        $scope.setClassModal.hide();
+      };
+
+
+  $ionicModal.fromTemplateUrl('set_time.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setTimeModal = modal;
+  });
+
+    $scope.openSetTimeModal = function () {
+        //$scope.course_option_list = course;
+
+        $scope.setTimeModal.show();
+      };
+
+    $scope.closeSetTimeModal = function () {
+        $scope.setTimeModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_price.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setPriceModal = modal;
+  });
+
+    $scope.openSetPriceModal = function () {
+        //$scope.course_option_list = course;
+
+        $scope.setPriceModal.show();
+      };
+
+    $scope.closeSetPriceModal = function () {
+        $scope.setPriceModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_course_type.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setCourseTypeModal = modal;
+  });
+
+    $scope.openSetCourseTypeModal = function () {
+        //$scope.course_option_list = course;
+        $scope.course_type_list = course_type;
+        $scope.setCourseTypeModal.show();
+      };
+
+    $scope.closeSetCourseTypeModal = function () {
+        $scope.setCourseTypeModal.hide();
+      };
+
+  $ionicModal.fromTemplateUrl('set_address.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setAddressModal = modal;
+  });
+
+    $scope.openSetAddressModal = function () {
+        //$scope.course_option_list = course;
+        //$scope.course_type_list = course_type;
+        $scope.setAddressModal.show();
+      };
+
+    $scope.closeSetAddressModal = function () {
+        $scope.setAddressModal.hide();
+      };
+
+
+})
 
 

@@ -194,6 +194,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider,$h
     }
   })
 
+  .state('tabs.accountClassSetting', {
+    url: '/account/class_setting',
+    cache: false,
+    views: {
+      'accountTab': {
+        templateUrl: 'templates/requirement/classSetting.html',
+        controller: 'ClassSettingCtrl'
+      }
+    }
+  })
+
 
     .state('tabs.moneyAccountDetail', {
       url: '/account/money/moneyAccountDetail',

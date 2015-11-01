@@ -136,10 +136,12 @@
         <ion-content>
           <div class="list">
             <li ng-repeat="user_type in user_type_list" class="item item-checkbox">
-              <label class="checkbox">
+              <label class="item item-radio">
                 <input ng-model="update.user_type" value="{{$index}}" type="radio">
+                <div class="item-content">
+                  {{user_type}}
+                </div>
               </label> 
-              {{user_type}}
             </li>
 
             <button class="button button-block button-positive"  ng-click="updateUserType()">
