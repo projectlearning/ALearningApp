@@ -11,18 +11,26 @@ Get_All_Course:
     }
 	
 Requirement：
-	URL：/requirement/requirement_add?userId=(cmd: requirementservice.requirement_add)
+	URL：/requirement/requirement_add?(cmd: requirementservice.requirement_add)
 	Method: POST
 	INPUT {
+        userId
 		RequirementID
 		RequirementType
-		Price
-		TeachingMethod
+		MaxPrice
+        MinPrice
+        ExactPrice
+		Location
+        AddressCountry
+        AddressProvince
+        AddressCity
+        AddressRest
 		list {
 			CourseID
 		}
 		list {
-			Time
+			Date
+            Period
 			IsActive
 		}
 	}
@@ -39,15 +47,19 @@ Requirement：
 			RequirementID
 			UserID
 			RequirementType
-			Price
-			TeachingMethod
+			MaxPrice
+            MinPrice
+            ExactPrice
+			Location
 			Address
 			IsActive
+            PostDate
 			list {
 				CourseID
 			}
 			list {
-				Time
+				Date
+                Period
 				IsActive
 			}
 		}
@@ -56,7 +68,13 @@ Requirement：
 	URL: /requirement/requirement_search?
 	Method: POST
 	INPUT {
-		上传搜索字段
+		CourseID
+        MaxPrice
+        MinPrice
+        Country
+        Province
+        District
+        // 排序搜索字段，TBD(to be determined)
 	}
 	OUTPUT {
 		responseStr:
@@ -64,23 +82,28 @@ Requirement：
 			RequirementID
 			UserID
 			RequirementType
-			Price
-			TeachingMethod
+			MaxPrice
+            MinPrice
+            ExactPrice
+			Location
 			Address
 			IsActive
+            PostDate
 			list {
 				CourseID
 			}
 			list {
-				Time
+				Date
+                Period
 				IsActive
 			}
 		}
 	}
 	
-	URL: /requirement/requirement_update?requirementId=
+	URL: /requirement/requirement_update
 	Method: POST
 	INPUT {
+        requirementId
 		上传修改字段
 	}
 	OUTPUT {
