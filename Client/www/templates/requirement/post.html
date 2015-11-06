@@ -305,12 +305,44 @@
           </ion-header-bar>
           <ion-content>
             <div class="list">
-              <label class="item item-input">
-                <input type="text" placeholder="地址">
-              </label>
-              <div class="padding">
-                <button class="button button-block button-positive"  ng-click="updateUserType()">
-                  保存
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        <span><span>所在省</span></span>
+                    </div>
+                    <select ng-model="setting.province" ng-change="switchProvince(setting.province)">
+                      <option value="">请选择</option>
+                      <option value="{{item.name}}" ng-repeat="item in allProvince" ng-selected="item.name == setting.province">{{item.name}}</option>
+                    </select>
+                </label>
+
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        <span><span>所在市</span></span>
+                    </div>
+                    <select ng-model="setting.city" ng-change="switchCity(setting.province , setting.city)">
+                      <option value="">请选择</option>
+                      <option value="{{item.name}}" ng-repeat="item in cities" ng-selected="item.name == setting.city">{{item.name}}</option>
+                    </select>
+                </label>
+
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        <span><span>所在县</span></span>
+                    </div>
+                    <select ng-model="setting.region">
+                      <option value="">请选择</option>
+                      <option value="{{item.name}}" ng-repeat="item in regions" ng-selected="item.name == setting.region">{{item.name}}</option>
+                    </select>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">详细地址</span>
+                    <input type="text" placeholder="详细地址">
+                </label>
+
+            </div>
+            <div class="padding">
+              <button class="button button-block button-positive"  ng-click="updateUserType()">
+                保存
               </button>
             </div>
           </ion-content>

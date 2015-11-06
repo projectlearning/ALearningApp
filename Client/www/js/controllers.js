@@ -1087,7 +1087,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('RequirementPostCtrl', function ($scope,$ionicModal) {
+.controller('RequirementPostCtrl', function ($scope,$ionicModal,cityPickerService) {
 
   $ionicModal.fromTemplateUrl('set_class.html', {
     scope: $scope,
@@ -1166,18 +1166,28 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
   });
 
     $scope.openSetAddressModal = function () {
-        //$scope.course_option_list = course;
-        //$scope.course_type_list = course_type;
-        $scope.setAddressModal.show();
-      };
+    //console.log(cityPickerService.getAllProvince());
+    //console.log(cityPickerService.getCities('广东'));
+    //console.log(cityPickerService.getRegion('广东','广州'));
+    $scope.allProvince = cityPickerService.getAllProvince();
+    $scope.setAddressModal.show();
+  };
 
-    $scope.closeSetAddressModal = function () {
-        $scope.setAddressModal.hide();
-      };
+  $scope.switchProvince = function (id) {
+    $scope.cities = cityPickerService.getCities(id);
+  };
+
+  $scope.switchCity = function (province , city) {
+    $scope.regions = cityPickerService.getRegion(province, city);
+  };
+
+  $scope.closeSetAddressModal = function () {
+    $scope.setAddressModal.hide();
+  };
 
 })
 
-.controller('ClassSettingCtrl', function ($scope,$ionicModal) {
+.controller('ClassSettingCtrl', function ($scope,$ionicModal,cityPickerService) {
 
   $ionicModal.fromTemplateUrl('set_class.html', {
     scope: $scope,
@@ -1255,15 +1265,25 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.setAddressModal = modal;
   });
 
-    $scope.openSetAddressModal = function () {
-        //$scope.course_option_list = course;
-        //$scope.course_type_list = course_type;
-        $scope.setAddressModal.show();
-      };
+  $scope.openSetAddressModal = function () {
+    //console.log(cityPickerService.getAllProvince());
+    //console.log(cityPickerService.getCities('广东'));
+    //console.log(cityPickerService.getRegion('广东','广州'));
+    $scope.allProvince = cityPickerService.getAllProvince();
+    $scope.setAddressModal.show();
+  };
 
-    $scope.closeSetAddressModal = function () {
-        $scope.setAddressModal.hide();
-      };
+  $scope.switchProvince = function (id) {
+    $scope.cities = cityPickerService.getCities(id);
+  };
+
+  $scope.switchCity = function (province , city) {
+    $scope.regions = cityPickerService.getRegion(province, city);
+  };
+
+  $scope.closeSetAddressModal = function () {
+    $scope.setAddressModal.hide();
+  };
 
 
 })

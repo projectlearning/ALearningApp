@@ -740,6 +740,20 @@ i.icon-search, i.icon-location {
   margin-right: 10px;
 }
 
+.user-auth {
+  padding: 2px 2px;
+  background-color: #f7bd52;
+  color: #fff;
+  border-radius: 5px
+}
+
+.class-pay {
+  padding: 2px 2px;
+  background-color: #4cb5f6;
+  color: #fff;
+  border-radius: 5px
+}
+
 
 /*消息页*/
 .chat-item-upper h2{

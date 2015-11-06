@@ -238,4 +238,40 @@ angular.module('alearn.services', ['ionic', 'ngCordova', 'alearn.config'])
       })
     }
   }
-}]);
+}])
+
+.factory('cityPickerService',function ()
+  {
+      var city_data = cityData;
+      return {
+        getAllProvince: function () {
+          return city_data;
+        },
+        getCities: function (province) {
+          for(var i = 0; i < city_data.length; i ++)
+          {
+            if(city_data[i].name == province)
+            {
+              return city_data[i].sub;
+            }
+          }
+          return null;
+        },
+        getRegion: function (province , city) {
+          for(var i = 0;i < city_data.length; i ++)
+          {
+            if(city_data[i].name == province)
+            {
+              for(var j = 0;j < city_data[i].sub.length; j ++)
+              {
+                if(city_data[i].sub[j].name == city)
+                {
+                  return city_data[i].sub[j].sub;
+                }
+              }
+            }
+          }
+          return null;
+        }
+      }
+});
