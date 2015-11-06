@@ -1,15 +1,21 @@
 CREATE TABLE requirement
 {
-	RequirementID                  BIGINT,      -- unique, should be unsigned integer type(so the BIGINT is just for draft)
-	UserID						   BIGINT,
-	RequirementType				   TINYINT,     -- 0为找老师，1为找学生
-    MaxPrice                       TINYINT,     -- 价格上限
-    MinPrice                       TINYINT,     -- 价格下限
-	ExactPrice					   TINYINT,     -- 精确价格
-	Location				       TINYINT,     -- 授课方式，0为老师上门，1为学生上门，2为双方协定地址，3以上都可
-	AddressID                      BIGIMT,
-	IsActive					   TINYINT,     -- 需求状态，0为此需求已失效，1为此需求有效，2为该需求部分被承接
-    PostDate                       DATE,
+	RequirementID       BIGINT,      -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+	UserID              BIGINT,
+	RequirementType     TINYINT,     -- 0为找老师，1为找学生
+    MaxPrice            TINYINT,     -- 价格上限
+    MinPrice            TINYINT,     -- 价格下限
+	ExactPrice          TINYINT,     -- 精确价格
+	Location            TINYINT,     -- 授课方式，0为老师上门，1为学生上门，2为双方协定地址，3以上都可
+	AddressID           BIGIMT,
+	IsActive            TINYINT,     -- 需求状态，0为此需求已失效，1为此需求有效，2为该需求部分被承接
+    PostDate            DATE,
+    
+    Country             TINYINT,        -- 考虑使用枚举变量
+    Province            TINYINT,        -- 考虑使用枚举变量
+    City                TINYINT,        -- 考虑使用枚举变量
+    District            TINYINT,        -- 考虑使用枚举变量
+    RestAddress         VARCHAR(255),
 	
 	FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (AddressID) REFERENCES address(AddressID),
@@ -46,13 +52,13 @@ CREATE TABLE course					-- 存储平台课程参数
 	Name        VARCHAR(255),       -- 可以考虑使用枚举变量
 }
 
-CREATE TABLE address                -- 需要考虑搜索复杂度
-{
-    AddressID       BIGIMT,         -- 授课地址，如果RequirementType值为0并且TeachingMethod值为0时，此值必填；如果RequirementType值为1并且TeachingMethod值为1时，此值必填
-    Country         TINYINT,        -- 考虑使用枚举变量
-    Province        TINYINT,        -- 考虑使用枚举变量
-    City            TINYINT,        -- 考虑使用枚举变量
-    District        TINYINT,        -- 考虑使用枚举变量
-    Rest            VARCHAR(255),
-    PRIMARY KEY (AddressID)
-}
+--CREATE TABLE address                -- 需要考虑搜索复杂度
+--{
+--    AddressID       BIGIMT,         -- 授课地址，如果RequirementType值为0并且TeachingMethod值为0时，此值必填；如果RequirementType值为1并且TeachingMethod值为1时，此值必填
+--    Country         TINYINT,        -- 考虑使用枚举变量
+--    Province        TINYINT,        -- 考虑使用枚举变量
+--    City            TINYINT,        -- 考虑使用枚举变量
+--    District        TINYINT,        -- 考虑使用枚举变量
+--    Rest            VARCHAR(255),
+--    PRIMARY KEY (AddressID)
+--}
