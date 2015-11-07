@@ -64,8 +64,11 @@ class accountservice(object):
         query_dict = request.form
         try:
             ret, acct = self.__dao.get_user_by_phonenum(str(query_dict["phonenum"]))
-            print ret, acct.PhoneNum, acct.Password
-            if acct.PhoneNum == query_dict["phonenum"] and acct.Password == query_dict["password"]:
+            if ret == 0:
+                print "user_login ret: %d phonenum: %s pwd: %s" % (ret, acct.PhoneNum, acct.Password)
+            else: 
+                print "the phonenum can't find"
+            if ret == 0 and acct.PhoneNum == query_dict["phonenum"] and acct.Password == query_dict["password"]:
                 ret_dict = {
                     "responseStr":"Success"
 
