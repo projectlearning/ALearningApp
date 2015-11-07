@@ -158,7 +158,7 @@ class QuickHttpRequest(object):
         self.keepalive = False
 
     def parse(self, param):
-        #print "parse: ", printdict(param)
+        print "parse: \n", printdict(param)
         self.client_ip = param["addr"][0]
         self.client_port = param["addr"][1]
         
@@ -180,6 +180,7 @@ class QuickHttpRequest(object):
             headend = data.find("\r\n\r\n")
             fp = StringIO(data)
         
+        headlist = []
         if headend > 0: #have header
             headlist = data[0:headend].split("\r\n")
         else:
@@ -215,8 +216,8 @@ class QuickHttpRequest(object):
             self.headers[key.lower()] = value
 
         #logger.debug(str(self.headers))
-        if self.headers.get("connection", "") == "keep-alive":
-            self.keepalive = True
+        #if self.headers.get("connection", "") == "keep-alive":
+        #    self.keepalive = True
    
         self.command = self.command.lower()
 
@@ -225,6 +226,9 @@ class QuickHttpRequest(object):
         self.query_dict = dict()
         self.form = dict()
         self.filedic = dict()
+        self.query_dict.clear()
+        self.form.clear()
+        self.filedic.clear()
         self.body = ""
 
         #print "ison: post: %s, method: %s" % (self.command, self.method)
@@ -553,7 +557,7 @@ def run_main(listen_fd, service):
                     except socket.error, msg:
                         if msg.errno == errno.EAGAIN:
                             #print datas
-                            print datas
+                            #print datas
                             success_parse = http_parse(param, datas, read_len)
                             if success_parse == ERR_HTTP_OK:
                                 tp.add_job(param, epoll_fd, fd) 

@@ -82,6 +82,9 @@ class accountservice(object):
             return json_ret
         except Exception, e:
             print str(e)
+            ret_dict = {"responseStr":"Register__failed"}
+            json_ret = json.dumps(ret_dict)
+            return json_ret
 
     def user_update(self, request, headers):
         query_dict = request.form
@@ -142,7 +145,9 @@ class accountservice(object):
             return json_ret
         except Exception, e:
             print str(e)  + getTraceStackMsg()
-
+            ret_dict = {"responseStr":"Update_failed"}
+            json_ret = json.dumps(ret_dict)
+            return json_ret
     def user_get(self, request, headers):
         query_dict = request.query_dict
         try:
@@ -176,3 +181,6 @@ class accountservice(object):
             return json_ret
         except Exception, e:
             print str(e) + getTraceStackMsg()
+            ret_dict = {"responseStr":"get__failed"}
+            json_ret = json.dumps(ret_dict)
+            return json_ret
