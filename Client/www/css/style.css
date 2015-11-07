@@ -40,6 +40,11 @@ a:hover {
   color: #666;
 }
 
+p {
+  word-wrap: break-word;
+  word-break: normal; 
+}
+
 .clearfix:before, .clearfix:after {
   content: " ";
   /* 1 */
@@ -752,6 +757,11 @@ i.icon-search, i.icon-location {
   background-color: #4cb5f6;
   color: #fff;
   border-radius: 5px
+}
+
+.user-intro {
+  font-size: 12px;
+  color: #666
 }
 
 

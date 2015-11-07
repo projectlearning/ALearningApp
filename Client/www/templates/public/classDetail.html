@@ -1,77 +1,112 @@
-<ion-view title="详情" hide-tabs='true'>
-  <ion-content padding="false" class="has-header no-footer" delegate-handle="mainScroll">
-    <section id="account-bg" class="relative">
-      <div class="account-ava relative">
-        <div class="fl">
-          <img src="img/ava-block.png" alt="" class="avater" style="background-image:url(img/iconfont-avater.png)">
+<ion-view title="王老师" hide-tabs='true'>
+  <ion-content padding="false" class="has-header no-footer" delegate-handle="mainScroll" scroll-header-show="" threshold="150">
+    <ion-slide-box does-continue="false"> 
+     <ion-slide>
+      <img like-animated="likeAnimated fadeOutUp" src="img/home-slider01.jpg" img-loaded="imageloaded-fadein" width="100%" height="150"/>
+     </ion-slide> 
+    </ion-slide-box>
+
+    <div class="list">
+      <div class="item item-avatar item-icon-right">
+        <img src="img/touxiang_200x200.jpg">
+        <h2>王老师&nbsp;&nbsp;<span class="fr">$150</span></h2>
+        <p><span class="user-auth">实名认证</span><span class="user-auth">资格认证</span><span class="user-auth">学历认证</span></p>
+        <i class="icon ion-ios-chatbubble-outline"></i>
         </div>
-        <div class="account-info fl">
-          <p><span style="padding-right:10px">ant</p>
-          <p>教龄:6年   个人    5星</p>
-          <p>验证情况</p>
+        <div class="row" style="text-align:center;border: 1px solid #ccc">
+          <div class="col col-33" style="border-right: 1px solid #ccc">
+            学生:5
+          </div>
+          <div class="col col-33" style="border-right: 1px solid #ccc">
+            教学:50小时
+          </div>
+          <div class="col col-33">
+            好评:80%
+          </div>
         </div>
       </div>
-    </section>
-
-    <div class="row" style="text-align:center;border: 1px solid #ccc">
-      <div class="col col-50" style="border-right: 1px solid #ccc">
-        学生总数:5
-      </div>
-      <div class="col col-50">
-        累计教学:50小时
-      </div>
     </div>
 
-    <div class="item item-divider" style="font-size:10pt;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 个人信息</div>
-    <a class="item" style="color:#333;padding:0px 18px;margin:0;">
-      <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-30"><span style="font-size: 10pt;"><i class="ion-social-chrome-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">老师身份</span></div>
-        <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">大学生(个人)<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-      <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-50"><span style="font-size: 10pt;"><i class="ion-tshirt-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">毕业学校</span></div>
-        <div class="col col-50" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">中山大学<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-      <div class="row" style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-50"><span style="font-size: 10pt;"><i class="ion-android-checkbox-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">教学经验</span></div>
-        <div class="col col-50" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">3 年<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-      <div class="row" style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-50"><span style="font-size: 10pt;"><i class="ion-android-checkbox-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">授课区域</span></div>
-        <div class="col col-50" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">天河<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-    </a>
+    <ion-list>
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 教师身份
+          <span class="item-note">
+            教师
+          </span>
+        </div>
+      </ion-item>
 
-    <div class="item item-divider" style="font-size:10pt;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 课程信息</div>
-    <a class="item" style="color:#333;padding:0px 18px;margin:0;">
-      <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-30"><span style="font-size: 10pt;"><i class="ion-social-chrome-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">小学语文</span></div>
-        <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">100/小时<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-      <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-30"><span style="font-size: 10pt;"><i class="ion-social-chrome-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">小学语文</span></div>
-        <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">100/小时<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-      <div class="row"  style="border-bottom:1px dotted #ccc;padding:10px 0px;">
-        <div class="col col-30"><span style="font-size: 10pt;"><i class="ion-social-chrome-outline"></i></span> <span style="font-size: 10pt;color:#666;padding:3px 8px;">小学语文</span></div>
-        <div class="col col-70" style="text-align:right;font-size: 10pt;color:#777;overflow:hidden">100/小时<i class="ion-ios-arrow-right" style="padding-left: 10px"></i></div>
-      </div>
-    </a>
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 毕业学校
+          <span class="item-note">
+            中山大学
+          </span>
+        </div>
+      </ion-item>
 
-    <div class="item item-divider" style="font-size:10pt;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 教学经历</div>
-    <div class="item" style="word-wrap:break-word;word-break: break-all;white-space:normal;" >
-      fdasfadsfhjksadhfjkashdfjkadshdjkfhdsjkfhjdskhfjkashfjkadshfjkadshdjkfhdsjkfh
-    </div>
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 学历
+          <span class="item-note">
+            大学本科
+          </span>
+        </div>
+      </ion-item>
 
-    <div class="item item-divider" style="font-size:10pt;color:#2982a8;height:50px;line-height:40px;"><i class="ion-briefcase"></i> 成功案例</div>
-    <div class="item" style="word-wrap:break-word;word-break: break-all;white-space:normal;" >
-      fdasfadsfhjksadhfjkashdfjkadshdjkfhdsjkfhjdskhfjkashfjkadshfjkadshdjkfhdsjkfh
-    </div>
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 教学科目
+        </div>
+        <div >
+          <p>小学语文/小学数学/小学英语</p>
+        </div>
+      </ion-item>
+
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 教学时间
+        </div>
+        <div >
+          <p>周二上午/周二下午/周三全天</p>
+        </div>
+      </ion-item>
+
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 教学方式
+        </div>
+        <div >
+          <p>广州天河/老师上门</p>
+        </div>
+      </ion-item>
+
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 成功经验
+        </div>
+        <div >
+          <p>2014年03月</p>
+          <p>学生语文100分，先分析学生问题，基础较差，每节课前五分钟进行听写，每周背满分作文段落，罗列五年中考考点，各个击破。中考116</p>
+        </div>
+      </ion-item>
+
+      <ion-item item="item">
+        <div >
+          <i class="icon ion-clock"></i> 教学案例
+        </div>
+        <div >
+          <p>2014年03月</p>
+          <p>学生语文100分，先分析学生问题，基础较差，每节课前五分钟进行听写，每周背满分作文段落，罗列五年中考考点，各个击破。中考116</p>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>
   <ion-footer-bar>
-    <ul class="wrap-btn-sign text-center" layout="row">
-        <li flex="50"><a class="btn-login">即时聊天</a></li>
-        <li flex="50"><a class="btn-register" ui-sref="tabs.orderClass">马上约课</a></li>
-    </ul>
+    <div class="button-bar">
+      <button class="button button-royal icon ion-ios-chatbubble-outline" ng-click="showChat(doctor.uid)"> 查看评价</button> 
+      <button class="button button-assertive icon ion-ios-heart-outline" ng-click="iLikes(doctor.uid)"> 马上约课</button> 
+    </div>
   </ion-footer-bar>
 </ion-view>

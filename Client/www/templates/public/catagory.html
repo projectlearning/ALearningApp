@@ -1,128 +1,135 @@
 <ion-view title="课程分类" hide-tabs='true'>
+    <ion-nav-buttons side="right"> 
+      <button class="button button-icon button-clear ion-ios-search" ng-click="openSetCatagorySearchModal()"></button> 
+    </ion-nav-buttons>
   <ion-content padding="false" class="has-header no-footer" delegate-handle="mainScroll">
-    <div class="list">
-      <div class="filter">
-        <div class="item-input-inset">
-          <label class="item-input-wrapper">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" ng-model="config.filter.keywords" placeholder="请输入公司或职位名称...">
-          </label>
-        </div>
-        <div style="height:40px;">
-          <div class="select_style2" style="float:left;width:20%;margin-left:4%;">
-            <select ng-model="config.filter.industry">
-              <option value="">年级</option>
-              <option value="{{item}}" ng-repeat="item in myConfig.search.industry"     ng-selected="item==config.filter.industry">{{item}}</option>
-            </select>
-          </div>
-          <div class="select_style2" style="float:left;width:20%;margin-left:4%;">
-            <select ng-model="config.filter.location">
-              <option value="">科目</option>
-              <option value="{{item}}" ng-repeat="item in myConfig.search.location"     ng-selected="item==config.filter.location">{{item}}</option>
-            </select>
-          </div>
-          <div class="select_style2" style="float:left;width:20%;margin-left:4%;">
-            <select ng-model="config.filter.salary">
-              <option value="" ng-selected="!myConfig.search.salary[config.filter.salary]">价格</option>
-              <option value="{{key}}" ng-repeat="(key,item) in myConfig.search.salary"  ng-selected="key==config.filter.salary"   >{{item}}</option>
-            </select>
-          </div>
-          <button ng-click="find()" style="background:#1aacc3;font-weight:bold;font-size:16px;border-radius:5px;border:0px;color:white;float:right;height:30px;margin-right:3%;margin-bottom:10px">搜索</button>
-        </div>
-      </div>
-      <div class="list-item"
-        collection-item-width="'100%'"
-        >
-        <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
-          <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
-          <div class="item-info" flex layout="column" layout-align="space-between">
-              <h3 class="title">陈老师</h3>
-                <div class="item-data">
-                  <div layout="row" layout-align="space-between">
-                    <div>
-                      <span class="">教龄:5年</span>
-                      <span class="">课时:10</span>
-                    </div>
-                  </div>
-                  <div layout="row" layout-align="space-between">
-                    <div>
-                      <span class="">科目:小学语文</span>
-                    </div>
-                  </div>
-                  <div layout="row" layout-align="space-between">
-                    <div>
-                      <span class="site-color promo-price dib">$100/小时</span>
-                    </div>
-                    <div><i class="icon-heart"></i>广州天河</div>
-                  </div>
-                  <div layout="row" layout-align="space-between">
-                    <div class=""><i class="ion-ios-person"></i>评价:</div>
-                    <div><i class="ion-ios-heart"></i>10人评价</div>
-                  </div>
-                </div>
-              </div>
-            </a>
 
-            <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
-              <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
-              <div class="item-info" flex layout="column" layout-align="space-between">
-                  <h3 class="title">陈老师</h3>
-                    <div class="item-data">
-                      <div layout="row" layout-align="space-between">
-                        <div>
-                          <span class="">教龄:5年</span>
-                          <span class="">课时:10</span>
-                        </div>
-                      </div>
-                      <div layout="row" layout-align="space-between">
-                        <div>
-                          <span class="">科目:小学语文</span>
-                        </div>
-                      </div>
-                      <div layout="row" layout-align="space-between">
-                        <div>
-                          <span class="site-color promo-price dib">$100/小时</span>
-                        </div>
-                        <div><i class="icon-heart"></i>广州天河</div>
-                      </div>
-                      <div layout="row" layout-align="space-between">
-                        <div class=""><i class="ion-ios-person"></i>评价:</div>
-                        <div><i class="ion-ios-heart"></i>10人评价</div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
-                <a ui-sref="tabs.classDetail" layout="row" layout-align="space-between top">
-                  <img ng-src="img/touxiang_200x200.jpg" width="100" height="100">
-                  <div class="item-info" flex layout="column" layout-align="space-between">
-                      <h3 class="title">陈老师</h3>
-                        <div class="item-data">
-                          <div layout="row" layout-align="space-between">
-                            <div>
-                              <span class="">教龄:5年</span>
-                              <span class="">课时:10</span>
-                            </div>
-                          </div>
-                          <div layout="row" layout-align="space-between">
-                            <div>
-                              <span class="">科目:小学语文</span>
-                            </div>
-                          </div>
-                          <div layout="row" layout-align="space-between">
-                            <div>
-                              <span class="site-color promo-price dib">$100/小时</span>
-                            </div>
-                            <div><i class="icon-heart"></i>广州天河</div>
-                          </div>
-                          <div layout="row" layout-align="space-between">
-                            <div class=""><i class="ion-ios-person"></i>评价:</div>
-                            <div><i class="ion-ios-heart"></i>10人评价</div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-          </div>
+  <div class="list card">
+    <div class="item item-thumbnail-left">
+      <img src="img/touxiang_200x200.jpg">
+      <h2>王老师&nbsp;&nbsp;<span class="user-auth fr">3项认证</span></h2>
+      <span class="user-intro">教龄:5年</span><span class="user-intro fr">课时:100</span>
+      <p>
+        <span>科目:小学语文</span>
+      </p>
+      <p>
+        <span>区域:广州天河</span>
+      </p>
+    </div>
+    <div class="item">
+      <span>评价:5</span>
+      <span class="fr">$100</span>
+    </div>
   </div>
+
+  <div class="list card">
+    <div class="item item-thumbnail-left">
+      <img src="img/touxiang_200x200.jpg">
+      <h2>王老师&nbsp;&nbsp;<span class="user-auth fr">3项认证</span></h2>
+      <span class="user-intro">教龄:5年</span><span class="user-intro fr">课时:100</span>
+      <p>
+        <span>科目:小学语文</span>
+      </p>
+      <p>
+        <span>区域:广州天河</span>
+      </p>
+    </div>
+    <div class="item">
+      <span>评价:5</span>
+      <span class="fr">$100</span>
+    </div>
+  </div>
+
+  <div class="list card">
+    <div class="item item-thumbnail-left">
+      <img src="img/touxiang_200x200.jpg">
+      <h2>王老师&nbsp;&nbsp;<span class="user-auth fr">3项认证</span></h2>
+      <span class="user-intro">教龄:5年</span><span class="user-intro fr">课时:100</span>
+      <p>
+        <span>科目:小学语文</span>
+      </p>
+      <p>
+        <span>区域:广州天河</span>
+      </p>
+    </div>
+    <div class="item">
+      <span>评价:5</span>
+      <span class="fr">$100</span>
+    </div>
+  </div>
+
+  <div class="list card">
+    <div class="item item-thumbnail-left">
+      <img src="img/touxiang_200x200.jpg">
+      <h2>王老师&nbsp;&nbsp;<span class="user-auth fr">3项认证</span></h2>
+      <span class="user-intro">教龄:5年</span><span class="user-intro fr">课时:100</span>
+      <p>
+        <span>科目:小学语文</span>
+      </p>
+      <p>
+        <span>区域:广州天河</span>
+      </p>
+    </div>
+    <div class="item">
+      <span>评价:5</span>
+      <span class="fr">$100</span>
+    </div>
+  </div>
+  
+  <script id="catagoty_search.html" type="text/ng-template">
+    <div class="modal">
+      <ion-header-bar class="bar-stable">
+        <div class="buttons">
+          <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeSetCatagorySearchModal()">返回</button>
+        </div>
+        <h1 class="title">搜&nbsp;&nbsp;&nbsp;&nbsp索</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div class="list">
+          <label class="item item-input item-select">
+            <div class="input-label">
+              <span><span>年&nbsp;&nbsp级</span></span>
+            </div>
+            <select ng-model="setting.province" ng-change="switchProvince(setting.province)">
+              <option value="">请选择</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <div class="input-label">
+              <span><span>科&nbsp;&nbsp目</span></span>
+            </div>
+            <select ng-model="setting.province" ng-change="switchProvince(setting.province)">
+              <option value="">请选择</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <div class="input-label">
+              <span><span>区&nbsp;&nbsp域</span></span>
+            </div>
+            <select ng-model="setting.province" ng-change="switchProvince(setting.province)">
+              <option value="">请选择</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select">
+            <div class="input-label">
+              <span><span>价&nbsp;&nbsp格</span></span>
+            </div>
+            <select ng-model="setting.province" ng-change="switchProvince(setting.province)">
+              <option value="">请选择</option>
+            </select>
+          </label>
+        <div>
+        <div class="padding">
+          <button class="button button-block button-positive"  ng-click="#">
+              确&nbsp;&nbsp;&nbsp;&nbsp定
+          </button>
+        </div>
+      </ion-content>
+    </div>
+  </script>
+
   </ion-content>
 </ion-view>

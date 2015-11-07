@@ -662,7 +662,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       },
       destructiveButtonClicked: function () {
         // 通过id删除开支记录
-        $http.post(config.url + cmd['teaching_record_delete'] + '?userId=' + $rootScope.user.id,{}).success(
+        $http.post(config.url + cmd['teaching_record_delete'] + '?userid=' + $rootScope.user.id,{}).success(
           function(data) {
             if(data.responseStr == 'Success') {
               $ionicLoading.show({template: responseCode["Delete_Success"], duration: 1000});
@@ -1029,7 +1029,23 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('PublicCatagoryCtrl', function ($rootScope, $scope) {
+.controller('PublicCatagoryCtrl', function ($rootScope, $scope,$ionicModal) {
+
+  $ionicModal.fromTemplateUrl('catagoty_search.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.setCatagorySearchModal = modal;
+  });
+
+  $scope.openSetCatagorySearchModal = function () {
+        //$scope.course_option_list = course;
+    $scope.setCatagorySearchModal.show();
+  };
+
+  $scope.closeSetCatagorySearchModal = function () {
+    $scope.setCatagorySearchModal.hide();
+  };
 
 })
 
