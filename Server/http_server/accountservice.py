@@ -95,53 +95,54 @@ class accountservice(object):
                 return json.dumps(ret_dict)
             print query_dict
             if query_dict.get("userid") != None:
-                user_info.UserID = long(query_dict.get("userid"))
+                user_info.UserID = (query_dict.get("userid"))
             if query_dict.get("phonenum") != None:
-                user_info.PhoneNum = str(query_dict.get("phonenum"))
+                user_info.PhoneNum = (query_dict.get("phonenum"))
             if query_dict.get("password") != None:
-                user_info.Password = str(query_dict.get("password"))
+                user_info.Password = (query_dict.get("password"))
             if query_dict.get("username") != None:
-                user_info.Username = str(query_dict.get("username"))
+                user_info.Username = (query_dict.get("username"))
             if query_dict.get("email") != None:
-                user_info.Email = str(query_dict.get("email"))
+                user_info.Email = (query_dict.get("email"))
             if query_dict.get("token") != None:
-                user_info.Token = str(query_dict.get("token"))
+                user_info.Token = (query_dict.get("token"))
             if query_dict.get("firstname") != None:
-                user_info.FirstName = str(query_dict.get("firstname"))
+                user_info.FirstName = (query_dict.get("firstname"))
             if query_dict.get("lastname") != None:
-                user_info.LastName = str(query_dict.get("lastname"))
+                user_info.LastName = (query_dict.get("lastname"))
             if query_dict.get("profilephotourl") != None:
-                user_info.ProfilePhotoURL = str(query_dict.get("profilephotourl"))
+                user_info.ProfilePhotoURL = (query_dict.get("profilephotourl"))
             if query_dict.get("usertype") != None:
-                user_info.UserType = int(query_dict.get("usertype"))
+                user_info.UserType = (query_dict.get("usertype"))
             if query_dict.get("academicqualification") != None:
-                user_info.AcademicQualification = int(query_dict.get("academicqualification"))
+                user_info.AcademicQualification = (query_dict.get("academicqualification"))
             if query_dict.get("experienceinyears") != None:
-                user_info.ExperienceInYears = int(query_dict.get("experienceinyears"))
+                user_info.ExperienceInYears = (query_dict.get("experienceinyears"))
             if query_dict.get("graduatefrom") != None:
-                user_info.GraduateFrom = str(query_dict.get("graduatefrom"))
+                user_info.GraduateFrom = (query_dict.get("graduatefrom"))
             if query_dict.get("idcardverification") != None:
-                user_info.IDCardVerification = int(query_dict.get("idcardverification"))
+                user_info.IDCardVerification = (query_dict.get("idcardverification"))
             if query_dict.get("teachercertifeverification") != None:
-                user_info.TeacherCertifeVerification = int(query_dict.get("teachercertifeverification"))
+                user_info.TeacherCertifeVerification = (query_dict.get("teachercertifeverification"))
             if query_dict.get("graduationcertificateverification") != None:
-                user_info.GraduationCertificateVerification = int(query_dict.get("graduationcertificateverification"))
+                user_info.GraduationCertificateVerification = (query_dict.get("graduationcertificateverification"))
             if query_dict.get("totalnumofclassinhours") != None:
-                user_info.TotalNumOfClassInHours = int(query_dict.get("totalnumofclassinhours"))
+                user_info.TotalNumOfClassInHours = (query_dict.get("totalnumofclassinhours"))
             if query_dict.get("totalnumofclassintimes") != None:
-                user_info.TotalNumOfClassInTimes = int(query_dict.get("totalnumofclassintimes"))
+                user_info.TotalNumOfClassInTimes = (query_dict.get("totalnumofclassintimes"))
             if query_dict.get("overallrate") != None:
-                user_info.OverallRate = float(query_dict.get("overallrate"))
+                user_info.OverallRate = (query_dict.get("overallrate"))
             if query_dict.get("goodrate") != None:
-                user_info.GoodRate = float(query_dict.get("goodrate"))
+                user_info.GoodRate = (query_dict.get("goodrate"))
             if query_dict.get("addressforclass") != None:
-                user_info.AddressForClass = str(query_dict.get("addressforclass"))
+                user_info.AddressForClass = (query_dict.get("addressforclass"))
             ret = self.__dao.update_user(user_info)
             if ret == 0:
                 ret_dict = {"responseStr":"Success"}
             else:
                 ret_dict = {"responseStr":"Update_failed"}
-            json_ret = json.dumps(ret_dict)
+            #json_ret = json.dumps(ret_dict)
+            json_ret = ret_dict
             return json_ret
         except Exception, e:
             print str(e)  + getTraceStackMsg()
@@ -156,28 +157,29 @@ class accountservice(object):
                 ret_dict = {"responseStr":"get_failed"}
                 return json.dumps(ret_dict)
             ret_dict = {"responseStr":"Success"}
-            ret_dict["userid"] = user_info.UserID
-            ret_dict["phonenum"] = user_info.PhoneNum
-            ret_dict["password"] = user_info.Password
-            ret_dict["username"] = user_info.Username
-            ret_dict["email"] = user_info.Email
-            ret_dict["token"] = user_info.Token
-            ret_dict["firstname"] = user_info.FirstName
-            ret_dict["lastname"] = user_info.LastName
-            ret_dict["profilephotourl"] = user_info.ProfilePhotoURL
-            ret_dict["usertype"] = user_info.UserType
-            ret_dict["academicqualification"] = user_info.AcademicQualification
-            ret_dict["experienceinyears"] = user_info.ExperienceInYears
-            ret_dict["graduatefrom"] = user_info.GraduateFrom
-            ret_dict["idcardverification"] = user_info.IDCardVerification
-            ret_dict["teachercertifeverification"] = user_info.TeacherCertifeVerification
-            ret_dict["graduationcertificateverification"] = user_info.GraduationCertificateVerification
-            ret_dict["totalnumofclassinhours"] = user_info.TotalNumOfClassInHours
-            ret_dict["totalnumofclassintimes"] = user_info.TotalNumOfClassInTimes
-            ret_dict["overallrate"] = user_info.OverallRate
-            ret_dict["goodrate"] = user_info.GoodRate
-            ret_dict["addressforclass"] = user_info.AddressForClass
-            json_ret = json.dumps(ret_dict)
+            ret_dict["userid"] =str( user_info.UserID)
+            ret_dict["phonenum"] =str( user_info.PhoneNum)
+            ret_dict["password"] =str( user_info.Password)
+            ret_dict["username"] =str( user_info.Username)
+            ret_dict["email"] =str( user_info.Email)
+            ret_dict["token"] =str( user_info.Token)
+            ret_dict["firstname"] =str( user_info.FirstName)
+            ret_dict["lastname"] =str( user_info.LastName)
+            ret_dict["profilephotourl"] =str( user_info.ProfilePhotoURL)
+            ret_dict["usertype"] =str( user_info.UserType)
+            ret_dict["academicqualification"] =str( user_info.AcademicQualification)
+            ret_dict["experienceinyears"] =str( user_info.ExperienceInYears)
+            ret_dict["graduatefrom"] =str( user_info.GraduateFrom)
+            ret_dict["idcardverification"] =str( user_info.IDCardVerification)
+            ret_dict["teachercertifeverification"] =str( user_info.TeacherCertifeVerification)
+            ret_dict["graduationcertificateverification"] =str( user_info.GraduationCertificateVerification)
+            ret_dict["totalnumofclassinhours"] =str( user_info.TotalNumOfClassInHours)
+            ret_dict["totalnumofclassintimes"] =str( user_info.TotalNumOfClassInTimes)
+            ret_dict["overallrate"] =str( user_info.OverallRate)
+            ret_dict["goodrate"] =str( user_info.GoodRate)
+            ret_dict["addressforclass"] =str( user_info.AddressForClass)
+            #json_ret =json.dumps(ret_dict)
+            json_ret = ret_dict
             return json_ret
         except Exception, e:
             print str(e) + getTraceStackMsg()
