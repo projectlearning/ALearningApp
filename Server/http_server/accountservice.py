@@ -141,8 +141,8 @@ class accountservice(object):
                 ret_dict = {"responseStr":"Success"}
             else:
                 ret_dict = {"responseStr":"Update_failed"}
-            #json_ret = json.dumps(ret_dict)
-            json_ret = ret_dict
+            json_ret = json.dumps(ret_dict)
+            #json_ret = ret_dict
             return json_ret
         except Exception, e:
             print str(e)  + getTraceStackMsg()
@@ -178,8 +178,9 @@ class accountservice(object):
             ret_dict["overallrate"] =str( user_info.OverallRate)
             ret_dict["goodrate"] =str( user_info.GoodRate)
             ret_dict["addressforclass"] =str( user_info.AddressForClass)
-            #json_ret =json.dumps(ret_dict)
-            json_ret = ret_dict
+            json_ret =json.dumps(ret_dict)
+            #json_ret = ret_dict
+            print json_ret
             return json_ret
         except Exception, e:
             print str(e) + getTraceStackMsg()
