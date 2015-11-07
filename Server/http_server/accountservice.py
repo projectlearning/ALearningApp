@@ -88,7 +88,12 @@ class accountservice(object):
 
     def user_update(self, request, headers):
         query_dict = request.form
+        #print query_dict
         try:
+            if query_dict.get("userid", None) is None:
+                print "not userid"
+                ret_dict = {"responseStr":"Update_failed"}
+                return json.dumps(ret_dict)
             ret, user_info = self.__dao.get_user_by_userid(int(query_dict["userid"]))
             if ret != 0:
                 ret_dict = {"responseStr":"Update_failed"}
