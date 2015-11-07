@@ -92,7 +92,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         console.log('user info:');
         console.log(data);
         if(data.responseStr == 'Success') {
-          $scope.account = data.user;
+          $scope.account = data;
         } else {
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
           return false;
@@ -396,11 +396,12 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
     $http.get(config.url + cmd['user_info_get'] + '?userid=' + $rootScope.user.id).success(
       function (data) {
+        console.log('user_info' + data);
         if(data.responseStr == 'Success') {
-          $scope.account = data.user;
+          $scope.account = data;
           $scope.account.phone = $rootScope.user.phone;
-          $scope.account.status = userType[$scope.account.UserType];
-          $scope.account.academic = academic[$scope.account.AcademicQualification];
+          $scope.account.status = userType[$scope.account.usertype];
+          $scope.account.academic = academic[$scope.account.academicqualification];
         } else {
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
           return false;
@@ -444,7 +445,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           if(data.responseStr == "Success") {
             $ionicLoading.hide();
             //$scope.account.FirstName = $scope.update.FirstName;
-            $scope.account.UserName = $scope.update.UserName;
+            $scope.account.username = $scope.update.UserName;
             $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
             $scope.updateNameModal.hide();
           } else {

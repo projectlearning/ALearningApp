@@ -23,7 +23,7 @@
       <div class="item" ng-click="openUpdateNameModal()">
         用户名
         <span class="item-note">
-          {{account.FistName}} {{account.LastName}}
+          {{account.username}}
         </span>
       </div>
 
@@ -44,7 +44,7 @@
       <div class="item" ng-click="openUpdateSchoolModal()">
         毕业学校
         <span class="item-note">
-          {{account.GraduateFrom}}
+          {{account.usertype}}
         </span>
       </div>
     </div>
@@ -66,7 +66,7 @@
       <div class="item" ng-click="openUpdateAddressModal()">
         常用地址
         <span class="item-note">
-          {{account.AddressForClass}}
+          {{account.addressforclass}}
         </span>
       </div>
     </div>
@@ -75,20 +75,20 @@
       <div class="item">
         课时
         <span class="item-note">
-          {{account.TotalNumOfClassInHours}}
+          {{account.totalnumofclassinhours}}
         </span>
       </div>
       <div class="item">
         好评率
         <span class="item-note">
-          {{account.GoodRate}}
+          {{account.goodrate}}
         </span>
       </div>
 
       <div class="item">
         教育经验
          <span class="badge badge-assertive">
-          {{account.ExperienceInYears}} 年
+          {{account.experienceinyears}} 年
         </span>
       </div>
 
