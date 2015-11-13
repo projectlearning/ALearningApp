@@ -93,6 +93,9 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         console.log(data);
         if(data.responseStr == 'Success') {
           $scope.account = data;
+          $scope.account.phone = $rootScope.user.phone;
+          $scope.account.status = userType[$scope.account.usertype];
+          $scope.account.academic = academic[$scope.account.academicqualification];
         } else {
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
           return false;
@@ -120,8 +123,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
 
 
 
-.controller('AccountRegisterCtrl', ['$scope', '$timeout', '$ionicLoading', 'cacheService', 'config','$http','$state','$rootScope',
-  function ($scope, $timeout,$ionicLoading, cacheService, config,$http,$state,$rootScope) {
+.controller('AccountRegisterCtrl', ['$scope', '$timeout', '$ionicLoading', 'cacheService', 'config','$http','$state','$rootScope','$ionicModal',
+  function ($scope, $timeout,$ionicLoading, cacheService, config,$http,$state,$rootScope,$ionicModal) {
     $scope.register = {};
     $scope.verifyFlag = 0;
     $scope.SMSTime = 0;
@@ -224,7 +227,8 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
             //cacheService.system.put('TOKEN', $rootScope.user.token);
                   cacheService.system.put('USERPHONE', $rootScope.user.phone);
                   $ionicLoading.show({template: responseCode['Login_Success'], duration: 1000});
-                  $state.go('tabs.accountTab',{},{reload:true});
+                  //$state.go('tabs.accountTab',{},{reload:true});
+                  $scope.openUpdateTypeModal();
                 } else {
                   $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
                   return false;
@@ -246,6 +250,47 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
       });
       //$state.go('tabs.accountTab',{},{reload:true});
       //$state.go("tabs.homeTab");
+    }
+    $scope.user_type_list = userType;
+    $scope.update = {};
+    $ionicModal.fromTemplateUrl('update_type_modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.updateTypeModal = modal;
+      });
+
+    $scope.openUpdateTypeModal = function () {
+        $scope.updateTypeModal.show();
+      };
+
+    $scope.closeUpdateTypeModal = function () {
+        $scope.updateTypeModal.hide();
+      };
+
+    $scope.updateUserType = function () {
+      //console.log($scope.update.user_type);
+      $ionicLoading.show({
+        template: responseCode['Updateing']
+      });
+      $http.post(config.url + cmd['user_info_update'],{
+        userid: $rootScope.user.id,
+        usertype: $scope.update.user_type
+      }).success(function (data) {
+        if(data.responseStr == "Success") {
+          $ionicLoading.hide();
+          $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
+          $scope.updateTypeModal.hide();
+        } else {
+          $ionicLoading.hide();
+          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
+          return false;
+        }
+      }).error(function (data) {
+        $ionicLoading.hide();
+        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
+        return false;
+      });
     }
 }])
 
@@ -385,7 +430,6 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
     $scope.update = {};
     $scope.account = {};
     $scope.account.teaching_record = {};
-    $scope.user_type_list = userType;
     $scope.user_academic_list = academic;
     //console.log(angular.isArray($scope.user_type_list));
     //console.log(userType['1']);
@@ -460,47 +504,6 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         });
       }
 
-    $ionicModal.fromTemplateUrl('update_type_modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.updateTypeModal = modal;
-      });
-
-    $scope.openUpdateTypeModal = function () {
-        $scope.updateTypeModal.show();
-      };
-
-    $scope.closeUpdateTypeModal = function () {
-        $scope.updateTypeModal.hide();
-      };
-
-    $scope.updateUserType = function () {
-      //console.log($scope.update.user_type);
-      $ionicLoading.show({
-        template: responseCode['Updateing']
-      });
-      $http.post(config.url + cmd['user_info_update'],{
-        userid: $rootScope.user.id,
-        usertype: $scope.update.user_type
-      }).success(function (data) {
-        if(data.responseStr == "Success") {
-          $ionicLoading.hide();
-          $scope.account.UserType = $scope.update.user_type;
-          $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
-          $scope.updateTypeModal.hide();
-        } else {
-          $ionicLoading.hide();
-          $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
-          return false;
-        }
-      }).error(function (data) {
-        $ionicLoading.hide();
-        $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
-        return false;
-      });
-    }
-
     $ionicModal.fromTemplateUrl('update_academic_model.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -540,6 +543,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
         return false;
       });
+      $scope.updateSchoolModal.hide();
     }
 
   /*设置USER学校*/
@@ -571,7 +575,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
           $ionicLoading.hide();
           $scope.account.GraduateFrom = $scope.update.user_school;
           $ionicLoading.show({template: responseCode["Update_Success"], duration: 1000});
-          $scope.updateAcademicModal.hide();
+          $scope.updateSchoolModal.hide();
         } else {
           $ionicLoading.hide();
           $ionicLoading.show({template: responseCode[data.responseStr], duration: 1000});
@@ -624,6 +628,7 @@ angular.module('alearn.controllers', ['alearn.config','ngCordova'])
         $ionicLoading.show({template: responseCode['Network_Error'], duration: 1000});
         return false;
       });
+      $scope.updateSchoolModal.hide();
     }
 
   $ionicModal.fromTemplateUrl('get_teaching_record.html', {

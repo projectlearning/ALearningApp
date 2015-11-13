@@ -11,7 +11,6 @@
 				            <p>电话: {{account.phone}}</p>
 			          </div>
 		      </div-->
-        <section>
           <!--div class="list card" ng-if="loginFlag == true">
             <div class="item item-avatar">
               <a ui-sref="tabs.accountInfo">
@@ -22,7 +21,7 @@
             </div>
           </div-->
 
-          <div class="list" ng-if="loginFlag != true">
+          <!--div class="list" ng-if="loginFlag != true">
             <div class="item item-borderless user" ui-sref="tabs.accountLogin" >
               <img class="avatar" ng-src="img/user/user-thumbnail.png" >
               <p>欢迎来到蚁学教育</p>
@@ -52,33 +51,49 @@
 
 		      <!--p ng-if="loginFlag != true" style="text-align:center;font-size:20px;color:#fff;padding-top:3.55rem">欢迎来到蚁学教育</p>
 		      <p ng-if="loginFlag != true" style="text-align:center;padding-top:0.592rem"><a ui-sref="tabs.accountLogin" class="decora-none" style="color:#fff;font-size:16px">点击登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ui-sref="tabs.accountRegister" class="decora-none" style="color:#fff;font-size:16px">免费注册</a> </p -->
-	    </section>
+
+          
 
       <section>
+        <div class="list">
+            <a class="item item-avatar" ui-sref="tabs.accountLogin" ng-if="loginFlag==false">
+              <img ng-src="img/touxiang_200x200.jpg" ng-if="loginFlag==false">
+              <h2 ng-if="loginFlag==false">点击登录</h2>
+              <p ng-if="loginFlag==false">欢迎来到蚁学教育</p>
+            </a>
+
+            <a class="item item-avatar item-icon-right" ui-sref="tabs.accountInfo" ng-if="loginFlag==true">
+              <img ng-src="{{account.profilephotourl}}" ng-if="loginFlag==true">
+              <h2 ng-if="loginFlag==true">{{account.username}}&nbsp;&nbsp;<span class="class-pay" ng-if="account.usertype==0">学生</span>
+              <span class="class-pay" ng-if="account.usertype==1">老师</span></h2>
+              <p ng-if="loginFlag==true">{{account.phone}}</p>
+            </a>
+          </div>
+
       	<div class="list">
       		<a ui-sref="tabs.accountMoney" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-ios-pricetags-outline"></i>
+      			<i class="icon ion-ios-pricetags-outline" style="color:#4DCEEB"></i>
       			我的钱包
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
             </span>
       		</a>
       		<a ui-sref="tabs.accountOrders" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-ios-paper-outline"></i>
+      			<i class="icon ion-ios-paper-outline" style="color:#8DD2CB"></i>
       			我的订单
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
             </span>
       		</a>
       		<a ui-sref="tabs.accountComments" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-ios-compose-outline"></i>
+      			<i class="icon ion-ios-compose-outline" style="color:#9BCA71"></i>
       			我的评价
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
             </span>
       		</a>
       		<a ui-sref="tabs.accountVerification" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-person"></i>
+      			<i class="icon ion-person" style="color:#FBCF32"></i>
       			身份验证
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
@@ -92,8 +107,8 @@
           	<li class="item" ui-sref="tabs.accountVerification"><img src="img/icon/iconfont-yanzheng.png" alt="">身份验证</li>
         </ul-->
         <div class="list">
-          <a ui-sref="tabs.accountClassSetting" class="item item-icon-left item-icon-right">
-            <i class="icon ion-ios-toggle" ng-if="loginFlag == false || account.UserType > 0"></i>
+          <a ui-sref="tabs.accountClassSetting" class="item item-icon-left item-icon-right" ng-if="loginFlag == false || account.UserType > 0">
+            <i class="icon ion-ios-toggle" style="color:#53A6EA"></i>
             约课设置
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
@@ -101,14 +116,14 @@
           </a>
 
         	<a ui-sref="tabs.accountInvitation" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-person-add"></i>
+      			<i class="icon ion-person-add" style="color:#FD8323"></i>
       			邀请好友
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>
             </span>
       		</a>
       		<a ui-sref="tabs.accountSettings" class="item item-icon-left item-icon-right">
-      			<i class="icon ion-gear-a"></i>
+      			<i class="icon ion-gear-a" style="color:red"></i>
       			我的设置
             <span class="more">
               <i class="icon ion-ios-arrow-right"></i>

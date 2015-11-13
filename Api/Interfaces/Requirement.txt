@@ -10,6 +10,17 @@ Get_All_Course:
 		}
     }
 	
+Get_Address_Config:
+	URL: /address/config_get(cmd: addressservice.config_get)
+	Method: POST
+	INPUT {
+		Country/Province/City 字段按需上传，如获取省份则上传字段Contry	获取城市则上传字段Country、Province	获取区或者县则上传字段Country、Province、City
+	}
+	OUTPUT {
+		返回有Address_Config组成的List
+		如获取Country(中国),Province(广东)，返回List {{Province:广州},{Province:深圳}}
+	}
+	
 Requirement：
 	URL：/requirement/requirement_add?(cmd: requirementservice.requirement_add)
 	Method: POST

@@ -33,6 +33,54 @@ CREATE TABLE requirement_course                   -- 该需求所对应科目
     PRIMARY KEY (id)
 }
 
+CREATE TABLE address
+{
+	id	BIGINT,
+	RequirementID	BIGINT,
+	UserID	BIGINT,
+	AddressConfigID	BIFINT,
+	RestAddress	VARCHAR(255),
+	
+	FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+	FOREIGN KEY (UserID) REFERENCES user(UserID),
+	FOREIGN KEY (AddressConfigID) REFERENCES address_config(id),
+	PRIMARY	KEY	(id)
+}
+
+CREATE	TABLE	address_config
+{
+	id	BIGINT AUTO++,
+	Country	VARCHAR(255),
+	Province	VARCHAR(255),
+	City	VARCHAR(255),
+	District	VARCHAR(255),
+	
+	PRIMARY	KEY	(id)
+}
+
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','越秀区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','荔湾区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','海珠区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','天河区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','白云区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','黄埔区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','番禺区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','花都区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','南沙区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','萝岗区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','增城市');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','从化市');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','广州','其他');
+
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','福田区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','罗湖区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','南山区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','宝安区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','龙岗区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','盐田区');
+INSERT INTO address_config(Country,Province,City,District) VALUES('中国','广东','深圳','其他');
+
+
 CREATE TABLE requirement_time   -- 该需求的时间
 {
 	id	            BIGIMT,		-- unique, should be unsigned integer type(so the BIGINT is just for draft)
@@ -51,14 +99,3 @@ CREATE TABLE course					-- 存储平台课程参数
 	Grade       TINYINT,	        -- 0为学前教育，1为小学，2为中学，3为高中
 	Name        VARCHAR(255),       -- 可以考虑使用枚举变量
 }
-
---CREATE TABLE address                -- 需要考虑搜索复杂度
---{
---    AddressID       BIGIMT,         -- 授课地址，如果RequirementType值为0并且TeachingMethod值为0时，此值必填；如果RequirementType值为1并且TeachingMethod值为1时，此值必填
---    Country         TINYINT,        -- 考虑使用枚举变量
---    Province        TINYINT,        -- 考虑使用枚举变量
---    City            TINYINT,        -- 考虑使用枚举变量
---    District        TINYINT,        -- 考虑使用枚举变量
---    Rest            VARCHAR(255),
---    PRIMARY KEY (AddressID)
---}

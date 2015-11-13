@@ -7,6 +7,7 @@ var responseCode = {
   Register_Wrong_Verification_Code: "验证码不正确",
   Verification_Code_Not_Empty: "请输入验证码",
   Logining: "正在登录...",
+  Uploading: '正在上传...',
   Registering: "正在注册..",
   Register_Fail: "注册失败",
   Network_Error: "网络连接失败",
@@ -24,7 +25,7 @@ var responseCode = {
   4: "教育机构"
 };*/
 
-var userType = ["家长","已审核老师","未审核老师","大学生","教育机构"];
+var userType = ["家长","老师"];
 
 /*var academic = {
   0: "中学",

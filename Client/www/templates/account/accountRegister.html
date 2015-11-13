@@ -27,7 +27,33 @@
             <button class="button button-block button-positive" type="submit">注册</button>
           </label>
         </form>
-  </div>
+    </div>
+
+    <script id="update_type_modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-stable">
+          <div class="buttons">
+            <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeUpdateTypeModal()">返回</button>
+          </div>
+          <h1 class="title">我是</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <label ng-repeat="user_type in user_type_list" class="item item-radio">
+              <input ng-model="update.user_type" type="radio" value="{{$index}}">
+                <div class="item-content">
+                  {{user_type}}
+                </div>
+              <i class="radio-icon ion-checkmark"></i>
+            </label>
+
+            <button class="button button-block button-positive"  ng-click="updateUserType()">
+              确定
+            </button>
+          </div>
+        </ion-content>
+      </div>
+    </script>
   </ion-content>
 
 </ion-view>

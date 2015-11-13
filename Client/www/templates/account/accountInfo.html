@@ -9,8 +9,8 @@
 
     <div class="list">
       <a class="item item-icon-left item-icon-right" href="#" ng-click="showPopup()">
-        <img ng-src="{{ProfilePhotoURI}}" style="max-width: 5%">
-        {{account.LastName}}{{account.FirstName}}
+        <img ng-src="{{account.profilephotourl}}" style="max-width: 5%">
+        {{account.username}}
         <span class="item-note">
         上传
         </span>
@@ -27,12 +27,12 @@
         </span>
       </div>
 
-      <div class="item" ng-click="openUpdateTypeModal()">
+      <!--div class="item" ng-click="openUpdateTypeModal()">
         身份
         <span class="item-note" >
           {{account.status}}
         </span>
-      </div>
+      </div-->
 
       <div class="item" ng-click="openUpdateAcademicModal()">
         学历
@@ -44,7 +44,7 @@
       <div class="item" ng-click="openUpdateSchoolModal()">
         毕业学校
         <span class="item-note">
-          {{account.usertype}}
+          {{account.graduatefrom}}
         </span>
       </div>
     </div>
@@ -121,33 +121,6 @@
               <button class="button button-block button-positive" type="submit">保存</button>
             </label>
           </form>
-        </ion-content>
-      </div>
-    </script>
-
-    <script id="update_type_modal.html" type="text/ng-template">
-      <div class="modal">
-        <ion-header-bar class="bar-stable">
-          <div class="buttons">
-            <button class="button icon ion-ios-arrow-left button-clear" ng-click="closeUpdateTypeModal()">返回</button>
-          </div>
-          <h1 class="title">我是</h1>
-        </ion-header-bar>
-        <ion-content>
-          <div class="list">
-            <li ng-repeat="user_type in user_type_list" class="item item-checkbox">
-              <label class="item item-radio">
-                <input ng-model="update.user_type" value="{{$index}}" type="radio">
-                <div class="item-content">
-                  {{user_type}}
-                </div>
-              </label> 
-            </li>
-
-            <button class="button button-block button-positive"  ng-click="updateUserType()">
-              确定
-            </button>
-          </div>
         </ion-content>
       </div>
     </script>
@@ -260,14 +233,14 @@
           <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
             <span style="padding-right:10px">开始日期:</span>
             <ionic-datepicker input-obj="teachRecordStartDate">
-              <input type="text" ng-model="teachRecordStartDate.inputDate | date:'dd - MMMM - yyyy'">
+              <button class="button button-block button-clear">{{teachRecordStartDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
             </ionic-datepicker>
           </label>
 
           <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
             <span style="padding-right:10px">结束日期:</span>
             <ionic-datepicker input-obj="teachRecordEndDate">
-              <input type="text" ng-model="teachRecordEndDate.inputDate | date:'dd - MMMM - yyyy'">
+              <button class="button button-block button-clear">{{teachRecordEndDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
             </ionic-datepicker>
           </label>
 
@@ -324,14 +297,14 @@
           <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
             <span style="padding-right:10px">开始日期:</span>
             <ionic-datepicker input-obj="successfulCasesStartDate">
-              <input type="text" ng-model="successfulCasesStartDate.inputDate | date:'dd - MMMM - yyyy'">
+              <button class="button button-block button-clear">{{successfulCasesStartDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
             </ionic-datepicker>
           </label>
 
           <label class="item item-input padding-left padding-right" style="border-bottom:1px solid #ccc">
             <span style="padding-right:10px">结束日期:</span>
             <ionic-datepicker input-obj="successfulCasesEndDate">
-              <input type="text" ng-model="successfulCasesEndDate.inputDate | date:'dd - MMMM - yyyy'">
+              <button class="button button-block button-clear">{{successfulCasesEndDate.inputDate | date:'dd - MMMM - yyyy'}}</button>
             </ionic-datepicker>
           </label>
 
