@@ -123,64 +123,6 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_DEL_FAIL
 
-    def get_userprofile(self, UserProfileID):
-        
-        sql = "Select * from user_profile where UserProfileID = '%ld'" % (UserProfileID)
-        try:
-            self.__cursor.execute(sql)
-            results = self.__cursor.fetchall()
-            for row in results:
-                UserID = row[0]
-                UserProfileID = row[1]
-                FirstName = row[2]
-                LastName = row[3]
-                ProfilePhotoURL = row[4]
-                UserType = row[5]
-                ExperienceInYears = row[6]
-                AcademicQualification = row[7]
-                GraduateFrom = row[8]
-                IDCardVerification = row[9]
-                TeacherCertifeVerification = row[10]
-                GraduationCertificateVerification = row[11]
-                TotalNumOfClassInHours = row[12]
-                TotalNumOfClassInTimes = row[13]
-                OverallRate = row[14]
-                GoodRate = row[15]
-                AddressForClass = row[16]
-                userprofile = st_userprofile(UserID, UserProfileID, FirstName, LastName, ProfilePhotoURL, UserType, ExperienceInYears, AcademicQualification, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass)
-            return DB_OK, st_userprofile
-        except Exception, e:
-            return DB_GET_FAIL
-
-    def add_userprofile(self, st_userprofile):
-        sql = "Insert Into userprofile(UserID, UserProfileID, FirstName, LastName, ProfilePhotoURL, UserType, ExperienceInYears, AcademicQualification, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass) Values ('%ld', '%ld', '%s', '%s', '%s', '%d', '%d', '%d', '%s', '%d', '%d', '%d', '%d', '%d', '%lf', '%lf', '%s')" % (st_userprofile.UserID, st_userprofile.UserProfileID, st_userprofile.FirstName, st_userprofile.LastName, st_userprofile.ProfilePhotoURL, st_userprofile.UserType, st_userprofile.ExperienceInYears, st_userprofile.AcademicQualification, st_userprofile.GraduateFrom, st_userprofile.IDCardVerification, st_userprofile.TeacherCertifeVerification, st_userprofile.GraduationCertificateVerification, st_userprofile.TotalNumOfClassInHours, st_userprofile.TotalNumOfClassInTimes, st_userprofile.OverallRate, st_userprofile.GoodRate, st_userprofile.AddressForClass)
-        try:
-            self.__cursor.execute(sql)
-            self.__db.commit()
-            return DB_OK
-        except Exception, e:
-            self.__db.rollback()
-        return DB_ADD_FAIL
-
-    def update_userprofile(self, st_userprofile):
-        sql = "Update userprofile Set UserID = '%ld', UserProfileID = '%ld', FirstName = '%s', LastName = '%s', ProfilePhotoURL = '%s', UserType = '%d', ExperienceInYears = '%d', AcademicQualification = '%d', GraduateFrom = '%s', IDCardVerification = '%d', TeacherCertifeVerification = '%d', GraduationCertificateVerification = '%d', TotalNumOfClassInHours = '%d', TotalNumOfClassInTimes = '%d', OverallRate = '%lf', GoodRate = '%lf', AddressForClass = '%s' where UserProfileID = '%ld'" % (st_userprofile.UserID, st_userprofile.UserProfileID, st_userprofile.FirstName, st_userprofile.LastName, st_userprofile.ProfilePhotoURL, st_userprofile.UserType, st_userprofile.ExperienceInYears, st_userprofile.AcademicQualification, st_userprofile.GraduateFrom, st_userprofile.IDCardVerification, st_userprofile.TeacherCertifeVerification, st_userprofile.GraduationCertificateVerification, st_userprofile.TotalNumOfClassInHours, st_userprofile.TotalNumOfClassInTimes, st_userprofile.OverallRate, st_userprofile.GoodRate, st_userprofile.AddressForClass)
-        try:
-            self.__cursor.execute(sql)
-            self.__db.commit()
-            return DB_OK
-        except Exception, e:
-            self.__db.rollback()
-        return DB_UPDATE_FAIL
-
-    def del_userprofile(self, st_userprofile):
-        sql = "Delete From userprofile where UserProfileID = '%ld'" % (UserProfileID)
-        try:
-            self.__cursor.execute(sql)
-            self.__db.commit()
-            return DB_OK
-        except Exception, e:
-            self.__db.rollback()
-        return DB_DEL_FAIL
     def get_teachingrecords(self, TeachingRecordsID):
         
         sql = "Select * from teachingrecords where TeachingRecordsID = '%ld'" % (TeachingRecordsID)
@@ -196,7 +138,7 @@ class AccountDao(object):
                 teachingrecords = st_teachingrecords(TeachingRecordsID, UserID, StartTime, EndTime, Description)
             return DB_OK, st_teachingrecords
         except Exception, e:
-            return DB_GET_FAIL
+            return DB_GET_FAIL, None
 
     def add_teachingrecords(self, st_teachingrecords):
         sql = "Insert Into teachingrecords(TeachingRecordsID, UserID, StartTime, EndTime, Description) Values ('%ld', '%ld', '%d', '%d', '%s')" % (st_teachingrecords.TeachingRecordsID, st_teachingrecords.UserID, st_teachingrecords.StartTime, st_teachingrecords.EndTime, st_teachingrecords.Description)
@@ -329,67 +271,67 @@ class AccountDao(object):
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
-            for row in results:
-                UserID = row[0]
-                PhoneNum = row[1]
-                Password = row[2]
-                Username = row[3]
-                Email = row[4]
-                Token = row[5]
-                FirstName = row[6]
-                LastName = row[7]
-                ProfilePhotoURL = row[8]
-                UserType = row[9]
-                AcademicQualification = row[10]
-                ExperienceInYears = row[11]
-                GraduateFrom = row[12]
-                IDCardVerification = row[13]
-                TeacherCertifeVerification = row[14]
-                GraduationCertificateVerification = row[15]
-                TotalNumOfClassInHours = row[16]
-                TotalNumOfClassInTimes = row[17]
-                OverallRate = row[18]
-                GoodRate = row[19]
-                AddressForClass = row[20]
-            st_user = User(UserID, PhoneNum, Password, Username, Email, Token, FirstName, LastName, ProfilePhotoURL, UserType, AcademicQualification, ExperienceInYears, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass)
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            UserID = row[0]
+            PhoneNum = row[1]
+            Password = row[2]
+            Username = row[3]
+            Email = row[4]
+            Token = row[5]
+            FirstName = row[6]
+            LastName = row[7]
+            ProfilePhotoURL = row[8]
+            UserType = row[9]
+            AcademicQualification = row[10]
+            ExperienceInYears = row[11]
+            GraduateFrom = row[12]
+            IDCardVerification = row[13]
+            TeacherCertifeVerification = row[14]
+            GraduationCertificateVerification = row[15]
+            TotalNumOfClassInHours = row[16]
+            TotalNumOfClassInTimes = row[17]
+            OverallRate = row[18]
+            GoodRate = row[19]
+            AddressForClass = row[20]
+            st_user = user(UserID, PhoneNum, Password, Username, Email, Token, FirstName, LastName, ProfilePhotoURL, UserType, AcademicQualification, ExperienceInYears, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass)
             return DB_OK, st_user
         except Exception, e:
-            return DB_GET_FAIL
+            return DB_GET_FAIL, None
 
     def get_user_by_phonenum(self, PhoneNum):
         sql = "Select * from user where PhoneNum = '%s'" % (PhoneNum)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
-            print "haha"
             if len(results) <= 0:
                 return DB_GET_FAIL, None
-            for row in results:
-                print row[0], row[1], row[2]
-                UserID = row[0]
-                PhoneNum = row[1]
-                Password = row[2]
-                Username = row[3]
-                Email = row[4]
-                Token = row[5]
-                FirstName = row[6]
-                LastName = row[7]
-                ProfilePhotoURL = row[8]
-                UserType = row[9]
-                AcademicQualification = row[10]
-                ExperienceInYears = row[11]
-                GraduateFrom = row[12]
-                IDCardVerification = row[13]
-                TeacherCertifeVerification = row[14]
-                GraduationCertificateVerification = row[15]
-                TotalNumOfClassInHours = row[16]
-                TotalNumOfClassInTimes = row[17]
-                OverallRate = row[18]
-                GoodRate = row[19]
-                AddressForClass = row[20]
-            user = User(UserID, PhoneNum, Password, Username, Email, Token, FirstName, LastName, ProfilePhotoURL, UserType, AcademicQualification, ExperienceInYears, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass)
-            print user.UserID
-            return DB_OK, user
+            row = results[0]
+            UserID = row[0]
+            PhoneNum = row[1]
+            Password = row[2]
+            Username = row[3]
+            Email = row[4]
+            Token = row[5]
+            FirstName = row[6]
+            LastName = row[7]
+            ProfilePhotoURL = row[8]
+            UserType = row[9]
+            AcademicQualification = row[10]
+            ExperienceInYears = row[11]
+            GraduateFrom = row[12]
+            IDCardVerification = row[13]
+            TeacherCertifeVerification = row[14]
+            GraduationCertificateVerification = row[15]
+            TotalNumOfClassInHours = row[16]
+            TotalNumOfClassInTimes = row[17]
+            OverallRate = row[18]
+            GoodRate = row[19]
+            AddressForClass = row[20]
+            st_user = user(UserID, PhoneNum, Password, Username, Email, Token, FirstName, LastName, ProfilePhotoURL, UserType, AcademicQualification, ExperienceInYears, GraduateFrom, IDCardVerification, TeacherCertifeVerification, GraduationCertificateVerification, TotalNumOfClassInHours, TotalNumOfClassInTimes, OverallRate, GoodRate, AddressForClass)
+            print st_user.UserID
+            return DB_OK, st_user
         except Exception, e:
             print str(e)
             return DB_GET_FAIL, None
@@ -404,10 +346,13 @@ class AccountDao(object):
             query="SELECT LAST_INSERT_ID()";
             self.__cursor.execute(query)
             results = self.__cursor.fetchall()
-            for row in results:
-                st_user.UserID = long(row[0])
-                print row[0]
-                break
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_user.UserID = long(row[0])
+            print row[0]
 
             return DB_OK
         except Exception, e:
@@ -417,7 +362,6 @@ class AccountDao(object):
 
     def update_user(self, st_user):
         sql = "Update user Set UserID = '%ld', PhoneNum = '%s', Password = '%s', Username = '%s', Email = '%s', Token = '%s', FirstName = '%s', LastName = '%s', ProfilePhotoURL = '%s', UserType = '%d', AcademicQualification = '%d', ExperienceInYears = '%d', GraduateFrom = '%s', IDCardVerification = '%d', TeacherCertifeVerification = '%d', GraduationCertificateVerification = '%d', TotalNumOfClassInHours = '%d', TotalNumOfClassInTimes = '%d', OverallRate = '%lf', GoodRate = '%lf', AddressForClass = '%s' Where UserID = '%ld'" % (st_user.UserID, st_user.PhoneNum, st_user.Password, st_user.Username, st_user.Email, st_user.Token, st_user.FirstName, st_user.LastName, st_user.ProfilePhotoURL, st_user.UserType, st_user.AcademicQualification, st_user.ExperienceInYears, st_user.GraduateFrom, st_user.IDCardVerification, st_user.TeacherCertifeVerification, st_user.GraduationCertificateVerification, st_user.TotalNumOfClassInHours, st_user.TotalNumOfClassInTimes, st_user.OverallRate, st_user.GoodRate, st_user.AddressForClass, st_user.UserID)
-        print sql
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
@@ -429,6 +373,299 @@ class AccountDao(object):
 
     def del_user(self, st_user):
         sql = "Delete From user where UserID = '%ld'" % (UserID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_requirement(self, RequirementID):
+        sql = "Select * from account where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            RequirementID = row[0]
+            UserID = row[1]
+            RequirementType = row[2]
+            MaxPrice = row[3]
+            MinPrice = row[4]
+            Mode = row[5]
+            Status = row[6]
+            PostDate = row[7]
+            st_requirement = requirement(RequirementID, UserID, RequirementType, MaxPrice, MinPrice, Mode, Status, PostDate)
+            return DB_OK, st_requirement
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_requirement(self, st_requirement):
+        sql = "Insert Into requirement(RequirementID, UserID, RequirementType, MaxPrice, MinPrice, Mode, Status, PostDate) Values ('%ld', '%ld', '%d', '%d', '%d', '%d', '%d', '%d')" % (st_requirement.RequirementID, st_requirement.UserID, st_requirement.RequirementType, st_requirement.MaxPrice, st_requirement.MinPrice, st_requirement.Mode, st_requirement.Status, st_requirement.PostDate)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_requirement(self, st_requirement):
+        sql = "Update requirement Set RequirementID = '%ld', UserID = '%ld', RequirementType = '%d', MaxPrice = '%d', MinPrice = '%d', Mode = '%d', Status = '%d', PostDate = '%d' Where RequirementID = '%ld'" % (st_requirement.RequirementID, st_requirement.UserID, st_requirement.RequirementType, st_requirement.MaxPrice, st_requirement.MinPrice, st_requirement.Mode, st_requirement.Status, st_requirement.PostDate, st_requirement.RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_requirement(self, st_requirement):
+        sql = "Delete From requirement where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_requirementtime(self, ID):
+        sql = "Select * from account where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            ID = row[0]
+            RequirementID = row[1]
+            Date = row[2]
+            Period = row[3]
+            IsActive = row[4]
+            st_requirementtime = requirementtime(ID, RequirementID, Date, Period, IsActive)
+            return DB_OK, st_requirementtime
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_requirementtime(self, st_requirementtime):
+        sql = "Insert Into requirementtime(ID, RequirementID, Date, Period, IsActive) Values ('%ld', '%ld', '%d', '%d', '%d')" % (st_requirementtime.ID, st_requirementtime.RequirementID, st_requirementtime.Date, st_requirementtime.Period, st_requirementtime.IsActive)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_requirementtime(self, st_requirementtime):
+        sql = "Update requirementtime Set ID = '%ld', RequirementID = '%ld', Date = '%d', Period = '%d', IsActive = '%d' Where ID = '%ld'" % (st_requirementtime.ID, st_requirementtime.RequirementID, st_requirementtime.Date, st_requirementtime.Period, st_requirementtime.IsActive, st_requirementtime.ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_requirementtime(self, st_requirementtime):
+        sql = "Delete From requirementtime where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_course(self, CourseID):
+        sql = "Select * from account where CourseID = '%ld'" % (CourseID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            CourseID = row[0]
+            Grade = row[1]
+            Name = row[2]
+            st_course = course(CourseID, Grade, Name)
+            return DB_OK, st_course
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_course(self, st_course):
+        sql = "Insert Into course(CourseID, Grade, Name) Values ('%ld', '%d', '%s')" % (st_course.CourseID, st_course.Grade, st_course.Name)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_course(self, st_course):
+        sql = "Update course Set CourseID = '%ld', Grade = '%d', Name = '%s' Where CourseID = '%ld'" % (st_course.CourseID, st_course.Grade, st_course.Name, st_course.CourseID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_course(self, st_course):
+        sql = "Delete From course where CourseID = '%ld'" % (CourseID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_requirementcourse(self, ID):
+        sql = "Select * from account where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            ID = row[0]
+            RequirementID = row[1]
+            CourseID = row[2]
+            st_requirementcourse = requirementcourse(ID, RequirementID, CourseID)
+            return DB_OK, st_requirementcourse
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_requirementcourse(self, st_requirementcourse):
+        sql = "Insert Into requirementcourse(ID, RequirementID, CourseID) Values ('%ld', '%ld', '%ld')" % (st_requirementcourse.ID, st_requirementcourse.RequirementID, st_requirementcourse.CourseID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_requirementcourse(self, st_requirementcourse):
+        sql = "Update requirementcourse Set ID = '%ld', RequirementID = '%ld', CourseID = '%ld' Where ID = '%ld'" % (st_requirementcourse.ID, st_requirementcourse.RequirementID, st_requirementcourse.CourseID, st_requirementcourse.ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_requirementcourse(self, st_requirementcourse):
+        sql = "Delete From requirementcourse where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_addressconfig(self, AddressConfigID):
+        sql = "Select * from account where AddressConfigID = '%ld'" % (AddressConfigID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            AddressConfigID = row[0]
+            Country = row[1]
+            Province = row[2]
+            City = row[3]
+            District = row[4]
+            st_addressconfig = addressconfig(AddressConfigID, Country, Province, City, District)
+            return DB_OK, st_addressconfig
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_addressconfig(self, st_addressconfig):
+        sql = "Insert Into addressconfig(AddressConfigID, Country, Province, City, District) Values ('%ld', '%s', '%s', '%s', '%s')" % (st_addressconfig.AddressConfigID, st_addressconfig.Country, st_addressconfig.Province, st_addressconfig.City, st_addressconfig.District)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_addressconfig(self, st_addressconfig):
+        sql = "Update addressconfig Set AddressConfigID = '%ld', Country = '%s', Province = '%s', City = '%s', District = '%s' Where AddressConfigID = '%ld'" % (st_addressconfig.AddressConfigID, st_addressconfig.Country, st_addressconfig.Province, st_addressconfig.City, st_addressconfig.District, st_addressconfig.AddressConfigID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_addressconfig(self, st_addressconfig):
+        sql = "Delete From addressconfig where AddressConfigID = '%ld'" % (AddressConfigID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def get_address(self, ID):
+        sql = "Select * from account where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            row = results[0]
+            ID = row[0]
+            RequirementID = row[1]
+            UserID = row[2]
+            AddressConfigID = row[3]
+            RestAddress = row[4]
+            st_address = address(ID, RequirementID, UserID, AddressConfigID, RestAddress)
+            return DB_OK, st_address
+        except Exception, e:
+            return DB_GET_FAIL, None
+
+    def add_address(self, st_address):
+        sql = "Insert Into address(ID, RequirementID, UserID, AddressConfigID, RestAddress) Values ('%ld', '%ld', '%ld', '%ld', '%s')" % (st_address.ID, st_address.RequirementID, st_address.UserID, st_address.AddressConfigID, st_address.RestAddress)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_ADD_FAIL
+
+    def update_address(self, st_address):
+        sql = "Update address Set ID = '%ld', RequirementID = '%ld', UserID = '%ld', AddressConfigID = '%ld', RestAddress = '%s' Where ID = '%ld'" % (st_address.ID, st_address.RequirementID, st_address.UserID, st_address.AddressConfigID, st_address.RestAddress, st_address.ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_UPDATE_FAIL
+
+    def del_address(self, st_address):
+        sql = "Delete From address where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
             self.__db.commit()

@@ -6,7 +6,7 @@ python alearning_server.py -p "port" [-i "configname"] [-d]
 
 database table:
 {
-    CREATE TABLE User
+    CREATE TABLE user
     (
          UserID                  BIGINT AUTO_INCREMENT,        -- unique, should be unsigned integer type(so the BIGINT is just for draft)
          PhoneNum                VARCHAR(20),   -- for user login, unique
@@ -36,35 +36,37 @@ database table:
 
 
          PRIMARY KEY (UserID)
+         UNIQUE KEY (PhoneNum)
     );
+    ---- user_register, user_login, user_get, user_update
 
     CREATE TABLE teachingrecords
     (
-         TeachingRecordsID   BIGINT,
+         TeachingRecordsID   BIGINT AUTO_INCREMENT,
          UserID              BIGINT,
          StartTime           INT,           -- e.g. 2010-09-01
          EndTime             INT,           -- e.g. 2015-07-30
          Description         VARCHAR(500),   -- e.g. Taught in xxx high school
 
-         FOREIGN KEY (UserID) REFERENCES User(UserID),
+         FOREIGN KEY (UserID) REFERENCES user(UserID),
          PRIMARY KEY (TeachingRecordsID)
     );
 
     CREATE TABLE successfulcases
     (
-         SuccessfulCasesID   BIGINT,
+         SuccessfulCasesID   BIGINT AUTO_INCREMENT,
          UserID              BIGINT,
          StartTime           INT,           -- e.g. 2014-09-01
          EndTime             INT,           -- e.g. 2015-02-01
          Description         VARCHAR(500),   -- e.g. Tutored a student called xxx, and has helped him improve his Math from grade C to grade D
 
-         FOREIGN KEY (UserID) REFERENCES User(UserID),
+         FOREIGN KEY (UserID) REFERENCES user(UserID),
          PRIMARY KEY (SuccessfulCasesID)
     );
 
     CREATE TABLE Verification
     (
-         VerificationID          BIGINT,
+         VerificationID          BIGINT AUTO_INCREMENT,
          UserID                  BIGINT,
          VericationType          TINYINT,           -- 0 - IDCard, 1 - Teacher Certificate, 2 - Graduation Certificate
          CodeNumber              VARCHAR(255),   -- e.g. IDCard number, Certificate number, student card number
@@ -73,8 +75,81 @@ database table:
          UploadImageBackURL      VARCHAR(255),   -- image of back side of the item
          UploadImageWithFaceURL  VARCHAR(255),   -- image of user holding the item(front side)
 
-         FOREIGN KEY (UserID) REFERENCES User(UserID),
+         FOREIGN KEY (UserID) REFERENCES user(UserID),
          PRIMARY KEY (VerificationID)
-    );
-}
+    )CHARSET=utf8;
 
+    CREATE TABLE requirement
+    ( 
+        RequirementID       BIGINT AUTO_INCREMENT,      -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+        UserID              BIGINT not NULL,
+        RequirementType     TINYINT,     -- 0为找老师，1为找学生
+        MaxPrice            TINYINT,     -- 价格上限
+        MinPrice            TINYINT,     -- 价格下限
+        Mode                TINYINT,     -- 授课方式，0为老师上门，1为学生上门，2为双方协定地址，3以上都可
+        Status              TINYINT,     -- 需求状态，0为此需求已失效，1为此需求有效，2为该需求部分被承接
+        PostDate            INT,
+
+        FOREIGN KEY (UserID) REFERENCES user(UserID),
+        PRIMARY KEY (RequirementID)
+    )CHARSET=utf8; 
+    
+    CREATE TABLE requirementcourse                  
+    (
+         ID  BIGINT AUTO_INCREMENT,        -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+         RequirementID   BIGINT not NULL,
+         CourseID    BIGINT not NULL,
+
+         FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+         FOREIGN KEY (CourseID) REFERENCES course(CourseID),
+         PRIMARY KEY (id)
+    )CHARSET=utf8; 
+
+    CREATE TABLE course            
+    (
+        CourseID    BIGINT AUTO_INCREMENT,          -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+        Grade       TINYINT,            -- 0为学前教育，1为小学，2为中学，3为高中
+        Name        VARCHAR(255),       -- 可以考虑使用枚举变量
+        
+        PRIMARY KEY (CourseID)
+    )CHARSET=utf8; 
+    
+    CREATE TABLE requirementtime   
+    (
+         ID              BIGINT AUTO_INCREMENT,     -- unique, should be unsigned integer type(so the BIGINT is just for draft)
+         RequirementID   BIGINT not NULL,
+         Date            INT,
+         Period          TINYINT,    -- 0为上午，1为下午，2为晚上
+         IsActive        TINYINT,
+
+         FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+         PRIMARY KEY (id)
+    )CHARSET=utf8; 
+
+    CREATE TABLE address
+    (
+         ID  BIGINT AUTO_INCREMENT,
+         RequirementID   BIGINT,
+         UserID  BIGINT,
+         AddressConfigID BIGINT not NULL,
+         RestAddress VARCHAR(255),
+
+         FOREIGN KEY (RequirementID) REFERENCES requirement(RequirementID),
+         FOREIGN KEY (UserID) REFERENCES user(UserID),
+         FOREIGN KEY (AddressConfigID) REFERENCES addressconfig(AddressConfigID),
+         PRIMARY KEY (id)
+    )CHARSET=utf8; 
+
+    CREATE TABLE addressconfig
+    (
+        AddressConfigID  BIGINT AUTO_INCREMENT, 
+        Country VARCHAR(255),
+        Province    VARCHAR(255),
+        City    VARCHAR(255),
+        District    VARCHAR(255),
+
+        PRIMARY KEY (AddressConfigID)
+    )CHARSET=utf8; 
+
+    ---- tablename_(get, add, update, del)
+}

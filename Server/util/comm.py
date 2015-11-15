@@ -27,7 +27,7 @@ class clientaccount:
         self.createtime = createtime
 
 
-class User:
+class user:
     def __init__(self, UserID = 0, PhoneNum = "", Password = "", Username = "", Email = "", Token = "", FirstName = "", LastName = "", ProfilePhotoURL = "", UserType = 0, AcademicQualification = 0, ExperienceInYears = 0, GraduateFrom = "", IDCardVerification = 0, TeacherCertifeVerification = 0, GraduationCertificateVerification = 0, TotalNumOfClassInHours = 0, TotalNumOfClassInTimes = 0, OverallRate = 0.0, GoodRate = 0.0, AddressForClass = ""):
         self.UserID = UserID
         self.PhoneNum = PhoneNum
@@ -58,6 +58,7 @@ class teachingrecords:
         self.StartTime = StartTime
         self.EndTime = EndTime
         self.Description = Description
+         
 class successfulcases:
     def __init__(self, SuccessfulCasesID = 0, UserID = 0, StartTime = 0, EndTime = 0, Description = ""):
         self.SuccessfulCasesID = SuccessfulCasesID
@@ -65,6 +66,7 @@ class successfulcases:
         self.StartTime = StartTime
         self.EndTime = EndTime
         self.Description = Description
+         
 class verification:
     def __init__(self, VerificationID = 0, UserID = 0, VericationType = 0, CodeNumber = "", VerificationStatus = 0, UploadImageFrontURL = "", UploadImageBackURL = "", UploadImageWithFaceURL = ""):
         self.VerificationID = VerificationID
@@ -75,3 +77,50 @@ class verification:
         self.UploadImageFrontURL = UploadImageFrontURL
         self.UploadImageBackURL = UploadImageBackURL
         self.UploadImageWithFaceURL = UploadImageWithFaceURL
+         
+class requirement:
+    def __init__(self, RequirementID = 0, UserID = 0, RequirementType = 0, MaxPrice = 0, MinPrice = 0, Mode = 0, Status = 0, PostDate = 0):
+        self.RequirementID = RequirementID
+        self.UserID = UserID
+        self.RequirementType = RequirementType
+        self.MaxPrice = MaxPrice
+        self.MinPrice = MinPrice
+        self.Mode = Mode
+        self.Status = Status
+        self.PostDate = PostDate
+
+class requirementtime:
+    def __init__(self, ID = 0, RequirementID = 0, Date = 0, Period = 0, IsActive = 0):
+        self.ID = ID
+        self.RequirementID = RequirementID
+        self.Date = Date
+        self.Period = Period
+        self.IsActive = IsActive
+
+class course:
+    def __init__(self, CourseID = 0, Grade = 0, Name = ""):
+        self.CourseID = CourseID
+        self.Grade = Grade
+        self.Name = Name
+
+class requirementcourse:
+    def __init__(self, ID = 0, RequirementID = 0, CourseID = 0):
+        self.ID = ID
+        self.RequirementID = RequirementID
+        self.CourseID = CourseID
+
+class addressconfig:
+    def __init__(self, AddressConfigID = 0, Country = "", Province = "", City = "", District = ""):
+        self.AddressConfigID = AddressConfigID
+        self.Country = Country
+        self.Province = Province
+        self.City = City
+        self.District = District
+
+class address:
+    def __init__(self, ID = 0, RequirementID = 0, UserID = 0, AddressConfigID = 0, RestAddress = ""):
+        self.ID = ID
+        self.RequirementID = RequirementID
+        self.UserID = UserID
+        self.AddressConfigID = AddressConfigID
+        self.RestAddress = RestAddress

@@ -77,23 +77,25 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
     outhandle= open(daoname+".py", "a+")
     #outhandle.write("\nclass %s:\n" % (tablename+"Dao"))
     #db get
-    get_str = "    def get_%s(self, %s):" % (tablename, prikey)
+    get_str = addtab(1) + "def get_%s(self, %s):" % (tablename, prikey)
     itemlen = len(itemlist)
     tab = 2
-    get_str += addtab(tab)
     get_str += addtab(tab)+ ("sql = \"Select * from account where %s = \'%s\'\" %% (%s)" % (prikey, formatFromType(itemdict[prikey]), prikey))
 
-    get_str += addtab(tab)+"try:"+addtab(tab+1)+"self.__cursor.execute(sql)"+addtab(tab+1)+"results = self.__cursor.fetchall()"+addtab(tab+1)+"for row in results:"
+    get_str += addtab(tab)+"try:"+addtab(tab+1)+"self.__cursor.execute(sql)"+addtab(tab+1)+"results = self.__cursor.fetchall()"+addtab(tab+1)
+    get_str += addtab(tab+1)+"if len(results) <= 0:"
+    get_str += addtab(tab+2) + "return DB_GET_FAIL, None"
+    get_str += addtab(tab+1)+"row = results[0]"
     for index in xrange(itemlen):
         get_str += addtab(tab+1) + "%s = row[%d]" % (itemlist[index], index)
-    get_str += addtab(tab+1) + "%s = st_%s(" % (tablename, tablename)
+    get_str += addtab(tab+1) + "st_%s = %s(" % (tablename, tablename)
     for index in xrange(itemlen):
         if index == itemlen - 1:
             get_str += "%s)" % (itemlist[index])
         else:
             get_str += "%s, " % (itemlist[index])
     get_str += addtab(tab+1) + "return DB_OK, st_%s" % (tablename)
-    get_str += addtab(tab) + "except Exception, e:" + addtab(tab+1) + "return DB_GET_FAIL"
+    get_str += addtab(tab) + "except Exception, e:" + addtab(tab+1) + "return DB_GET_FAIL, None"
     outhandle.write(get_str+'\n')
 
     #db add
@@ -150,28 +152,26 @@ def genService(itemdict, itemlist, typelist, tablename, servicename, prikey):
     update_str += addtab(2) + "query_dict = request.form"
     update_str += addtab(2) + "try:"
 
+    update_str += addtab(3) + "if query_dict.get(\"%s\", None) is None:"  % (prikey.lower())
+    update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}"
+    update_str += addtab(4) + "json.dumps(ret_dict)" + addtab(4) + "return json_ret"
+
     update_str += addtab(3) + "ret, %s_info = self.__dao.get_%s(int(query_dict[\"%s\"]))" % (tablename, tablename, prikey.lower())
     update_str += addtab(3) + "if ret != 0:"
     update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
 
     for index in xrange(len(itemlist)):
-        #update_str += addtab(3) + "%s = query_dict.get(\"%s\", %s):" % (itemlist[index].lower(), itemlist[index].lower(), initFromType(itemdict[itemlist[index]]))
         update_str += addtab(3) + "if query_dict.get(\"%s\") != None:" % (itemlist[index].lower())
         update_str += addtab(4) + "%s_info.%s = %s(query_dict.get(\"%s\"))" % (tablename, itemlist[index], changeFromType(itemdict[itemlist[index]]), itemlist[index].lower())
-    #update_str += addtab(3) + "%s_info = %s(" % (tablename, tablename)
-    #for index in xrange(len(itemlist)):
-    #    if index == len(itemlist) - 1:
-    #        update_str += "%s=%s)" % (itemlist[index],itemlist[index].lower())
-    #    else:
-    #        update_str += "%s=%s," % (itemlist[index], itemlist[index].lower())
 
     update_str += addtab(3) + "ret = self.__dao.update_%s(%s_info)" % (tablename, tablename)
     update_str += addtab(3) + "if ret == 0:"
     update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Success\"}"
     update_str += addtab(3) + "else:"
     update_str += addtab(4) + "ret_dict = {\"responseStr\":\"Update_failed\"}"
-    update_str += addtab(3) + "json.dums(ret_dict)" + addtab(3) + "return json_ret"
+    update_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
     update_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+    update_str += addtab(3) + "ret_dict = {\"responseStr\":\"Update_failed\"}" + addtab(3) + "return json.dumps(ret_dict)"
 
 
     #get
@@ -179,26 +179,69 @@ def genService(itemdict, itemlist, typelist, tablename, servicename, prikey):
     get_str += addtab(2) + "query_dict = request.query_dict"
     get_str += addtab(2) + "try:"
 
+    get_str += addtab(3) + "if query_dict.get(\"%s\", None) is None:" % (prikey.lower())
+    get_str += addtab(4) + "ret_dict = {\"responseStr\":\"Add_failed\"}"
+    get_str += addtab(4) + "json.dumps(ret_dict)" + addtab(4) + "return json_ret"
+
     get_str += addtab(3) + "ret, %s_info = self.__dao.get_%s(int(query_dict[\"%s\"]))" % (tablename, tablename, prikey.lower())
     get_str += addtab(3) + "if ret != 0:"
-    get_str += addtab(4) + "ret_dict = {\"responseStr\":\"get_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
+    get_str += addtab(4) + "ret_dict = {\"responseStr\":\"Get_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
 
     get_str += addtab(3) + "ret_dict = {\"responseStr\":\"Success\"}"
     for index in xrange(len(itemlist)):
         get_str += addtab(3) + "ret_dict[\"%s\"] = %s_info.%s" % (itemlist[index].lower(), tablename, itemlist[index])
 
-    #get_str += addtab(3) + "%s_info = %s(" % (tablename, tablename)
-    #for index in xrange(len(itemlist)):
-    #    if index == len(itemlist) - 1:
-    #        get_str += "%s=%s)" % (itemlist[index],itemlist[index].lower())
-    #    else:
-    #        get_str += "%s=%s," % (itemlist[index], itemlist[index].lower())
-
-    get_str += addtab(3) + "json.dums(ret_dict)" + addtab(3) + "return json_ret"
+    get_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
     get_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+    get_str += addtab(3) + "ret_dict = {\"responseStr\":\"Get_failed\"}" + addtab(3) + "return json.dumps(ret_dict)"
 
-    outhandle.write(update_str)
-    outhandle.write(get_str)
+
+
+    #add
+    add_str = addtab(1) + "def %s_add(self, request, headers):" % (tablename)
+    add_str += addtab(2) + "query_dict = request.form"
+    add_str += addtab(2) + "try:"
+
+    add_str += addtab(3) + "%s_info = %s()" % (tablename, tablename)
+
+    for index in xrange(len(itemlist)):
+        add_str += addtab(3) + "if query_dict.get(\"%s\") != None:" % (itemlist[index].lower())
+        add_str += addtab(4) + "%s_info.%s = %s(query_dict.get(\"%s\"))" % (tablename, itemlist[index], changeFromType(itemdict[itemlist[index]]), itemlist[index].lower())
+
+    add_str += addtab(3) + "ret = self.__dao.add_%s(%s_info)" % (tablename, tablename)
+    add_str += addtab(3) + "if ret == 0:"
+    add_str += addtab(4) + "ret_dict = {\"%s\": %sinfo.%s,\n\"responseStr\":\"Success\"}" % (prikey.lower(), tablename, prikey)
+    add_str += addtab(3) + "else:"
+    add_str += addtab(4) + "ret_dict = {\"responseStr\":\"Add_failed\"}"
+    add_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
+    add_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+    add_str += addtab(3) + "ret_dict = {\"responseStr\":\"Add_failed\"}"
+    add_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
+
+    #delete
+    del_str = addtab(1) + "def %s_del(self, request, headers):" % (tablename)
+    del_str += addtab(2) + "query_dict = request.query_dict"
+    del_str += addtab(2) + "try:"
+
+    del_str += addtab(3) + "if query_dict.get(\"%s\", None) is None:" % (prikey.lower())
+    del_str += addtab(4) + "ret_dict = {\"responseStr\":\"Del_failed\"}"
+    del_str += addtab(4) + "json.dumps(ret_dict)" + addtab(4) + "return json_ret"
+
+    del_str += addtab(3) + "ret = self.__dao.del_%s(int(query_dict[\"%s\"]))" % (tablename, prikey.lower())
+    del_str += addtab(3) + "if ret != 0:"
+    del_str += addtab(4) + "ret_dict = {\"responseStr\":\"Del_failed\"}" + addtab(4) + "return json.dumps(ret_dict)"
+
+    del_str += addtab(3) + "ret_dict = {\"responseStr\":\"Success\"}"
+
+    del_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
+    del_str += addtab(2) + "except Exception, e:" + addtab(3) + "print str(e)"
+    del_str += addtab(3) + "ret_dict = {\"responseStr\":\"Del_failed\"}"
+    del_str += addtab(3) + "json.dumps(ret_dict)" + addtab(3) + "return json_ret"
+
+    outhandle.write(update_str+'\n')
+    outhandle.write(get_str+'\n')
+    outhandle.write(add_str+'\n')
+    outhandle.write(del_str+'\n')
     outhandle.close()
 
 
