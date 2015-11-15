@@ -245,10 +245,42 @@ class accountservice(object):
                 ret_dict = {"responseStr":"Add_failed"}
                 json.dumps(ret_dict)
                 return json_ret
+
+            #requirement
             ret, requirement_info = self.__dao.get_requirement(int(query_dict["requirementid"]))
             if ret != 0:
                 ret_dict = {"responseStr":"Get_failed"}
                 return json.dumps(ret_dict)
+
+            #requirementcourse
+            ret, requirementcourse_info = self.__dao.get_requirementcourse_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Get_failed"}
+                return json.dumps(ret_dict)
+
+            #requirementtime
+            ret, requirementtime_info = self.__dao.get_requirementtime_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Get_failed"}
+                return json.dumps(ret_dict)
+
+            #address
+            ret, address_info = self.__dao.get_address_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Get_failed"}
+                return json.dumps(ret_dict)
+
+            ret_dict = {"responseStr":"Success"}
+            ret_dict["id"] = address_info.ID
+            ret_dict["addressconfigid"] = address_info.AddressConfigID
+            ret_dict["restaddress"] = address_info.RestAddress
+
+            ret_dict["courseid"] = requirementcourse_info.CourseID
+
+            ret_dict["date"] = requirementtime_info.Date
+            ret_dict["period"] = requirementtime_info.Period
+            ret_dict["isactive"] = requirementtime_info.IsActive
+            
             ret_dict = {"responseStr":"Success"}
             ret_dict["requirementid"] = requirement_info.RequirementID
             ret_dict["userid"] = requirement_info.UserID
@@ -286,7 +318,47 @@ class accountservice(object):
             if query_dict.get("postdate") != None:
                 requirement_info.PostDate = int(query_dict.get("postdate"))
             ret = self.__dao.add_requirement(requirement_info)
+
             if ret == 0:
+                #requirementcourse
+                requirementcourse_info = requirementcourse()
+                requirementcourse_info.RequirementID = requirement_info.RequirementID
+                if query_dict.get("courseid") != None:
+                    requirementcourse_info.CourseID = long(query_dict.get("courseid"))
+                ret = self.__dao.add_requirementcourse(requirementcourse_info)
+                if ret != 0
+                    ret_dict = {"responseStr":"Add_failed"}
+                    json.dumps(ret_dict)
+                    return json_ret
+
+                #requirementtime
+                requirementtime_info = requirementtime()
+                requirementtime_info.RequirementID = requirement_info.RequirementID
+                if query_dict.get("date") != None:
+                    requirementtime_info.Date = int(query_dict.get("date"))
+                if query_dict.get("period") != None:
+                    requirementtime_info.Period = int(query_dict.get("period"))
+                if query_dict.get("isactive") != None:
+                    requirementtime_info.IsActive = int(query_dict.get("isactive"))
+                ret = self.__dao.add_requirementtime(requirementtime_info)
+                if ret != 0
+                    ret_dict = {"responseStr":"Add_failed"}
+                    json.dumps(ret_dict)
+                    return json_ret
+
+                #address
+                address_info = address()
+                address_info.RequirementID = requirement_info.RequirementID
+                if query_dict.get("addressconfigid") != None:
+                    address_info.AddressConfigID = long(query_dict.get("addressconfigid"))
+                if query_dict.get("restaddress") != None:
+                    address_info.RestAddress = str(query_dict.get("restaddress"))
+                ret = self.__dao.add_address(address_info)
+                if ret != 0:
+                    ret_dict = {"responseStr":"Add_failed"}
+                    json.dumps(ret_dict)
+                    return json_ret
+
                 ret_dict = {"requirementid": requirementinfo.RequirementID,
 "responseStr":"Success"}
             else:
@@ -306,10 +378,30 @@ class accountservice(object):
                 ret_dict = {"responseStr":"Del_failed"}
                 json.dumps(ret_dict)
                 return json_ret
+
+            #requirement
             ret = self.__dao.del_requirement(int(query_dict["requirementid"]))
             if ret != 0:
                 ret_dict = {"responseStr":"Del_failed"}
                 return json.dumps(ret_dict)
+            #requirementcourse
+            ret = self.__dao.del_requirementcourse_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Del_failed"}
+                return json.dumps(ret_dict)
+
+            #requirementtime
+            ret = self.__dao.del_requirementtime_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Del_failed"}
+                return json.dumps(ret_dict)
+
+            #address
+            ret = self.__dao.del_address_by_requirementid(int(query_dict["requirementid"]))
+            if ret != 0:
+                ret_dict = {"responseStr":"Del_failed"}
+                return json.dumps(ret_dict)
+
             ret_dict = {"responseStr":"Success"}
             json.dumps(ret_dict)
             return json_ret

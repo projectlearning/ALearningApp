@@ -80,7 +80,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
     get_str = addtab(1) + "def get_%s(self, %s):" % (tablename, prikey)
     itemlen = len(itemlist)
     tab = 2
-    get_str += addtab(tab)+ ("sql = \"Select * from account where %s = \'%s\'\" %% (%s)" % (prikey, formatFromType(itemdict[prikey]), prikey))
+    get_str += addtab(tab)+ ("sql = \"Select * from %s where %s = \'%s\'\" %% (%s)" % (tablename, prikey, formatFromType(itemdict[prikey]), prikey))
 
     get_str += addtab(tab)+"try:"+addtab(tab+1)+"self.__cursor.execute(sql)"+addtab(tab+1)+"results = self.__cursor.fetchall()"+addtab(tab+1)
     get_str += addtab(tab+1)+"if len(results) <= 0:"
@@ -137,7 +137,7 @@ def genDao(itemdict, itemlist, typelist, tablename, daoname, prikey):
             sql = addtab(2)+"sql = \"Update %s Set " % (tablename) + pre + mid + post + ("st_%s.%s)" % (tablename, prikey))
             err_code = "DB_UPDATE_FAIL"
         elif op == "Delete":
-            func = addtab(1) + "def del_%s(self, st_%s):" % (tablename, tablename)
+            func = addtab(1) + "def del_%s(self, %s):" % (tablename, prikey)
             sql = addtab(2)+"sql = \"Delete From %s where %s = \'%s\'\" %% (%s)" % (tablename, prikey, formatFromType(itemdict[prikey]), prikey)
             err_code = "DB_DEL_FAIL"
 

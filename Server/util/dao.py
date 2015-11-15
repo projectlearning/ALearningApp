@@ -113,7 +113,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_clientaccount(self, st_clientaccount):
+    def del_clientaccount(self, cid):
         sql = "Delete From clientaccount where cid = '%d'" % (cid)
         try:
             self.__cursor.execute(sql)
@@ -206,7 +206,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_successfulcases(self, st_successfulcases):
+    def del_successfulcases(self, SuccessfulCasesID):
         sql = "Delete From successfulcases where SuccessfulCasesID = '%ld'" % (SuccessfulCasesID)
         try:
             self.__cursor.execute(sql)
@@ -255,7 +255,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_verification(self, st_verification):
+    def del_verification(self, VerificationID):
         sql = "Delete From verification where VerificationID = '%ld'" % (VerificationID)
         try:
             self.__cursor.execute(sql)
@@ -371,7 +371,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_user(self, st_user):
+    def del_user(self, UserID):
         sql = "Delete From user where UserID = '%ld'" % (UserID)
         try:
             self.__cursor.execute(sql)
@@ -382,7 +382,7 @@ class AccountDao(object):
         return DB_DEL_FAIL
 
     def get_requirement(self, RequirementID):
-        sql = "Select * from account where RequirementID = '%ld'" % (RequirementID)
+        sql = "Select * from requirement where RequirementID = '%ld'" % (RequirementID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -408,6 +408,16 @@ class AccountDao(object):
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_requirement.RequirementID = long(row[0])
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -423,7 +433,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_requirement(self, st_requirement):
+    def del_requirement(self, RequirementID):
         sql = "Delete From requirement where RequirementID = '%ld'" % (RequirementID)
         try:
             self.__cursor.execute(sql)
@@ -434,7 +444,7 @@ class AccountDao(object):
         return DB_DEL_FAIL
 
     def get_requirementtime(self, ID):
-        sql = "Select * from account where ID = '%ld'" % (ID)
+        sql = "Select * from requirementtime where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -452,11 +462,42 @@ class AccountDao(object):
         except Exception, e:
             return DB_GET_FAIL, None
 
+    def get_requirementtime_by_requirementid(self, RequirementID):
+        sql = "Select * from requirementtime where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            time_list = []
+            for row in results:
+                ID = row[0]
+                RequirementID = row[1]
+                Date = row[2]
+                Period = row[3]
+                IsActive = row[4]
+                st_requirementtime = requirementtime(ID, RequirementID, Date, Period, IsActive)
+                time_list.append(st_requirementtime)
+            return DB_OK, time_list
+        except Exception, e:
+            return DB_GET_FAIL, None
+
     def add_requirementtime(self, st_requirementtime):
         sql = "Insert Into requirementtime(ID, RequirementID, Date, Period, IsActive) Values ('%ld', '%ld', '%d', '%d', '%d')" % (st_requirementtime.ID, st_requirementtime.RequirementID, st_requirementtime.Date, st_requirementtime.Period, st_requirementtime.IsActive)
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_requirementtime.ID = long(row[0])
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -472,7 +513,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_requirementtime(self, st_requirementtime):
+    def del_requirementtime(self, ID):
         sql = "Delete From requirementtime where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
@@ -482,8 +523,18 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_DEL_FAIL
 
+    def del_requirementtime_by_requirementid(self, RequirementID):
+        sql = "Delete From requirementtime where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
     def get_course(self, CourseID):
-        sql = "Select * from account where CourseID = '%ld'" % (CourseID)
+        sql = "Select * from course where CourseID = '%ld'" % (CourseID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -504,6 +555,16 @@ class AccountDao(object):
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_course.CourseID = long(row[0])
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -519,7 +580,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_course(self, st_course):
+    def del_course(self, CourseID):
         sql = "Delete From course where CourseID = '%ld'" % (CourseID)
         try:
             self.__cursor.execute(sql)
@@ -530,7 +591,7 @@ class AccountDao(object):
         return DB_DEL_FAIL
 
     def get_requirementcourse(self, ID):
-        sql = "Select * from account where ID = '%ld'" % (ID)
+        sql = "Select * from requirementcourse where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -546,11 +607,40 @@ class AccountDao(object):
         except Exception, e:
             return DB_GET_FAIL, None
 
+    def get_requirementcourse_by_requirementid(self, RequirementID):
+        sql = "Select * from requirementcourse where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+            course_list = []
+            for row in results:
+                ID = row[0]
+                RequirementID = row[1]
+                CourseID = row[2]
+                st_requirementcourse = requirementcourse(ID, RequirementID, CourseID)
+                course_list.append(st_requirementcourse)
+            return DB_OK, course_list 
+        except Exception, e:
+            return DB_GET_FAIL, None
+
     def add_requirementcourse(self, st_requirementcourse):
         sql = "Insert Into requirementcourse(ID, RequirementID, CourseID) Values ('%ld', '%ld', '%ld')" % (st_requirementcourse.ID, st_requirementcourse.RequirementID, st_requirementcourse.CourseID)
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_requirementcourse.ID = long(row[0])
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -566,7 +656,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_requirementcourse(self, st_requirementcourse):
+    def del_requirementcourse(self, ID):
         sql = "Delete From requirementcourse where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
@@ -576,8 +666,18 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_DEL_FAIL
 
+    def del_requirementcourse_by_requirementid(self, RequirementID):
+        sql = "Delete From requirementcourse where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
     def get_addressconfig(self, AddressConfigID):
-        sql = "Select * from account where AddressConfigID = '%ld'" % (AddressConfigID)
+        sql = "Select * from addressconfig where AddressConfigID = '%ld'" % (AddressConfigID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -600,6 +700,16 @@ class AccountDao(object):
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_addressconfig.AddressConfigID = long(row[0])
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -615,7 +725,7 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_addressconfig(self, st_addressconfig):
+    def del_addressconfig(self, AddressConfigID):
         sql = "Delete From addressconfig where AddressConfigID = '%ld'" % (AddressConfigID)
         try:
             self.__cursor.execute(sql)
@@ -626,7 +736,7 @@ class AccountDao(object):
         return DB_DEL_FAIL
 
     def get_address(self, ID):
-        sql = "Select * from account where ID = '%ld'" % (ID)
+        sql = "Select * from address where ID = '%ld'" % (ID)
         try:
             self.__cursor.execute(sql)
             results = self.__cursor.fetchall()
@@ -644,11 +754,44 @@ class AccountDao(object):
         except Exception, e:
             return DB_GET_FAIL, None
 
+    def get_address_by_requirementid(self, RequirementID):
+        sql = "Select * from address where RequirementID = '%ld'" % (RequirementID)
+        try:
+            self.__cursor.execute(sql)
+            results = self.__cursor.fetchall()
+            
+            if len(results) <= 0:
+                return DB_GET_FAIL, None
+
+            address_list = []
+            for row in results:
+                ID = row[0]
+                RequirementID = row[1]
+                UserID = row[2]
+                AddressConfigID = row[3]
+                RestAddress = row[4]
+                st_address = address(ID, RequirementID, UserID, AddressConfigID, RestAddress)
+                address_list.append[st_address]
+            return DB_OK, address_list
+        except Exception, e:
+            return DB_GET_FAIL, None
+
     def add_address(self, st_address):
         sql = "Insert Into address(ID, RequirementID, UserID, AddressConfigID, RestAddress) Values ('%ld', '%ld', '%ld', '%ld', '%s')" % (st_address.ID, st_address.RequirementID, st_address.UserID, st_address.AddressConfigID, st_address.RestAddress)
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
+
+            query="SELECT LAST_INSERT_ID()";
+            self.__cursor.execute(query)
+            results = self.__cursor.fetchall()
+            if len(results) <= 0:
+                self.__db.rollback()
+                return DB_ADD_FAIL
+
+            row = results[0]
+            st_address.ID = long(row[0])
+
             return DB_OK
         except Exception, e:
             self.__db.rollback()
@@ -664,8 +807,18 @@ class AccountDao(object):
             self.__db.rollback()
         return DB_UPDATE_FAIL
 
-    def del_address(self, st_address):
+    def del_address(self, ID):
         sql = "Delete From address where ID = '%ld'" % (ID)
+        try:
+            self.__cursor.execute(sql)
+            self.__db.commit()
+            return DB_OK
+        except Exception, e:
+            self.__db.rollback()
+        return DB_DEL_FAIL
+
+    def del_address_by_requirementid(self, RequirementID):
+        sql = "Delete From address where RequirementID = '%ld'" % (RequirementID)
         try:
             self.__cursor.execute(sql)
             self.__db.commit()
